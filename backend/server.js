@@ -4,6 +4,14 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { createClient } from "redis";
 
+import User from "./models/user.js";
+import Category from "./models/Category.js";
+import Product from "./models/Product.js";
+import Store from "./models/Store.js";
+import Cart from "./models/Cart.js";
+import Order from "./models/Order.js";
+import Review from "./models/Review.js";
+
 dotenv.config();
 const app = express();
 app.use(cors());
