@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaLaptop, FaLaptopCode } from 'react-icons/fa';
-// Chúng ta vẫn dùng thư viện Fade đã cài đặt
+
 import { Fade } from "react-awesome-reveal"; 
 
 function WelcomeBanner() {
