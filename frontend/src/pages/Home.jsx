@@ -1,4 +1,4 @@
-import { Typography, FormControl, InputLabel, Select, MenuItem,Button } from '@mui/material';
+import { Typography, FormControl, InputLabel, Select, MenuItem, } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Grid } from '@mui/material';
@@ -28,15 +28,6 @@ function Home() {
           <MenuItem value="Tablet">Tablet</MenuItem>
         </Select>
       </FormControl>
-
-      {/* sau này có thể dùng App Navbar để chứa nút này */}
-      <Button
-        variant="outlined"
-        sx={{ mt: 3 }}
-        onClick={() => navigate('/cart')}
-      >
-        🛒 Xem giỏ hàng
-      </Button>
     </Grid>
 
     <Grid item xs={4}>
