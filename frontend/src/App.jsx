@@ -1,49 +1,36 @@
-import React, { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
-import Header from './header.jsx'; 
-import WelcomeBanner from './WelcomeBanner.jsx'; 
-import { CategoryList } from './IconDanhMuc.jsx';
-import { ProductGrid } from './ProductGrid.jsx';
-import { ProductModal } from './ProductModal.jsx'; 
+import Header from "./components/common/Header.jsx";
+import WelcomeBanner from "./components/home/WelcomeBanner.jsx";
+import CategoryList from "./components/home/CategoryList.jsx";
+import TestProductCard from "./pages/TestProductCard";
 
 function App() {
-  
-  const [selectedCategory, setSelectedCategory] = useState('laptop'); 
-  
-  
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("laptop");
 
   return (
-    <div className="App bg-gray-50 min-h-screen">
-      <Header />
-      <WelcomeBanner />
-
-      
-      <CategoryList 
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-
-      
-      <ProductGrid 
-        category={selectedCategory}
-        onCardClick={setSelectedProduct}
-      />
-
-      
-      <AnimatePresence>
-        {selectedProduct && (
-          
-          <ProductModal 
-            key={selectedProduct.id} 
-            product={selectedProduct} 
-            onClose={() => setSelectedProduct(null)} 
+    <BrowserRouter>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <WelcomeBanner />
+                <CategoryList
+                  selectedCategory={selectedCategory}
+                  onSelectCategory={setSelectedCategory}
+                />
+              </>
+            }
           />
-        )}
-      </AnimatePresence>
-    </div>
+          {/* ← Thêm route test */}
+          <Route path="/test-card" element={<TestProductCard />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
