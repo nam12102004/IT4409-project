@@ -38,7 +38,7 @@ export const products = [
     newPrice: 22190000,
     discount: '-11%',
     gift: 'Quà 299.000',
-    imageUrl: LenovoLoQ
+    imageUrl: LenovoLOQ
   },
   {
     id: 3,
