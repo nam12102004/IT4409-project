@@ -1,6 +1,7 @@
 export const categories = [
   {
     id: "laptop",
+    slug: "laptop",
     name: "Laptop",
     icon: "💻",
     image:
@@ -8,6 +9,7 @@ export const categories = [
   },
   {
     id: "phone",
+    slug: "phone",
     name: "Điện thoại",
     icon: "📱",
     image:
@@ -15,6 +17,7 @@ export const categories = [
   },
   {
     id: "tablet",
+    slug: "tablet",
     name: "Tablet",
     icon: "📱",
     image:
@@ -22,6 +25,7 @@ export const categories = [
   },
   {
     id: "keyboard",
+    slug: "keyboard",
     name: "Bàn phím",
     icon: "⌨️",
     image:
@@ -29,6 +33,7 @@ export const categories = [
   },
   {
     id: "mouse",
+    slug: "mouse",
     name: "Chuột",
     icon: "🖱️",
     image:
@@ -36,6 +41,7 @@ export const categories = [
   },
   {
     id: "headphone",
+    slug: "headphone",
     name: "Tai nghe",
     icon: "🎧",
     image:
@@ -43,6 +49,7 @@ export const categories = [
   },
   {
     id: "monitor",
+    slug: "monitor",
     name: "Màn hình",
     icon: "🖥️",
     image:

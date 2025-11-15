@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
           </div>
         )}
 
-        {/* Hình ảnh - Sửa phần này */}
+        {/* Hình ảnh*/}
         <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
           {product.thumbnail || product.image ? (
             <img
@@ -101,7 +101,7 @@ const ProductCard = ({ product }) => {
           )}
         </div>
 
-        {/* Tên sản phẩm - Sửa phần này */}
+        {/* Tên sản phẩm */}
         <h3
           className="text-gray-800 font-semibold mb-3 overflow-hidden"
           style={{
@@ -128,7 +128,7 @@ const ProductCard = ({ product }) => {
           </span>
         </div>
 
-        {/* Specs - Sửa để tương thích với DummyJSON */}
+        {/* Specs */}
         {(product.specs || product.brand) && (
           <div className="text-xs text-gray-600 mb-3 space-y-1 min-h-[60px]">
             {product.brand && (

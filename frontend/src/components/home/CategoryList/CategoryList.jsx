@@ -1,5 +1,6 @@
 import React from "react";
-import { categories } from "../../data/categories.jsx";
+import { Link } from "react-router-dom";
+import { categories } from "../../../data/categories.jsx";
 
 export function CategoryList({ selectedCategory, onSelectCategory }) {
   return (
@@ -8,8 +9,9 @@ export function CategoryList({ selectedCategory, onSelectCategory }) {
 
       <div className="flex flex-wrap justify-center gap-x-8 gap-y-6">
         {categories.map((category) => (
-          <button
+          <Link
             key={category.id}
+            to={`/products/${category.slug}`}
             onClick={() => onSelectCategory(category.id)}
             className={`flex flex-col items-center w-24 gap-2 transition-transform duration-200 ease-in-out hover:scale-105
               ${
@@ -33,7 +35,7 @@ export function CategoryList({ selectedCategory, onSelectCategory }) {
             <span className="text-sm font-medium text-center">
               {category.name}
             </span>
-          </button>
+          </Link>
         ))}
       </div>
     </div>
