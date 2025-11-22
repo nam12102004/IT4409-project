@@ -1,1 +1,2 @@
-commit
+commit: 
+fix bug lần 1
