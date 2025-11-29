@@ -1,8 +1,11 @@
 import React from 'react';
 
 import { FiMenu, FiSearch, FiMapPin, FiUser, FiShoppingCart } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
   return (
     <header className="bg-sky-100 px-8 py-4 flex justify-between items-center border-b border-sky-200 font-sans">
       <div className="flex items-center gap-5">
@@ -34,9 +37,11 @@ function Header() {
           <FiUser />
           <span>Đăng nhập</span>
         </a>
-        <button className="flex items-center gap-2 bg-cyan-400 text-white rounded-full px-4 py-2.5 text-sm font-bold cursor-pointer hover:bg-cyan-500">
+        <button 
+          onClick={() => navigate("/cart")}
+          className="flex items-center gap-2 bg-cyan-400 text-white rounded-full px-4 py-2.5 text-sm font-bold cursor-pointer hover:bg-cyan-500">
           <FiShoppingCart />
-          <span>0 ₫</span>
+          <span>Giỏ hàng</span>
         </button>
       </div>
     </header>
