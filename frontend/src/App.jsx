@@ -6,6 +6,9 @@ import WelcomeBanner from "./components/home/WelcomeBanner";
 import CategoryList from "./components/home/CategoryList";
 import TestProductCard from "./pages/TestProductCard";
 import ProductListingPage from "./pages/ProductListingPage";
+import CartPage from "./pages/CartPage";
+import OrderPage from "./pages/OrderPage";
+import OrderDetailPage from "./pages/OrderDetailPAge";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("laptop");
@@ -32,6 +35,9 @@ function App() {
           {/* Route Product Listing Page */}
           <Route path="/products" element={<ProductListingPage />} />
           <Route path="/products/:category" element={<ProductListingPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/orders/:orderId" element={<OrderDetailPage />} />
         </Routes>
       </div>
     </BrowserRouter>
