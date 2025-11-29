@@ -2,6 +2,8 @@ import { useState } from "react";
 import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
+import { useCart } from "../../../hooks/useCart";
+
 
 const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -12,9 +14,11 @@ const ProductCard = ({ product }) => {
       currency: "VND",
     }).format(price);
   };
+  const { addToCart } = useCart();
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    addToCart(product);
     console.log("✅ Đã thêm vào giỏ:", product.name);
   };
 
