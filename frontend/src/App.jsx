@@ -1,66 +1,73 @@
-import React, { useState } from 'react'; 
-import { AnimatePresence } from 'framer-motion';
-import { useCart } from './CartContext.jsx'; 
-import { useNavigate } from 'react-router-dom'; 
-import { ShieldCheck } from 'lucide-react';
+import React, { useState } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import { ShieldCheck } from "lucide-react";
 
 
-import Header from './header.jsx'; 
-import WelcomeBanner from './WelcomeBanner.jsx'; 
-import { CategoryList } from './IconDanhMuc.jsx'; 
-import { ProductGrid } from './ProductGrid.jsx';
-import { ProductModal } from './ProductModal.jsx';
-import { TrangThanhToan } from './TrangThanhToan.jsx'; 
+import Header from "./components/common/Header/Header"; 
+
+
+import WelcomeBanner from "./components/home/WelcomeBanner/WelcomeBanner";
+import CategoryList from "./components/home/CategoryList/CategoryList";
+
+
+import TestProductCard from "./pages/TestProductCard";
+import ProductListingPage from "./pages/ProductListingPage/ProductListingPage"; 
+import CartPage from "./pages/CartPage";
+import OrderPage from "./pages/OrderPage";
+import OrderDetailPage from "./pages/OrderDetailPage";
 
 function App() {
-  const { isCheckoutOpen } = useCart(); 
   
-  
-  const [selectedCategory, setSelectedCategory] = useState('laptop');
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
-  //hook chuyen sang trang admin
-  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState("laptop");
 
   return (
-    <div className="App bg-gray-50 min-h-screen relative font-sans">
-      
-      
-      <button 
-        onClick={() => navigate('/admin')}
-        className="fixed bottom-5 right-5 z-40 bg-slate-900 text-white p-3 rounded-full shadow-lg hover:bg-slate-700 hover:scale-110 transition-all flex items-center gap-2 group cursor-pointer border-2 border-white"
-        title="Vào trang Admin"
-      >
-        <ShieldCheck size={24} />
-      </button>
+    
+      <div className="min-h-screen bg-gray-50 font-sans relative">
+        
+        
+        <Link 
+          to="/admin"
+          className="fixed bottom-5 right-5 z-50 bg-slate-900 text-white p-3 rounded-full shadow-lg hover:bg-slate-700 hover:scale-110 transition-all flex items-center gap-2 group cursor-pointer border-2 border-white"
+          title="Vào trang Admin"
+        >
+          <ShieldCheck size={24} />
+        </Link>
 
-      
-      <Header />
-      <WelcomeBanner />
-      
-      <CategoryList 
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-      <ProductGrid 
-        category={selectedCategory}
-        onCardClick={setSelectedProduct}
-      />
-      
-      <AnimatePresence>
-        {selectedProduct && (
-          <ProductModal 
-            key={selectedProduct.id}
-            product={selectedProduct} 
-            onClose={() => setSelectedProduct(null)} 
+        
+        <Header />
+
+        <Routes>
+          
+          <Route
+            path="/"
+            element={
+              <>
+                <WelcomeBanner />
+                <CategoryList
+                  selectedCategory={selectedCategory}
+                  onSelectCategory={setSelectedCategory}
+                />
+                
+               
+              </>
+            }
           />
-        )}
-      </AnimatePresence>
 
-      <AnimatePresence>
-        {isCheckoutOpen && <TrangThanhToan />}
-      </AnimatePresence>
-    </div>
+          
+          <Route path="/test-card" element={<TestProductCard />} />
+          
+          
+          <Route path="/products" element={<ProductListingPage />} />
+          <Route path="/products/:category" element={<ProductListingPage />} />
+          
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<OrderPage />} />
+          <Route path="/orders/:orderId" element={<OrderDetailPage />} />
+          
+         
+        </Routes>
+      </div>
+    
   );
 }
 

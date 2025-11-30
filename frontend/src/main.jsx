@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
     <CartProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path="/*" element={<App />} />
           <Route path="/admin" element={<AdminPortal />} />
         </Routes>
       </BrowserRouter>
