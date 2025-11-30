@@ -21,10 +21,10 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState("laptop");
 
   return (
-    
+    //code co chinh lai router de dong nhat voi team
       <div className="min-h-screen bg-gray-50 font-sans relative">
         
-        
+      
         <Link 
           to="/admin"
           className="fixed bottom-5 right-5 z-50 bg-slate-900 text-white p-3 rounded-full shadow-lg hover:bg-slate-700 hover:scale-110 transition-all flex items-center gap-2 group cursor-pointer border-2 border-white"
