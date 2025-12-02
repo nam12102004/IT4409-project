@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { getProducts } from "../../api/mockService";
 import ProductCard from "../../components/product/ProductCard";
 import ProductCardSkeleton from "../../components/product/ProductCard/ProductCardSkeleton";
@@ -12,6 +12,10 @@ import "./ProductListingPage.css";
 
 const ProductListingPage = () => {
   const { category } = useParams();
+  const [searchParams] = useSearchParams();
+  const brandFromUrl = searchParams.get("brand");
+  const modelFromUrl = searchParams.get("model");
+
   const [products, setProducts] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -101,12 +105,26 @@ const ProductListingPage = () => {
         )
       : [...products];
 
-    // Step 2: Filter by brands
+    // Step 2: Filter by brand from URL
+    if (brandFromUrl) {
+      result = result.filter(
+        (p) => p.brand.toLowerCase() === brandFromUrl.toLowerCase()
+      );
+    }
+
+    // Step 3: Filter by model from URL (search in product name)
+    if (modelFromUrl) {
+      result = result.filter((p) =>
+        p.name.toLowerCase().includes(modelFromUrl.toLowerCase())
+      );
+    }
+
+    // Step 4: Filter by brands from filter sidebar
     if (filters.brands.length > 0) {
       result = result.filter((p) => filters.brands.includes(p.brand));
     }
 
-    // Step 3: Filter by price range
+    // Step 5: Filter by price range
     if (filters.priceRange) {
       result = result.filter(
         (p) =>
@@ -118,7 +136,7 @@ const ProductListingPage = () => {
     // needs, sources, conditions, cpus, rams, ssds, screenSizes, refreshRates, resolutions, advanced, colors
 
     return result;
-  }, [products, filters, category]);
+  }, [products, filters, category, brandFromUrl, modelFromUrl]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -171,7 +189,7 @@ const ProductListingPage = () => {
     });
     setSortBy("default");
     setItemsToShow(12);
-  }, [category]);
+  }, [category, brandFromUrl, modelFromUrl]);
 
   // Update displayed products when itemsToShow changes
   useEffect(() => {
