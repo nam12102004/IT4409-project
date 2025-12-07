@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 
-
 import Header from "./components/common/Header/Header"; 
-
 
 import WelcomeBanner from "./components/home/WelcomeBanner/WelcomeBanner";
 import CategoryList from "./components/home/CategoryList/CategoryList";
@@ -14,9 +12,12 @@ import TestProductCard from "./pages/TestProductCard";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProductListingPage from "./pages/ProductListingPage/ProductListingPage"; 
-import CartPage from "./pages/CartPage";
 import OrderPage from "./pages/OrderPage";
-import OrderDetailPage from "./pages/OrderDetailPage";
+import { CartPopup } from "./components/cart/CartPopup";
+import { TrangThanhToan } from "./components/cart/TrangThanhToan";
+//import AdminProductPage from "./pages/admin/AdminProductPage.jsx";
+//import Dashboard from "./pages/admin/DashBoard.jsx";
+
 
 function App() {
   
@@ -35,7 +36,6 @@ function App() {
           <ShieldCheck size={24} />
         </Link>
 
-        
         <Header />
 
         <Routes>
@@ -64,12 +64,14 @@ function App() {
           <Route path="/products" element={<ProductListingPage />} />
           <Route path="/products/:category" element={<ProductListingPage />} />
           
-          <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<OrderPage />} />
-          <Route path="/orders/:orderId" element={<OrderDetailPage />} />
-          
-         
+          {/* Admin routes */}
+          {/*<Route path="/admin/products" element={<AdminProductPage />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />*/}
+
         </Routes>
+        <CartPopup />
+        <TrangThanhToan />
       </div>
     
   );
