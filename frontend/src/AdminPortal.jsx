@@ -47,6 +47,7 @@ const AdminLogin = ({ onLogin }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+//phan password nay sau phai sua lai. 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === 'admin123') onLogin();
