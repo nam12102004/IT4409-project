@@ -9,4 +9,17 @@ const CategorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Category", CategorySchema);
+const Category = mongoose.model("Category", CategorySchema);
+
+export const DEFAULT_CATEGORIES = [
+  'Laptop',
+  'Điện thoại',
+  'PC',
+  'Headphone',
+  'Charger',
+  'Monitor',
+  'Battery',
+  'Tablet',
+];
+
+export default Category;
