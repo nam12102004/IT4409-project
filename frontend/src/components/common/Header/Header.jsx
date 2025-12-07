@@ -12,6 +12,8 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import { categories } from "../../../data/categories";
+import { CartPopup } from "../../cart/CartPopup";
+import { useCart } from "../../../hooks/useCart";
 
 function Header() {
   const navigate = useNavigate();
@@ -26,6 +28,9 @@ function Header() {
       return null;
     }
   });
+  //const [showCartPopup, setShowCartPopup] = useState(false);
+  const { cartItems, isCartOpen, setIsCartOpen } = useCart();
+
 
   useEffect(() => {
     const storageHandler = () => {
@@ -257,12 +262,20 @@ function Header() {
         )}
 
         <button
-          onClick={() => navigate("/cart")}
-          className="flex items-center gap-2 bg-cyan-400 text-white rounded-full px-4 py-2.5 text-sm font-bold cursor-pointer hover:bg-cyan-500"
+          onClick={() => setIsCartOpen(true)}
+          className="flex items-center gap-2 bg-cyan-400 text-white rounded-full px-4 py-2.5 text-sm font-bold cursor-pointer hover:bg-cyan-500 relative"
         >
           <FiShoppingCart />
           <span>Giỏ hàng</span>
+          {cartItems.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2">
+              {cartItems.length}
+            </span>
+          )}
         </button>
+
+      {isCartOpen && <CartPopup />}
+
       </div>
     </header>
   );
