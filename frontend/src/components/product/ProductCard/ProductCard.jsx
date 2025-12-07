@@ -14,11 +14,18 @@ const ProductCard = ({ product }) => {
       currency: "VND",
     }).format(price);
   };
-  const { addToCart } = useCart();
 
+  // Thêm vào giỏ, chuẩn hóa dữ liệu
+  const { addToCart } = useCart();
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart(product);
+    const cartProduct = {
+      id: product.id,
+      name: product.name || product.title,
+      newPrice: product.price,
+      imageUrl: product.thumbnail || product.image,
+    };
+    addToCart(cartProduct);
     console.log("✅ Đã thêm vào giỏ:", product.name);
   };
 
