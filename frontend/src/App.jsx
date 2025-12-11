@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 
-import Header from "./components/common/Header/Header"; 
+import Header from "./components/common/Header/Header";  
+import Footer from './components/home/WelcomeBanner/Footer';
 
 import WelcomeBanner from "./components/home/WelcomeBanner/WelcomeBanner";
 import CategoryList from "./components/home/CategoryList/CategoryList";
@@ -69,7 +70,9 @@ function App() {
           {/*<Route path="/admin/products" element={<AdminProductPage />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />*/}
 
-        </Routes>
+        </Routes> 
+
+        <Footer />
         <CartPopup />
         <TrangThanhToan />
       </div>
