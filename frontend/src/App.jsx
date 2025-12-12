@@ -3,15 +3,18 @@ import { Routes, Route, Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 
 import Header from "./components/common/Header/Header";
+import Footer from "./components/home/WelcomeBanner/Footer";
 
 import WelcomeBanner from "./components/home/WelcomeBanner/WelcomeBanner";
 import CategoryList from "./components/home/CategoryList/CategoryList";
 
 import TestProductCard from "./pages/TestProductCard";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ProductListingPage from "./pages/ProductListingPage/ProductListingPage";
-import CartPage from "./pages/CartPage";
 import OrderPage from "./pages/OrderPage";
-import OrderDetailPage from "./pages/OrderDetailPage";
+import { CartPopup } from "./components/cart/CartPopup";
+import { TrangThanhToan } from "./components/cart/TrangThanhToan";
 import { ProductDetailPage } from "./pages/ProductDetail";
 
 function App() {
@@ -44,17 +47,20 @@ function App() {
         />
 
         <Route path="/test-card" element={<TestProductCard />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         <Route path="/products" element={<ProductListingPage />} />
         <Route path="/products/:category" element={<ProductListingPage />} />
 
-        {/* Route cho trang chi tiết sản phẩm */}
         <Route path="/product/:id" element={<ProductDetailPage />} />
 
-        <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<OrderPage />} />
-        <Route path="/orders/:orderId" element={<OrderDetailPage />} />
       </Routes>
+
+      <Footer />
+      <CartPopup />
+      <TrangThanhToan />
     </div>
   );
 }
