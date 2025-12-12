@@ -6,20 +6,72 @@ import {
   FiUser,
   FiShoppingCart,
   FiChevronRight,
+  FiChevronDown,
+  FiShield,
 } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 import { categories } from "../../../data/categories";
+import { CartPopup } from "../../cart/CartPopup";
+import { useCart } from "../../../hooks/useCart";
 
 function Header() {
   const navigate = useNavigate();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [productOpen, setProductOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const userDropdownRef = useRef(null);
+  const [user, setUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('user')) || null;
+    } catch (e) {
+      return null;
+    }
+  });
+  //const [showCartPopup, setShowCartPopup] = useState(false);
+  const { cartItems, isCartOpen, setIsCartOpen } = useCart();
+
+
+  useEffect(() => {
+    const storageHandler = () => {
+      try {
+        setUser(JSON.parse(localStorage.getItem('user')) || null);
+      } catch (e) {
+        setUser(null);
+      }
+    };
+
+    const authHandler = () => {
+      storageHandler();
+    };
+
+    window.addEventListener('storage', storageHandler);
+    window.addEventListener('authChanged', authHandler);
+    return () => {
+      window.removeEventListener('storage', storageHandler);
+      window.removeEventListener('authChanged', authHandler);
+    };
+  }, []);
+
+  // keep axios default Authorization in sync with stored token
+  useEffect(() => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      else delete axios.defaults.headers.common['Authorization'];
+    } catch (e) {
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  }, [user]);
 
   // Đóng dropdown khi click bên ngoài
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
+        setProductOpen(false);
+      }
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+        setUserMenuOpen(false);
       }
     };
 
@@ -52,14 +104,14 @@ function Header() {
         </div>
         <div className="relative" ref={dropdownRef}>
           <button
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            onClick={() => setProductOpen(!productOpen)}
             className="flex items-center gap-2 text-gray-800 font-medium text-sm bg-white px-3 py-2 rounded-lg shadow-sm hover:text-blue-500"
           >
             <FiMenu />
             <span>Sản phẩm</span>
           </button>
 
-          {isDropdownOpen && (
+          {productOpen && (
             <div className="absolute top-full left-0 mt-2 bg-white rounded-lg shadow-2xl border border-gray-200 z-50 w-[900px] p-6">
               <div className="grid grid-cols-3 gap-8">
                 {/* Cột 1: Danh mục sản phẩm */}
@@ -74,7 +126,7 @@ function Header() {
                         key={brand}
                         onClick={() => {
                           navigate(`/products/laptop?brand=${brand}`);
-                          setIsDropdownOpen(false);
+                          setProductOpen(false);
                         }}
                         className="px-4 py-2 border border-gray-300 rounded-full text-sm hover:border-blue-500 hover:text-blue-500"
                       >
@@ -89,7 +141,7 @@ function Header() {
                         key={category.id}
                         onClick={() => {
                           navigate(`/products/${category.slug}`);
-                          setIsDropdownOpen(false);
+                          setProductOpen(false);
                         }}
                         className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded"
                       >
@@ -106,7 +158,7 @@ function Header() {
                       <h4
                         onClick={() => {
                           navigate(`/products/laptop?brand=${brand.name}`);
-                          setIsDropdownOpen(false);
+                          setProductOpen(false);
                         }}
                         className="font-bold text-gray-800 mb-2 flex items-center gap-2 cursor-pointer hover:text-blue-500"
                       >
@@ -118,11 +170,11 @@ function Header() {
                           <button
                             key={item}
                             onClick={() => {
-                              navigate(
-                                `/products/laptop?brand=${brand.name}&model=${item}`
-                              );
-                              setIsDropdownOpen(false);
-                            }}
+                                  navigate(
+                                    `/products/laptop?brand=${brand.name}&model=${item}`
+                                  );
+                                  setProductOpen(false);
+                                }}
                             className="block w-full text-left px-2 py-1 text-sm text-gray-600 hover:text-blue-500"
                           >
                             {item}
@@ -148,7 +200,7 @@ function Header() {
       </div>
 
       {/* Icons & Giỏ hàng (Code theo logic mới của Team) */}
-      <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5">
         <a
           href="#"
           className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
@@ -156,21 +208,74 @@ function Header() {
           <FiMapPin />
           <span>Địa chỉ cửa hàng</span>
         </a>
-        <a
-          href="#"
-          className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
-        >
-          <FiUser />
-          <span>Đăng nhập</span>
-        </a>
+        {user ? (
+          <div className="flex items-center gap-3 relative" ref={userDropdownRef}>
+            <div className="flex items-center gap-1">
+              <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"> 
+                <FiUser />
+              </div>
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="text-gray-600 px-2 py-1 hover:bg-transparent"
+                aria-label="Open user menu"
+                style={{ background: 'transparent', border: 'none' }}
+              >
+                <FiChevronDown />
+              </button>
+            </div>
+            {/*hiển thị nút bấm admin chỉ với tài khoản admin */}
+            {user?.role === 'admin' && (
+              <Link to="/admin" className="ml-3 text-sm text-gray-700 hover:text-blue-600 flex items-center gap-1">
+                <FiShield />
+                <span>Admin</span>
+              </Link>
+            )}
+            {userMenuOpen && (
+              <div className="absolute right-0 mt-12 bg-white border rounded shadow p-2 w-40 z-50">
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    // remove axios header
+                    try { delete axios.defaults.headers.common['Authorization']; } catch (e) {}
+                    // notify other listeners in same window
+                    window.dispatchEvent(new Event('authChanged'));
+                    setUser(null);
+                    setUserMenuOpen(false);
+                    navigate('/');
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50"
+                >
+                  Đăng xuất
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <Link
+            to="/login"
+            className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
+          >
+            <FiUser />
+            <span>Đăng nhập</span>
+          </Link>
+        )}
 
         <button
-          onClick={() => navigate("/cart")}
-          className="flex items-center gap-2 bg-cyan-400 text-white rounded-full px-4 py-2.5 text-sm font-bold cursor-pointer hover:bg-cyan-500"
+          onClick={() => setIsCartOpen(true)}
+          className="flex items-center gap-2 bg-cyan-400 text-white rounded-full px-4 py-2.5 text-sm font-bold cursor-pointer hover:bg-cyan-500 relative"
         >
           <FiShoppingCart />
           <span>Giỏ hàng</span>
+          {cartItems.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-2">
+              {cartItems.length}
+            </span>
+          )}
         </button>
+
+      {isCartOpen && <CartPopup />}
+
       </div>
     </header>
   );

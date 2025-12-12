@@ -1,4 +1,0 @@
-xóa page home -> đã có home trong component
-xóa appnavbar -> đã có header
-thêm các trang để thêm vào giỏ hàng (ProductList) -> Page giỏ hàng -> Page đơn hàng -> Page chi tiết đơn hàng
-không biết có ai đã làm mấy page giỏ hàng, đơn hàng chưa? -> làm đơn giàn để test logic, sau có thể sửa lại.
