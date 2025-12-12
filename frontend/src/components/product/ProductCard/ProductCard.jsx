@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
+import { useCart } from "../../../hooks/useCart";
 
 const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
@@ -15,7 +19,14 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    console.log("✅ Đã thêm vào giỏ:", product.name);
+    const cartProduct = {
+      id: product.id,
+      name: product.name || product.title,
+      newPrice: product.price,
+      imageUrl: product.thumbnail || product.image,
+    };
+    addToCart(cartProduct);
+    console.log("Đã thêm vào giỏ:", product.name);
   };
 
   const handleWishlist = (e) => {
@@ -24,7 +35,7 @@ const ProductCard = ({ product }) => {
   };
 
   const handleCardClick = () => {
-    console.log("👁️ Xem chi tiết:", product.name);
+    navigate(`/product/${product.id}`);
   };
 
   return (

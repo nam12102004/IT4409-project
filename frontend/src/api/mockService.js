@@ -1009,3 +1009,9 @@ export const getSubcategoriesByCategory = async (categoryName) => {
   const category = categories.find((c) => c.name === categoryName);
   return category ? category.subcategories : [];
 };
+
+// Get product by ID
+export const getProductById = async (productId) => {
+  const products = await getProducts();
+  return products.find((p) => p.id === parseInt(productId));
+};
