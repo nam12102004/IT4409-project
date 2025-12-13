@@ -78,7 +78,7 @@ if (isProduction) {
   app.use(helmet());
 }
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); //ap dung cors cho tat ca
 app.use(express.json());
 app.use(sanitizeRequest);
 
