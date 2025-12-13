@@ -18,7 +18,7 @@ export default function LoginPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/login", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/login", {
         username,
         password,
         captchaToken,

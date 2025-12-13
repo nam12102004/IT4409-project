@@ -21,7 +21,7 @@ export const AdminOrders = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await axios.get('http://localhost:5000/api/orders', {
+        const res = await axios.get('https://it4409-deploy-backend.onrender.com/api/orders', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const serverOrders = Array.isArray(res?.data?.orders) ? res.data.orders : [];

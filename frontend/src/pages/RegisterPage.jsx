@@ -46,7 +46,7 @@ export default function RegisterPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/register", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/register", {
         username: form.username,
         password: form.password,
         confirmPassword: form.confirmPassword,
@@ -94,7 +94,7 @@ export default function RegisterPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/verify-email", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/verify-email", {
         email: verifyEmail,
         code: verifyCode,
       });

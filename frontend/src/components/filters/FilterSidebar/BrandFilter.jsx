@@ -15,7 +15,7 @@ const BrandFilter = ({ selectedBrands = [], onBrandChange, brands = [] }) => {
         return;
       }
       try {
-        const res = await fetch("http://localhost:5000/api/products/brands");
+        const res = await fetch("https://it4409-deploy-backend.onrender.com/api/products/brands");
         if (!res.ok) return;
         const data = await res.json();
         if (mounted) setLocalBrands(data);

@@ -25,7 +25,7 @@ export const AdminProducts = () => {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get('https://it4409-deploy-backend.onrender.com/api/products');
       setProducts(res.data || []);
     } catch (err) {
       setError('Không lấy được sản phẩm từ server, hiển thị dữ liệu mẫu.');
@@ -39,7 +39,7 @@ export const AdminProducts = () => {
     fetchProducts();
     const fetchCategories = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/categories');
+        const res = await axios.get('https://it4409-deploy-backend.onrender.com/api/categories');
         setCategories(res.data || []);
       } catch (err) {
         console.warn('Could not load categories', err?.message || err);
@@ -73,10 +73,10 @@ export const AdminProducts = () => {
 
       let res;
       if (!editingId) {
-        const url = 'http://localhost:5000/api/products';
+        const url = 'https://it4409-deploy-backend.onrender.com/api/products';
         res = await axios.post(url, fd, { headers });
       } else {
-        const url = `http://localhost:5000/api/products/${editingId}`;
+        const url = `https://it4409-deploy-backend.onrender.com/api/products/${editingId}`;
         res = await axios.put(url, fd, { headers });
       }
 
@@ -110,7 +110,7 @@ export const AdminProducts = () => {
     try {
       const token = localStorage.getItem('token');
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const url = `http://localhost:5000/api/products/${id}`;
+      const url = `https://it4409-deploy-backend.onrender.com/api/products/${id}`;
       await axios.delete(url, { headers });
       fetchProducts();
     } catch (err) {

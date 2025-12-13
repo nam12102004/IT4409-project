@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit2 } from "react-icons/fi";
 import SEO from "../components/common/SEO";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://it4409-deploy-backend.onrender.com/api";
 
 const fieldsConfig = [
   { key: "fullname", label: "Họ và tên" },

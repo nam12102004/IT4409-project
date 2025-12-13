@@ -20,7 +20,7 @@ export default function SearchBar() {
     timer.current = setTimeout(async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/products?search=${encodeURIComponent(
+          `https://it4409-deploy-backend.onrender.com/api/products?search=${encodeURIComponent(
             q
           )}&limit=10`
         );

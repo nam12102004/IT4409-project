@@ -10,7 +10,7 @@ export default function OrderPage() {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/orders/my", {
+      const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders/my", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -48,7 +48,7 @@ export function CartProvider({ children }) {
 
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/orders/my", {
+        const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const serverOrders = Array.isArray(res?.data?.orders)
@@ -149,7 +149,7 @@ export function CartProvider({ children }) {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/orders",
+        "https://it4409-deploy-backend.onrender.com/api/orders",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://it4409-deploy-backend.onrender.com/api";
 
 export async function fetchChatHistory() {
   const res = await axios.get(`${API_BASE_URL}/chat/history`);
