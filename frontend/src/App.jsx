@@ -1,58 +1,86 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
+// ===== EAGER IMPORTS (Components luôn cần) =====
 import Header from "./components/common/Header/Header";
 import Footer from "./components/home/WelcomeBanner/Footer";
-
-import WelcomeBanner from "./components/home/WelcomeBanner/WelcomeBanner";
-import CategoryList from "./components/home/CategoryList/CategoryList";
-
-import TestProductCard from "./pages/TestProductCard";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import ProductListingPage from "./pages/ProductListingPage/ProductListingPage";
-import OrderPage from "./pages/OrderPage";
+import PageLoader from "./components/common/PageLoader";
+import ErrorBoundary from "./components/common/ErrorBoundary";
 import { CartPopup } from "./components/cart/CartPopup";
 import { TrangThanhToan } from "./components/cart/TrangThanhToan";
-import { ProductDetailPage } from "./pages/ProductDetail";
+
+// ===== LAZY IMPORTS (Pages - chỉ load khi cần) =====
+// Home components
+const WelcomeBanner = lazy(() =>
+  import("./components/home/WelcomeBanner/WelcomeBanner")
+);
+const CategoryList = lazy(() =>
+  import("./components/home/CategoryList/CategoryList")
+);
+
+// Pages
+const TestProductCard = lazy(() => import("./pages/TestProductCard"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const ProductListingPage = lazy(() =>
+  import("./pages/ProductListingPage/ProductListingPage")
+);
+const OrderPage = lazy(() => import("./pages/OrderPage"));
+const ProductDetailPage = lazy(() =>
+  import("./pages/ProductDetail").then((module) => ({
+    default: module.ProductDetailPage,
+  }))
+);
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("laptop");
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans relative">
-      <Header />
+    <ErrorBoundary>
+      <div className="min-h-screen bg-gray-50 font-sans relative">
+        <Header />
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <WelcomeBanner />
-              <CategoryList
-                selectedCategory={selectedCategory}
-                onSelectCategory={setSelectedCategory}
-              />
-            </>
-          }
-        />
+        {/* Wrap Routes với Suspense để lazy load pages */}
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <WelcomeBanner />
+                  <CategoryList
+                    selectedCategory={selectedCategory}
+                    onSelectCategory={setSelectedCategory}
+                  />
+                </>
+              }
+            />
 
-        <Route path="/test-card" element={<TestProductCard />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+            <Route path="/test-card" element={<TestProductCard />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-        <Route path="/products" element={<ProductListingPage />} />
-        <Route path="/products/:category" element={<ProductListingPage />} />
+            <Route path="/products" element={<ProductListingPage />} />
+            <Route
+              path="/products/:category"
+              element={<ProductListingPage />}
+            />
 
-        <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
 
-        <Route path="/orders" element={<OrderPage />} />
-      </Routes>
+            <Route path="/orders" element={<OrderPage />} />
 
-      <Footer />
-      <CartPopup />
-      <TrangThanhToan />
-    </div>
+            {/* 404 Page - Phải đặt cuối cùng */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+
+        <Footer />
+        <CartPopup />
+        <TrangThanhToan />
+      </div>
+    </ErrorBoundary>
   );
 }
 

@@ -8,6 +8,7 @@ import FilterSidebar from "../../components/filters/FilterSidebar";
 import ProductToolbar from "../../components/product/ProductToolbar";
 import LoadMoreButton from "../../components/common/LoadMoreButton";
 import ScrollToTop from "../../components/common/ScrollToTop";
+import SEO from "../../components/common/SEO";
 import "./ProductListingPage.css";
 
 const ProductListingPage = () => {
@@ -313,8 +314,32 @@ const ProductListingPage = () => {
     );
   }
 
+  // Tạo title và description động dựa trên category và search
+  const pageTitle = searchQuery
+    ? `Tìm kiếm: ${searchQuery}`
+    : category
+    ? `${categoryNames[category] || category}`
+    : "Tất cả sản phẩm";
+
+  const pageDescription = searchQuery
+    ? `Kết quả tìm kiếm cho "${searchQuery}" - ${filteredProducts.length} sản phẩm`
+    : category
+    ? `Danh sách ${
+        categoryNames[category] || category
+      } chính hãng, giá tốt nhất. ${filteredProducts.length} sản phẩm.`
+    : `Khám phá ${filteredProducts.length} sản phẩm công nghệ chính hãng.`;
+
   return (
     <div className="product-listing-page">
+      {/* ===== SEO META TAGS ===== */}
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        keywords={`${category || "sản phẩm"}, ${
+          searchQuery || ""
+        }, laptop, pc, công nghệ, tech geeks`}
+      />
+
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
 

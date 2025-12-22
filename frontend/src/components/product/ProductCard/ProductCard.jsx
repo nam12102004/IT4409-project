@@ -6,6 +6,7 @@ import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
 import { useCart } from "../../../hooks/useCart";
 import { getProducts } from "../../../api/mockService";
+import OptimizedImage from "../../common/OptimizedImage";
 
 const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -81,29 +82,22 @@ const ProductCard = ({ product }) => {
           </div>
         )}
 
-        {/* Hình ảnh*/}
+        {/* Hình ảnh với OptimizedImage */}
         <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
           {product.thumbnail || product.image ? (
-            <img
+            <OptimizedImage
               src={product.thumbnail || product.image}
               alt={product.name}
               className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
-              onError={(e) => {
-                // Nếu ảnh lỗi, hiển thị icon
-                e.target.style.display = "none";
-                e.target.nextElementSibling.style.display = "flex";
-              }}
+              placeholder="/placeholder-blur.svg"
+              fallback="/image-not-found.svg"
             />
-          ) : null}
-          <div
-            className="flex-col items-center justify-center text-gray-300"
-            style={{
-              display: product.thumbnail || product.image ? "none" : "flex",
-            }}
-          >
-            <BsDisplay className="w-16 h-16 mb-2" />
-            <span className="text-sm">Chưa có hình</span>
-          </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center text-gray-300">
+              <BsDisplay className="w-16 h-16 mb-2" />
+              <span className="text-sm">Chưa có hình</span>
+            </div>
+          )}
         </div>
       </div>
 

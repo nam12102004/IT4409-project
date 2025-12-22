@@ -3,6 +3,7 @@ import { FiSearch, FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { getProducts } from "../../../api/mockService";
+import OptimizedImage from "../OptimizedImage";
 import "./SearchBar.css";
 
 const SearchBar = () => {
@@ -156,11 +157,12 @@ const SearchBar = () => {
                     className="suggestion-item"
                     onClick={() => handleSelectProduct(product)}
                   >
-                    <img
+                    <OptimizedImage
                       src={product.image}
                       alt={product.name}
                       className="suggestion-image"
-                      loading="lazy"
+                      placeholder="/placeholder-blur.svg"
+                      fallback="/image-not-found.svg"
                     />
                     <div className="suggestion-info">
                       <div className="suggestion-name">

@@ -6,6 +6,8 @@ import { VariantSelector } from "../../components/ProductDetail/VariantSelector"
 import { SpecificationsTable } from "../../components/ProductDetail/SpecificationsTable";
 import { ReviewsSection } from "../../components/ProductDetail/ReviewsSection";
 import { getProductById } from "../../api/mockService";
+import SEO from "../../components/common/SEO";
+import { formatPrice } from "../../utils/formatPrice";
 import "./ProductDetailPage.css";
 
 /**
@@ -61,6 +63,7 @@ export const ProductDetailPage = () => {
   if (loading) {
     return (
       <div className="product-detail-loading">
+        <SEO title="Đang tải sản phẩm..." />
         <div className="spinner"></div>
         <p>Đang tải thông tin sản phẩm...</p>
       </div>
@@ -70,11 +73,22 @@ export const ProductDetailPage = () => {
   if (!product) {
     return (
       <div className="product-detail-error">
+        <SEO title="Không tìm thấy sản phẩm" />
         <h2>Không tìm thấy sản phẩm</h2>
         <a href="/">Quay về trang chủ</a>
       </div>
     );
   }
+
+  // Tạo SEO data từ product
+  const productTitle = `${product.name} - ${formatPrice(product.price)}`;
+  const productDescription = product.description
+    ? product.description.slice(0, 160)
+    : `Mua ${product.name} chính hãng, giá ${formatPrice(
+        product.price
+      )}. Bảo hành 12 tháng, giao hàng toàn quốc.`;
+  const productImage =
+    product.images?.[0] || product.image || "/placeholder.png";
 
   // Transform product data to match gallery format
   const galleryImages = [
@@ -101,6 +115,16 @@ export const ProductDetailPage = () => {
 
   return (
     <div className="product-detail-page">
+      {/* ===== SEO META TAGS ===== */}
+      <SEO
+        title={productTitle}
+        description={productDescription}
+        keywords={`${product.name}, ${product.brand || ""}, ${
+          product.category || ""
+        }, laptop, mua laptop, tech geeks`}
+        image={productImage}
+      />
+
       <div className="product-detail-container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">

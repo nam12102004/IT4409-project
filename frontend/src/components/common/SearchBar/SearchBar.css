@@ -124,12 +124,16 @@
   background-color: #f3f4f6;
 }
 
-.suggestion-image {
+.suggestion-image,
+.suggestion-image .optimized-image-wrapper {
   width: 60px;
   height: 60px;
+  flex-shrink: 0;
+}
+
+.suggestion-image .optimized-image {
   object-fit: cover;
   border-radius: 0.5rem;
-  flex-shrink: 0;
   border: 1px solid #e5e7eb;
 }
 
