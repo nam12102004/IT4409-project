@@ -10,10 +10,11 @@ import {
   FiShield,
 } from "react-icons/fi";
 import { useNavigate, Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import { categories } from "../../../data/categories";
 import { CartPopup } from "../../cart/CartPopup";
 import { useCart } from "../../../hooks/useCart";
+import SearchBar from "../SearchBar/SearchBar";
 
 function Header() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function Header() {
   const userDropdownRef = useRef(null);
   const [user, setUser] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('user')) || null;
+      return JSON.parse(localStorage.getItem("user")) || null;
     } catch (e) {
       return null;
     }
@@ -31,11 +32,10 @@ function Header() {
   //const [showCartPopup, setShowCartPopup] = useState(false);
   const { cartItems, isCartOpen, setIsCartOpen } = useCart();
 
-
   useEffect(() => {
     const storageHandler = () => {
       try {
-        setUser(JSON.parse(localStorage.getItem('user')) || null);
+        setUser(JSON.parse(localStorage.getItem("user")) || null);
       } catch (e) {
         setUser(null);
       }
@@ -45,22 +45,23 @@ function Header() {
       storageHandler();
     };
 
-    window.addEventListener('storage', storageHandler);
-    window.addEventListener('authChanged', authHandler);
+    window.addEventListener("storage", storageHandler);
+    window.addEventListener("authChanged", authHandler);
     return () => {
-      window.removeEventListener('storage', storageHandler);
-      window.removeEventListener('authChanged', authHandler);
+      window.removeEventListener("storage", storageHandler);
+      window.removeEventListener("authChanged", authHandler);
     };
   }, []);
 
   // keep axios default Authorization in sync with stored token
   useEffect(() => {
     try {
-      const token = localStorage.getItem('token');
-      if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      else delete axios.defaults.headers.common['Authorization'];
+      const token = localStorage.getItem("token");
+      if (token)
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      else delete axios.defaults.headers.common["Authorization"];
     } catch (e) {
-      delete axios.defaults.headers.common['Authorization'];
+      delete axios.defaults.headers.common["Authorization"];
     }
   }, [user]);
 
@@ -70,7 +71,10 @@ function Header() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setProductOpen(false);
       }
-      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+      if (
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(event.target)
+      ) {
         setUserMenuOpen(false);
       }
     };
@@ -170,11 +174,11 @@ function Header() {
                           <button
                             key={item}
                             onClick={() => {
-                                  navigate(
-                                    `/products/laptop?brand=${brand.name}&model=${item}`
-                                  );
-                                  setProductOpen(false);
-                                }}
+                              navigate(
+                                `/products/laptop?brand=${brand.name}&model=${item}`
+                              );
+                              setProductOpen(false);
+                            }}
                             className="block w-full text-left px-2 py-1 text-sm text-gray-600 hover:text-blue-500"
                           >
                             {item}
@@ -190,17 +194,12 @@ function Header() {
         </div>
       </div>
 
-      <div className="flex-grow mx-8 max-w-xl relative">
-        <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />
-        <input
-          type="text"
-          placeholder="Xin chào, bạn đang tìm gì?"
-          className="w-full pl-12 pr-5 py-3 rounded-full border border-gray-300 text-sm focus:outline-none focus:border-blue-500"
-        />
+      <div className="flex-grow mx-8 max-w-xl">
+        <SearchBar />
       </div>
 
       {/* Icons & Giỏ hàng (Code theo logic mới của Team) */}
-        <div className="flex items-center gap-5">
+      <div className="flex items-center gap-5">
         <a
           href="#"
           className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
@@ -209,23 +208,29 @@ function Header() {
           <span>Địa chỉ cửa hàng</span>
         </a>
         {user ? (
-          <div className="flex items-center gap-3 relative" ref={userDropdownRef}>
+          <div
+            className="flex items-center gap-3 relative"
+            ref={userDropdownRef}
+          >
             <div className="flex items-center gap-1">
-              <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-500"> 
+              <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
                 <FiUser />
               </div>
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="text-gray-600 px-2 py-1 hover:bg-transparent"
                 aria-label="Open user menu"
-                style={{ background: 'transparent', border: 'none' }}
+                style={{ background: "transparent", border: "none" }}
               >
                 <FiChevronDown />
               </button>
             </div>
             {/*hiển thị nút bấm admin chỉ với tài khoản admin */}
-            {user?.role === 'admin' && (
-              <Link to="/admin" className="ml-3 text-sm text-gray-700 hover:text-blue-600 flex items-center gap-1">
+            {user?.role === "admin" && (
+              <Link
+                to="/admin"
+                className="ml-3 text-sm text-gray-700 hover:text-blue-600 flex items-center gap-1"
+              >
                 <FiShield />
                 <span>Admin</span>
               </Link>
@@ -234,15 +239,17 @@ function Header() {
               <div className="absolute right-0 mt-12 bg-white border rounded shadow p-2 w-40 z-50">
                 <button
                   onClick={() => {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('token');
+                    localStorage.removeItem("user");
+                    localStorage.removeItem("token");
                     // remove axios header
-                    try { delete axios.defaults.headers.common['Authorization']; } catch (e) {}
+                    try {
+                      delete axios.defaults.headers.common["Authorization"];
+                    } catch (e) {}
                     // notify other listeners in same window
-                    window.dispatchEvent(new Event('authChanged'));
+                    window.dispatchEvent(new Event("authChanged"));
                     setUser(null);
                     setUserMenuOpen(false);
-                    navigate('/');
+                    navigate("/");
                   }}
                   className="w-full text-left px-3 py-2 hover:bg-gray-50"
                 >
@@ -274,8 +281,7 @@ function Header() {
           )}
         </button>
 
-      {isCartOpen && <CartPopup />}
-
+        {isCartOpen && <CartPopup />}
       </div>
     </header>
   );

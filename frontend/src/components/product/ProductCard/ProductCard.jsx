@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
 import { useCart } from "../../../hooks/useCart";
+import { getProducts } from "../../../api/mockService";
 
 const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const queryClient = useQueryClient();
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
@@ -34,6 +37,18 @@ const ProductCard = ({ product }) => {
     setIsWishlisted(!isWishlisted);
   };
 
+  // Prefetch product detail khi hover
+  const handleMouseEnter = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["product", product.id],
+      queryFn: async () => {
+        const products = await getProducts();
+        return products.find((p) => p.id === product.id);
+      },
+      staleTime: 60000, // Cache 1 phút
+    });
+  };
+
   const handleCardClick = () => {
     navigate(`/product/${product.id}`);
   };
@@ -41,6 +56,7 @@ const ProductCard = ({ product }) => {
   return (
     <div
       onClick={handleCardClick}
+      onMouseEnter={handleMouseEnter}
       className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden group relative"
     >
       {/* Header */}
