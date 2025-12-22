@@ -1,19 +1,33 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useCart } from '../../hooks/useCart'; 
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
+import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 
 function formatPrice(price) {
-  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(price);
 }
 
-
-export function CartPopup () {
-  const { cartItems, isCartOpen, setIsCartOpen, setIsCheckoutOpen } = useCart();
+export function CartPopup() {
+  const {
+    cartItems,
+    isCartOpen,
+    setIsCartOpen,
+    setIsCheckoutOpen,
+    addToCart,
+    decreaseQuantity,
+    removeFromCart,
+  } = useCart();
   const navigate = useNavigate();
   if (!isCartOpen) return null;
 
-  const subtotal = cartItems.reduce((acc, item) => acc + (item.newPrice * item.quantity), 0);
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.newPrice * item.quantity,
+    0
+  );
 
   const handleCheckout = () => {
     setIsCheckoutOpen(true); //mo form
@@ -21,12 +35,11 @@ export function CartPopup () {
   };
 
   const goToOrders = () => {
-    setIsCartOpen(false);   // đóng popup giỏ hàng
-    navigate("/orders");    // chuyển sang trang đơn hàng
+    setIsCartOpen(false); // đóng popup giỏ hàng
+    navigate("/orders"); // chuyển sang trang đơn hàng
   };
 
   return (
-    
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -34,61 +47,116 @@ export function CartPopup () {
       className="fixed inset-0 bg-black/50 z-40"
       onClick={() => setIsCartOpen(false)}
     >
-      
       <motion.div
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        onClick={(e) => e.stopPropagation()} 
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        onClick={(e) => e.stopPropagation()}
         className="absolute top-0 right-0 w-full max-w-md h-full bg-white shadow-2xl flex flex-col"
       >
-        <div className="p-4 border-b">
-          <h2 className="text-xl font-semibold">Giỏ hàng của bạn</h2>
+        {/* Header */}
+        <div className="p-4 border-b flex items-center justify-between bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+          <div className="flex items-center gap-2">
+            <ShoppingBag size={24} />
+            <h2 className="text-xl font-semibold">Giỏ hàng của bạn</h2>
+          </div>
+          <button
+            onClick={() => setIsCartOpen(false)}
+            className="p-1 hover:bg-white/20 rounded-full transition"
+          >
+            <X size={24} />
+          </button>
         </div>
-        
-        
-        <div className="flex-grow p-4 space-y-4 overflow-y-auto">
+
+        <div className="flex-grow p-4 space-y-4 overflow-y-auto bg-gray-50">
           {cartItems.length === 0 ? (
-            <p className="text-gray-500">Giỏ hàng của bạn đang trống.</p>
+            <div className="flex flex-col items-center justify-center h-full text-gray-400">
+              <ShoppingBag size={64} className="mb-4 opacity-30" />
+              <p className="text-lg">Giỏ hàng của bạn đang trống</p>
+              <p className="text-sm mt-2">Hãy thêm sản phẩm vào giỏ hàng!</p>
+            </div>
           ) : (
-            cartItems.map(item => (
-              <div key={item.id} className="flex gap-3">
-                <img src={item.imageUrl} alt={item.name} className="w-20 h-20 object-contain rounded border" />
-                <div>
-                  <p className="text-sm font-medium">{item.name}</p>
-                  <p className="text-xs text-gray-500">SL: {item.quantity}</p>
-                  <p className="text-sm font-semibold text-red-600">{formatPrice(item.newPrice)}</p>
+            cartItems.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white rounded-lg shadow-sm p-3 flex gap-3 relative hover:shadow-md transition"
+              >
+                <img
+                  src={item.imageUrl}
+                  alt={item.name}
+                  className="w-24 h-24 object-contain rounded border"
+                />
+                <div className="flex-1">
+                  <p className="text-sm font-medium line-clamp-2 mb-1">
+                    {item.name}
+                  </p>
+                  {item.variant && (
+                    <p className="text-xs text-gray-500 mb-1">
+                      Phiên bản: {item.variant}
+                    </p>
+                  )}
+                  <p className="text-base font-bold text-red-600 mb-2">
+                    {formatPrice(item.newPrice)}
+                  </p>
+
+                  {/* Quantity Controls */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => decreaseQuantity(item.id)}
+                      className="w-7 h-7 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded transition"
+                    >
+                      <Minus size={14} />
+                    </button>
+                    <span className="w-10 text-center font-semibold">
+                      {item.quantity}
+                    </span>
+                    <button
+                      onClick={() => addToCart(item)}
+                      className="w-7 h-7 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded transition"
+                    >
+                      <Plus size={14} />
+                    </button>
+                  </div>
                 </div>
+
+                {/* Remove Button */}
+                <button
+                  onClick={() => removeFromCart(item.id)}
+                  className="absolute top-2 right-2 p-1 hover:bg-red-100 text-red-600 rounded transition"
+                  title="Xóa sản phẩm"
+                >
+                  <Trash2 size={16} />
+                </button>
               </div>
             ))
           )}
         </div>
-        
-        
+
         {cartItems.length > 0 && (
-          <div className="p-4 border-t space-y-4">
-            <div className="flex justify-between font-semibold">
+          <div className="p-4 border-t bg-white space-y-3">
+            <div className="flex justify-between text-gray-600">
               <span>Tạm tính:</span>
-              <span>{formatPrice(subtotal)}</span>
+              <span className="font-semibold">{formatPrice(subtotal)}</span>
+            </div>
+            <div className="flex justify-between text-lg font-bold">
+              <span>Tổng cộng:</span>
+              <span className="text-red-600">{formatPrice(subtotal)}</span>
             </div>
             <button
               onClick={handleCheckout}
-              className="w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700"
+              className="w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700 transition shadow-lg"
             >
               Tiến hành thanh toán
             </button>
+            <button
+              onClick={goToOrders}
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            >
+              Đơn hàng của tôi
+            </button>
           </div>
         )}
-
-        {/* Đơn hàng của tôi */}
-        <button
-          onClick={goToOrders}
-          className="w-full bg-blue-600 text-white py-3 rounded-full font-bold hover:bg-blue-700 transition"
-        >
-          Đơn hàng của tôi
-        </button>
-        
       </motion.div>
     </motion.div>
   );

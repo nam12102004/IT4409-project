@@ -1,10 +1,24 @@
-import React, { createContext, useState} from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
-  const [formData, setFormData] = useState({ name: "", phone: "", address: "" });
+  // Load cart from localStorage
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("cartItems");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error loading cart from localStorage:", error);
+      return [];
+    }
+  });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    address: "",
+  });
   const [orderSuccess, setOrderSuccess] = useState(false);
 
   // state mở/đóng popup giỏ hàng
@@ -12,9 +26,35 @@ export function CartProvider({ children }) {
 
   // state mở/đóng form thanh toán
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  
+
   // danh sách đơn hàng đã đặt
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(() => {
+    try {
+      const savedOrders = localStorage.getItem("orders");
+      return savedOrders ? JSON.parse(savedOrders) : [];
+    } catch (error) {
+      console.error("Error loading orders from localStorage:", error);
+      return [];
+    }
+  });
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    } catch (error) {
+      console.error("Error saving cart to localStorage:", error);
+    }
+  }, [cartItems]);
+
+  // Save orders to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem("orders", JSON.stringify(orders));
+    } catch (error) {
+      console.error("Error saving orders to localStorage:", error);
+    }
+  }, [orders]);
 
   // thêm sản phẩm vào giỏ
   const addToCart = (product) => {
@@ -24,7 +64,9 @@ export function CartProvider({ children }) {
       if (existingItem) {
         // tăng số lượng nếu đã có
         return prevItems.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       } else {
         return [...prevItems, { ...product, quantity: 1 }];
@@ -63,13 +105,16 @@ export function CartProvider({ children }) {
     console.log("--- ĐƠN HÀNG ĐÃ ĐẶT ---", formData, cartItems);
     setOrderSuccess(true);
     setCartItems([]);
-     const newOrder = {
+    const newOrder = {
       id: Date.now(), // mã đơn hàng tạm thời
       customer: formData.name,
       phone: formData.phone,
       address: formData.address,
       items: cartItems,
-      total: cartItems.reduce((acc, item) => acc + item.newPrice * item.quantity, 0),
+      total: cartItems.reduce(
+        (acc, item) => acc + item.newPrice * item.quantity,
+        0
+      ),
     };
     setOrders((prevOrders) => [...prevOrders, newOrder]);
     // đóng form sau 5s

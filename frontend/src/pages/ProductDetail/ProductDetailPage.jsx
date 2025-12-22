@@ -8,6 +8,8 @@ import { ReviewsSection } from "../../components/ProductDetail/ReviewsSection";
 import { getProductById } from "../../api/mockService";
 import SEO from "../../components/common/SEO";
 import { formatPrice } from "../../utils/formatPrice";
+import { useCart } from "../../hooks/useCart";
+import { useToast } from "../../contexts/ToastContext";
 import "./ProductDetailPage.css";
 
 /**
@@ -17,6 +19,8 @@ import "./ProductDetailPage.css";
 export const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart, setIsCartOpen, setIsCheckoutOpen } = useCart();
+  const { success } = useToast();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariant, setSelectedVariant] = useState(null);
@@ -42,16 +46,44 @@ export const ProductDetailPage = () => {
   }, [id]);
 
   const handleAddToCart = () => {
-    // TODO: Implement add to cart functionality
-    console.log("Adding to cart:", product, selectedVariant);
-    alert("Sản phẩm đã được thêm vào giỏ hàng!");
+    if (!product) return;
+
+    // Tạo object sản phẩm để thêm vào giỏ
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.images?.[0] || product.image,
+      newPrice: selectedVariant?.price || product.newPrice || product.price,
+      oldPrice: product.oldPrice,
+      variant: selectedVariant?.name || null,
+      specs: product.specifications,
+    };
+
+    // Thêm vào giỏ hàng
+    addToCart(cartItem);
+
+    // Hiển thị thông báo và mở popup giỏ hàng
+    success("Đã thêm sản phẩm vào giỏ hàng!");
+    setIsCartOpen(true);
   };
 
   const handleBuyNow = () => {
-    // TODO: Implement buy now functionality
-    console.log("Buy now:", product, selectedVariant);
-    alert("Chuyển đến trang thanh toán...");
-    // navigate("/checkout");
+    if (!product) return;
+
+    // Tạo object sản phẩm để thêm vào giỏ
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.images?.[0] || product.image,
+      newPrice: selectedVariant?.price || product.newPrice || product.price,
+      oldPrice: product.oldPrice,
+      variant: selectedVariant?.name || null,
+      specs: product.specifications,
+    };
+
+    // Thêm vào giỏ hàng và mở form thanh toán ngay
+    addToCart(cartItem);
+    setIsCheckoutOpen(true);
   };
 
   const handleSubmitReview = (review) => {

@@ -5,13 +5,15 @@ import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
 import { useCart } from "../../../hooks/useCart";
+import { useToast } from "../../../contexts/ToastContext";
 import { getProducts } from "../../../api/mockService";
 import OptimizedImage from "../../common/OptimizedImage";
 
 const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, setIsCartOpen } = useCart();
+  const { success } = useToast();
   const queryClient = useQueryClient();
 
   const formatPrice = (price) => {
@@ -28,9 +30,18 @@ const ProductCard = ({ product }) => {
       name: product.name || product.title,
       newPrice: product.price,
       imageUrl: product.thumbnail || product.image,
+      oldPrice: product.originalPrice,
+      brand: product.brand,
     };
     addToCart(cartProduct);
-    console.log("Đã thêm vào giỏ:", product.name);
+
+    // Hiển thị thông báo và mở giỏ hàng
+    success(`Đã thêm "${product.name || product.title}" vào giỏ hàng!`);
+
+    // Mở giỏ hàng sau 300ms
+    setTimeout(() => {
+      setIsCartOpen(true);
+    }, 300);
   };
 
   const handleWishlist = (e) => {
