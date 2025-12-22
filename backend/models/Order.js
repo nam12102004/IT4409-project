@@ -21,6 +21,11 @@ const OrderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    // Thông tin khách hàng (để hiển thị nhanh)
+    customerName: { type: String, required: true },
+    customerPhone: { type: String, required: true },
+    customerEmail: { type: String },
+
     items: [
       {
         _id: {
@@ -36,6 +41,8 @@ const OrderSchema = new mongoose.Schema(
           ref: "Product",
           required: true,
         },
+        productName: { type: String }, // Tên sản phẩm (snapshot)
+        productImage: { type: String }, // Ảnh sản phẩm (snapshot)
         quantity: { type: Number, required: true },
         productDiscountCode: {
           type: mongoose.Schema.Types.ObjectId,
@@ -60,6 +67,7 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     shippingAddress: { type: String, required: true },
+    note: { type: String }, // Ghi chú đơn hàng
     totalPrice: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now },
   },
