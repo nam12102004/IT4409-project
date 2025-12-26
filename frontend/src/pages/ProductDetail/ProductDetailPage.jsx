@@ -5,7 +5,7 @@ import { ProductInfo } from "../../components/ProductDetail/ProductInfo";
 import { VariantSelector } from "../../components/ProductDetail/VariantSelector";
 import { SpecificationsTable } from "../../components/ProductDetail/SpecificationsTable";
 import { ReviewsSection } from "../../components/ProductDetail/ReviewsSection";
-import { getProductById } from "../../api/mockService";
+import { getProductById } from "../../api/productsApi";
 import SEO from "../../components/common/SEO";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../hooks/useCart";

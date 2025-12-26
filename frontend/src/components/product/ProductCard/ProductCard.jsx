@@ -6,7 +6,7 @@ import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
 import { useCart } from "../../../hooks/useCart";
 import { useToast } from "../../../contexts/ToastContext";
-import { getProducts } from "../../../api/mockService";
+import { getProducts } from "../../../api/productsApi";
 import OptimizedImage from "../../common/OptimizedImage";
 
 const ProductCard = ({ product }) => {

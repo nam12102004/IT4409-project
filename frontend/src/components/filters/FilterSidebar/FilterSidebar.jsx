@@ -1,10 +1,11 @@
 import React from "react";
 import CheckboxFilter from "./CheckboxFilter";
 import NestedCheckboxFilter from "./NestedCheckboxFilter";
+import BrandFilter from "./BrandFilter";
 import PriceRangeFilter from "./PriceRangeFilter";
 import "./FilterSidebar.css";
 
-const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
+const FilterSidebar = ({ filters, onFilterChange, onClearFilters, brands = [] }) => {
   const hasActiveFilters =
     filters.brands.length > 0 ||
     filters.needs.length > 0 ||
@@ -20,17 +21,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
     filters.advanced.length > 0 ||
     filters.colors.length > 0;
 
-  // Dữ liệu tĩnh cho các bộ lọc
-  const brandOptions = [
-    "Lenovo",
-    "Asus",
-    "Dell",
-    "Acer",
-    "Microsoft",
-    "Apple",
-    "HP",
-  ];
-
+  // Dữ liệu tĩnh cho các bộ lọc (trừ thương hiệu đã lấy từ DB)
   const needOptions = [
     "Sinh viên",
     "Văn phòng",
@@ -120,11 +111,10 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters }) => {
       </div>
 
       <div className="filter-content">
-        <CheckboxFilter
-          title="Thương hiệu"
-          options={brandOptions}
-          selectedValues={filters.brands}
-          onChange={(brands) => onFilterChange("brands", brands)}
+        <BrandFilter
+          selectedBrands={filters.brands}
+          onBrandChange={(selected) => onFilterChange("brands", selected)}
+          brands={brands}
         />
 
         <CheckboxFilter

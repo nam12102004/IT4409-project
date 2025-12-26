@@ -87,7 +87,9 @@ export const getProducts = async (req, res) => {
 
     //Khong co trong cache thi lay tu db
     console.log('--- MONGODB CACHE MISS ---');
-    const products = await Product.find().sort({ createdAt: -1 });
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .populate('category', 'name');
 
     // Luu vao redis, ttl la 3600 giay
     if (redisClient && redisClient.isOpen) {
