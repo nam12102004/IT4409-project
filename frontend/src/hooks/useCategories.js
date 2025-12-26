@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCategories } from '../api/mockService';
+import { getCategories } from '../api/categoriesApi';
 
 export const useCategories = () => {
   return useQuery({
