@@ -1,12 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { AiOutlineHeart, AiFillHeart, AiFillStar } from "react-icons/ai";
 import { BsCart3, BsCpu, BsMemory, BsDisplay } from "react-icons/bs";
 import { IoMdFlame } from "react-icons/io";
 import { useCart } from "../../../hooks/useCart";
-
+import { useToast } from "../../../contexts/ToastContext";
+import { getProducts } from "../../../api/mockService";
+import OptimizedImage from "../../common/OptimizedImage";
 
 const ProductCard = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const navigate = useNavigate();
+  const { addToCart, setIsCartOpen } = useCart();
+  const { success } = useToast();
+  const queryClient = useQueryClient();
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
@@ -15,8 +23,6 @@ const ProductCard = ({ product }) => {
     }).format(price);
   };
 
-  // Thêm vào giỏ, chuẩn hóa dữ liệu
-  const { addToCart } = useCart();
   const handleAddToCart = (e) => {
     e.stopPropagation();
     const cartProduct = {
@@ -24,9 +30,18 @@ const ProductCard = ({ product }) => {
       name: product.name || product.title,
       newPrice: product.price,
       imageUrl: product.thumbnail || product.image,
+      oldPrice: product.originalPrice,
+      brand: product.brand,
     };
     addToCart(cartProduct);
-    console.log("✅ Đã thêm vào giỏ:", product.name);
+
+    // Hiển thị thông báo và mở giỏ hàng
+    success(`Đã thêm "${product.name || product.title}" vào giỏ hàng!`);
+
+    // Mở giỏ hàng sau 300ms
+    setTimeout(() => {
+      setIsCartOpen(true);
+    }, 300);
   };
 
   const handleWishlist = (e) => {
@@ -34,13 +49,26 @@ const ProductCard = ({ product }) => {
     setIsWishlisted(!isWishlisted);
   };
 
+  // Prefetch product detail khi hover
+  const handleMouseEnter = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["product", product.id],
+      queryFn: async () => {
+        const products = await getProducts();
+        return products.find((p) => p.id === product.id);
+      },
+      staleTime: 60000, // Cache 1 phút
+    });
+  };
+
   const handleCardClick = () => {
-    console.log("👁️ Xem chi tiết:", product.name);
+    navigate(`/product/${product.id}`);
   };
 
   return (
     <div
       onClick={handleCardClick}
+      onMouseEnter={handleMouseEnter}
       className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden group relative"
     >
       {/* Header */}
@@ -65,29 +93,22 @@ const ProductCard = ({ product }) => {
           </div>
         )}
 
-        {/* Hình ảnh*/}
+        {/* Hình ảnh với OptimizedImage */}
         <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center overflow-hidden">
           {product.thumbnail || product.image ? (
-            <img
+            <OptimizedImage
               src={product.thumbnail || product.image}
               alt={product.name}
               className="h-full w-full object-contain group-hover:scale-110 transition-transform duration-300"
-              onError={(e) => {
-                // Nếu ảnh lỗi, hiển thị icon
-                e.target.style.display = "none";
-                e.target.nextElementSibling.style.display = "flex";
-              }}
+              placeholder="/placeholder-blur.svg"
+              fallback="/image-not-found.svg"
             />
-          ) : null}
-          <div
-            className="flex-col items-center justify-center text-gray-300"
-            style={{
-              display: product.thumbnail || product.image ? "none" : "flex",
-            }}
-          >
-            <BsDisplay className="w-16 h-16 mb-2" />
-            <span className="text-sm">Chưa có hình</span>
-          </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center text-gray-300">
+              <BsDisplay className="w-16 h-16 mb-2" />
+              <span className="text-sm">Chưa có hình</span>
+            </div>
+          )}
         </div>
       </div>
 

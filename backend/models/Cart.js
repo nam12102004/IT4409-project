@@ -6,7 +6,7 @@ const CartSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      unique: true, 
+      unique: true,
     },
     items: [
       {
@@ -16,6 +16,16 @@ const CartSchema = new mongoose.Schema(
           required: true,
         },
         quantity: { type: Number, required: true, default: 1 },
+
+        // ===== THÊM MỚI - Lưu variant đã chọn =====
+        selectedVariant: {
+          variantIndex: { type: Number }, // Index trong mảng variants
+          ram: { type: String },
+          ssd: { type: String },
+          color: { type: String },
+          price: { type: Number },
+        },
+
         addedAt: { type: Date, default: Date.now },
       },
     ],

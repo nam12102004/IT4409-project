@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getProducts } from "../../api/mockService";
 import ProductCard from "../../components/product/ProductCard";
@@ -8,6 +8,7 @@ import FilterSidebar from "../../components/filters/FilterSidebar";
 import ProductToolbar from "../../components/product/ProductToolbar";
 import LoadMoreButton from "../../components/common/LoadMoreButton";
 import ScrollToTop from "../../components/common/ScrollToTop";
+import SEO from "../../components/common/SEO";
 import "./ProductListingPage.css";
 
 const ProductListingPage = () => {
@@ -15,6 +16,7 @@ const ProductListingPage = () => {
   const [searchParams] = useSearchParams();
   const brandFromUrl = searchParams.get("brand");
   const modelFromUrl = searchParams.get("model");
+  const searchQuery = searchParams.get("search");
 
   const [products, setProducts] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]);
@@ -59,7 +61,12 @@ const ProductListingPage = () => {
       { label: "Sản phẩm", path: "/products" },
     ];
 
-    if (category) {
+    if (searchQuery) {
+      items.push({
+        label: `Tìm kiếm: "${searchQuery}"`,
+        path: `/products?search=${searchQuery}`,
+      });
+    } else if (category) {
       const categoryLabel = categoryNames[category.toLowerCase()] || category;
       items.push({
         label: categoryLabel,
@@ -68,7 +75,7 @@ const ProductListingPage = () => {
     }
 
     return items;
-  }, [category]);
+  }, [category, searchQuery]);
 
   // Calculate categories and brands from products
   const categoriesData = useMemo(() => {
@@ -105,26 +112,37 @@ const ProductListingPage = () => {
         )
       : [...products];
 
-    // Step 2: Filter by brand from URL
+    // Step 2: Filter by search query from URL
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.name.toLowerCase().includes(query) ||
+          p.brand.toLowerCase().includes(query) ||
+          p.category.toLowerCase().includes(query)
+      );
+    }
+
+    // Step 3: Filter by brand from URL
     if (brandFromUrl) {
       result = result.filter(
         (p) => p.brand.toLowerCase() === brandFromUrl.toLowerCase()
       );
     }
 
-    // Step 3: Filter by model from URL (search in product name)
+    // Step 4: Filter by model from URL (search in product name)
     if (modelFromUrl) {
       result = result.filter((p) =>
         p.name.toLowerCase().includes(modelFromUrl.toLowerCase())
       );
     }
 
-    // Step 4: Filter by brands from filter sidebar
+    // Step 5: Filter by brands from filter sidebar
     if (filters.brands.length > 0) {
       result = result.filter((p) => filters.brands.includes(p.brand));
     }
 
-    // Step 5: Filter by price range
+    // Step 6: Filter by price range
     if (filters.priceRange) {
       result = result.filter(
         (p) =>
@@ -136,7 +154,7 @@ const ProductListingPage = () => {
     // needs, sources, conditions, cpus, rams, ssds, screenSizes, refreshRates, resolutions, advanced, colors
 
     return result;
-  }, [products, filters, category, brandFromUrl, modelFromUrl]);
+  }, [products, filters, category, brandFromUrl, modelFromUrl, searchQuery]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -165,12 +183,7 @@ const ProductListingPage = () => {
   }, [filteredProducts, sortBy]);
 
   // Update displayed products when filters or sort change
-  useEffect(() => {
-    setItemsToShow(12); // Reset về 12 khi filter/sort thay đổi
-    setDisplayedProducts(sortedProducts.slice(0, 12));
-  }, [sortedProducts]);
-
-  // Reset filters when category changes
+  // Reset filters when category changes (but not when search query changes)
   useEffect(() => {
     setFilters({
       brands: [],
@@ -191,13 +204,13 @@ const ProductListingPage = () => {
     setItemsToShow(12);
   }, [category, brandFromUrl, modelFromUrl]);
 
-  // Update displayed products when itemsToShow changes
+  // Update displayed products when sorted products or itemsToShow changes
   useEffect(() => {
     setDisplayedProducts(sortedProducts.slice(0, itemsToShow));
   }, [sortedProducts, itemsToShow]);
 
-  // Handle Load More
-  const handleLoadMore = () => {
+  // Handle Load More - use useCallback to prevent recreation
+  const handleLoadMore = useCallback(() => {
     setLoadingMore(true);
 
     // Simulate loading delay (optional - có thể bỏ)
@@ -205,18 +218,18 @@ const ProductListingPage = () => {
       setItemsToShow((prev) => prev + 12);
       setLoadingMore(false);
     }, 300);
-  };
+  }, []);
 
-  // Handle filter changes
-  const handleFilterChange = (filterType, value) => {
+  // Handle filter changes - use useCallback
+  const handleFilterChange = useCallback((filterType, value) => {
     setFilters((prev) => ({
       ...prev,
       [filterType]: value,
     }));
-  };
+  }, []);
 
-  // Clear all filters
-  const handleClearFilters = () => {
+  // Clear all filters - use useCallback
+  const handleClearFilters = useCallback(() => {
     setFilters({
       brands: [],
       needs: [],
@@ -232,7 +245,7 @@ const ProductListingPage = () => {
       advanced: [],
       colors: [],
     });
-  };
+  }, []);
 
   // Load products
   useEffect(() => {
@@ -241,7 +254,6 @@ const ProductListingPage = () => {
         setLoading(true);
         const data = await getProducts();
         setProducts(data);
-        setDisplayedProducts(data.slice(0, 12)); // Initial 12 products
       } catch (error) {
         console.error("Lỗi load sản phẩm:", error);
       } finally {
@@ -302,8 +314,32 @@ const ProductListingPage = () => {
     );
   }
 
+  // Tạo title và description động dựa trên category và search
+  const pageTitle = searchQuery
+    ? `Tìm kiếm: ${searchQuery}`
+    : category
+    ? `${categoryNames[category] || category}`
+    : "Tất cả sản phẩm";
+
+  const pageDescription = searchQuery
+    ? `Kết quả tìm kiếm cho "${searchQuery}" - ${filteredProducts.length} sản phẩm`
+    : category
+    ? `Danh sách ${
+        categoryNames[category] || category
+      } chính hãng, giá tốt nhất. ${filteredProducts.length} sản phẩm.`
+    : `Khám phá ${filteredProducts.length} sản phẩm công nghệ chính hãng.`;
+
   return (
     <div className="product-listing-page">
+      {/* ===== SEO META TAGS ===== */}
+      <SEO
+        title={pageTitle}
+        description={pageDescription}
+        keywords={`${category || "sản phẩm"}, ${
+          searchQuery || ""
+        }, laptop, pc, công nghệ, tech geeks`}
+      />
+
       {/* Breadcrumb */}
       <Breadcrumb items={breadcrumbItems} />
 

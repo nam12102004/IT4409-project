@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ProductGallery } from "../../components/ProductDetail/ProductGallery";
+import { ProductInfo } from "../../components/ProductDetail/ProductInfo";
+import { VariantSelector } from "../../components/ProductDetail/VariantSelector";
+import { SpecificationsTable } from "../../components/ProductDetail/SpecificationsTable";
+import { ReviewsSection } from "../../components/ProductDetail/ReviewsSection";
 import { getProductById } from "../../api/mockService";
+import SEO from "../../components/common/SEO";
+import { formatPrice } from "../../utils/formatPrice";
+import { useCart } from "../../hooks/useCart";
+import { useToast } from "../../contexts/ToastContext";
 import "./ProductDetailPage.css";
 
 /**
@@ -10,8 +18,12 @@ import "./ProductDetailPage.css";
  */
 export const ProductDetailPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { addToCart, setIsCartOpen, setIsCheckoutOpen } = useCart();
+  const { success } = useToast();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedVariant, setSelectedVariant] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -19,6 +31,10 @@ export const ProductDetailPage = () => {
       try {
         const data = await getProductById(id || 1); // Default to product ID 1 for demo
         setProduct(data);
+        // Set default variant if available
+        if (data.variants && data.variants.length > 0) {
+          setSelectedVariant(data.variants[0]);
+        }
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
@@ -29,9 +45,57 @@ export const ProductDetailPage = () => {
     fetchProduct();
   }, [id]);
 
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    // Tạo object sản phẩm để thêm vào giỏ
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.images?.[0] || product.image,
+      newPrice: selectedVariant?.price || product.newPrice || product.price,
+      oldPrice: product.oldPrice,
+      variant: selectedVariant?.name || null,
+      specs: product.specifications,
+    };
+
+    // Thêm vào giỏ hàng
+    addToCart(cartItem);
+
+    // Hiển thị thông báo và mở popup giỏ hàng
+    success("Đã thêm sản phẩm vào giỏ hàng!");
+    setIsCartOpen(true);
+  };
+
+  const handleBuyNow = () => {
+    if (!product) return;
+
+    // Tạo object sản phẩm để thêm vào giỏ
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.images?.[0] || product.image,
+      newPrice: selectedVariant?.price || product.newPrice || product.price,
+      oldPrice: product.oldPrice,
+      variant: selectedVariant?.name || null,
+      specs: product.specifications,
+    };
+
+    // Thêm vào giỏ hàng và mở form thanh toán ngay
+    addToCart(cartItem);
+    setIsCheckoutOpen(true);
+  };
+
+  const handleSubmitReview = (review) => {
+    // TODO: Implement submit review functionality
+    console.log("New review:", review);
+    alert("Cảm ơn bạn đã đánh giá sản phẩm!");
+  };
+
   if (loading) {
     return (
       <div className="product-detail-loading">
+        <SEO title="Đang tải sản phẩm..." />
         <div className="spinner"></div>
         <p>Đang tải thông tin sản phẩm...</p>
       </div>
@@ -41,11 +105,22 @@ export const ProductDetailPage = () => {
   if (!product) {
     return (
       <div className="product-detail-error">
+        <SEO title="Không tìm thấy sản phẩm" />
         <h2>Không tìm thấy sản phẩm</h2>
         <a href="/">Quay về trang chủ</a>
       </div>
     );
   }
+
+  // Tạo SEO data từ product
+  const productTitle = `${product.name} - ${formatPrice(product.price)}`;
+  const productDescription = product.description
+    ? product.description.slice(0, 160)
+    : `Mua ${product.name} chính hãng, giá ${formatPrice(
+        product.price
+      )}. Bảo hành 12 tháng, giao hàng toàn quốc.`;
+  const productImage =
+    product.images?.[0] || product.image || "/placeholder.png";
 
   // Transform product data to match gallery format
   const galleryImages = [
@@ -72,6 +147,16 @@ export const ProductDetailPage = () => {
 
   return (
     <div className="product-detail-page">
+      {/* ===== SEO META TAGS ===== */}
+      <SEO
+        title={productTitle}
+        description={productDescription}
+        keywords={`${product.name}, ${product.brand || ""}, ${
+          product.category || ""
+        }, laptop, mua laptop, tech geeks`}
+        image={productImage}
+      />
+
       <div className="product-detail-container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">
@@ -93,87 +178,35 @@ export const ProductDetailPage = () => {
 
           {/* Right: Product Info */}
           <div className="product-info-section">
-            <div className="product-header">
-              <div className="brand-badge">{product.brand}</div>
-              <h1 className="product-title">{product.name}</h1>
-              <div className="product-meta">
-                <span className="rating">
-                  ⭐ {product.rating} ({product.reviewCount} đánh giá)
-                </span>
-                {product.stock > 0 ? (
-                  <span className="stock in-stock">
-                    ✓ Còn hàng ({product.stock} sản phẩm)
-                  </span>
-                ) : (
-                  <span className="stock out-of-stock">✗ Hết hàng</span>
-                )}
-              </div>
-            </div>
+            <ProductInfo
+              product={product}
+              selectedVariant={selectedVariant}
+              onAddToCart={handleAddToCart}
+              onBuyNow={handleBuyNow}
+            />
 
-            {/* Product Specs */}
-            <div className="product-specs-quick">
-              <h3>Thông số nổi bật:</h3>
-              <div className="specs-grid">
-                {Object.entries(product.specs || {}).map(([key, value]) => (
-                  <div key={key} className="spec-item">
-                    <span className="spec-label">{key}:</span>
-                    <span className="spec-value">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Price Section */}
-            <div className="price-section">
-              <div className="price-main">
-                <span className="current-price">
-                  {product.price.toLocaleString("vi-VN")}₫
-                </span>
-                {product.originalPrice && (
-                  <>
-                    <span className="original-price">
-                      {product.originalPrice.toLocaleString("vi-VN")}₫
-                    </span>
-                    {product.discount && (
-                      <span className="discount-badge">
-                        -{product.discount}%
-                      </span>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="action-buttons">
-              <button className="btn-buy-now" disabled={product.stock === 0}>
-                Mua ngay
-              </button>
-              <button
-                className="btn-add-to-cart"
-                disabled={product.stock === 0}
-              >
-                🛒 Thêm vào giỏ hàng
-              </button>
-            </div>
-
-            {/* Additional Info */}
-            <div className="additional-info">
-              <div className="info-item">
-                <span className="icon">🚚</span>
-                <span>Giao hàng toàn quốc</span>
-              </div>
-              <div className="info-item">
-                <span className="icon">✓</span>
-                <span>Bảo hành chính hãng 12 tháng</span>
-              </div>
-              <div className="info-item">
-                <span className="icon">↻</span>
-                <span>Đổi trả trong 7 ngày</span>
-              </div>
-            </div>
+            {/* Variant Selector */}
+            {product.variants && product.variants.length > 0 && (
+              <VariantSelector
+                variants={product.variants}
+                selectedVariant={selectedVariant}
+                onVariantChange={setSelectedVariant}
+              />
+            )}
           </div>
         </div>
+
+        {/* Specifications Table */}
+        {product.specifications && (
+          <SpecificationsTable specifications={product.specifications} />
+        )}
+
+        {/* Reviews Section */}
+        <ReviewsSection
+          reviews={product.reviews || []}
+          productRating={product.rating}
+          onSubmitReview={handleSubmitReview}
+        />
       </div>
     </div>
   );
