@@ -54,7 +54,8 @@ function App() {
                   <CategoryList
                     selectedCategory={selectedCategory}
                     onSelectCategory={setSelectedCategory}
-                  />
+                  /> 
+                  <TechNews />
                 </>
               }
             />
@@ -77,7 +78,7 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense> 
-        <TechNews />
+        
 
         <Footer />
         <CartPopup />
