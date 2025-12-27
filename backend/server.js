@@ -2,10 +2,12 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { createClient } from "redis";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import { sanitizeRequest } from "./middleware/sanitize.js";
 
+import { connectRedis } from "./config/redis.js";
 import User from "./models/user.js";
-import bcrypt from "bcryptjs";
 import Category, { DEFAULT_CATEGORIES } from "./models/Category.js";
 import Product from "./models/Product.js";
 import Store from "./models/Store.js";
@@ -13,20 +15,78 @@ import Cart from "./models/Cart.js";
 import Order from "./models/Order.js";
 import Review from "./models/Review.js";
 
+
+import authRoutes from './routes/authRoutes.js';
+import productsRoutes from './routes/productsRoutes.js';
+import categoriesRoutes from './routes/categoriesRoutes.js';
+import ordersRoutes from './routes/ordersRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
+
 dotenv.config();
 const app = express();
-app.use(cors());
+
+
+const allowedOrigins = (process.env.CLIENT_URL || "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter((o) => o.length > 0);
+
+const corsOptions = {
+  origin: allowedOrigins.length ? allowedOrigins : "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false,
+};
+const isProduction = process.env.NODE_ENV === "production";
+
+if (isProduction) {
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          imgSrc: ["'self'", "data:", "https:"],
+          connectSrc: ["'self'", ...(allowedOrigins.length ? allowedOrigins : ["*"])],
+          objectSrc: ["'none'"],
+          upgradeInsecureRequests: [],
+        },
+      },
+      crossOriginEmbedderPolicy: false,
+    })
+  );
+
+  app.use(
+    helmet.hsts({
+      maxAge: 31536000,
+      includeSubDomains: true,
+      preload: true,
+    })
+  );
+} else {
+  app.use(helmet());
+}
+
+app.use(cors(corsOptions));
 app.use(express.json());
+app.use(sanitizeRequest);
 
-if (!process.env.MONGO_URI) {
-  console.error('❌ MONGO_URI is not set. Please set it in .env');
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 1000,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use("/api", apiLimiter);
+
+
+if (!process.env.MONGO_URI || !process.env.JWT_SECRET) {
+  console.error('❌ Thiếu biến môi trường (MONGO_URI hoặc JWT_SECRET) trong file .env');
   process.exit(1);
 }
 
-if (!process.env.JWT_SECRET) {
-  console.error('❌ JWT_SECRET is not set. Please set it in .env');
-  process.exit(1);
-}
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URI, {
@@ -39,9 +99,13 @@ mongoose.connect(process.env.MONGO_URI, {
 mongoose.connection.on('connected', async () => {
   console.log('✅ MongoDB connected');
   try {
+    
     const ensureDefaultCategories = async () => {
       try {
-        const names = Array.isArray(DEFAULT_CATEGORIES) && DEFAULT_CATEGORIES.length ? DEFAULT_CATEGORIES : ['Laptop', 'Điện thoại', 'PC'];
+        const names = Array.isArray(DEFAULT_CATEGORIES) && DEFAULT_CATEGORIES.length 
+          ? DEFAULT_CATEGORIES 
+          : ['Laptop', 'Điện thoại', 'PC'];
+          
         for (const name of names) {
           const existingCat = await Category.findOne({ name });
           if (!existingCat) {
@@ -55,42 +119,27 @@ mongoose.connection.on('connected', async () => {
     };
     await ensureDefaultCategories();
   } catch (err) {
-    console.error('Error creating default user after DB connect:', err);
+    console.error('Error after DB connect:', err);
   }
 });
 
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
-});
+mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
+mongoose.connection.on('disconnected', () => console.warn('MongoDB disconnected'));
 
-mongoose.connection.on('disconnected', () => {
-  console.warn('MongoDB disconnected');
-});
-let redisClient;
-if (process.env.REDIS_URL) {
-  try {
-    redisClient = createClient({ url: process.env.REDIS_URL });
-    redisClient.connect()
-      .then(() => console.log('✅ Redis connected'))
-      .catch((err) => console.warn('⚠️ Redis connection failed (continuing without Redis):', err.message || err));
-  } catch (err) {
-    console.warn('⚠️ Redis initialization failed (continuing without Redis):', err.message || err);
-  }
-} else {
-  console.log('ℹ️ REDIS_URL not set — starting without Redis');
-}
+//goi redis
+connectRedis();
 
 app.get("/", (req, res) => {
   res.send("Backend API running 🚀");
 });
 
-import authRoutes from './routes/authRoutes.js';
-import productsRoutes from './routes/productsRoutes.js';
-import categoriesRoutes from './routes/categoriesRoutes.js';
 
 app.use('/api', authRoutes);
 app.use('/api', productsRoutes);
 app.use('/api', categoriesRoutes);
+app.use('/api', ordersRoutes);
+app.use('/api', ordersRoutes);
+app.use('/api', paymentRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../api/mockService";
+import { getProducts } from "../api/productsApi";
 import ProductCard from "../components/product/ProductCard";
 
 const TestProductCard = () => {

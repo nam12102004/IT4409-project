@@ -3,7 +3,12 @@ import Product from '../models/Product.js';
 import Category from '../models/Category.js';
 import cloudinary from '../config/cloudinary.js';
 
-// helper to upload a single file buffer to Cloudinary and return secure_url
+
+import { redisClient } from '../config/redis.js'; 
+
+const PRODUCT_CACHE_KEY = 'products:all';
+
+
 const uploadBufferToCloudinary = async (fileBuffer, mimetype, filename) => {
   const dataUri = `data:${mimetype};base64,${fileBuffer.toString('base64')}`;
   const res = await cloudinary.uploader.upload(dataUri, { folder: 'shop_products' });
@@ -26,17 +31,14 @@ export const createProduct = async (req, res) => {
       }
     }
 
-    // validate/resolve category: accept ObjectId string, or try to find by name
     if (category) {
       if (mongoose.Types.ObjectId.isValid(category)) {
-        // keep as ObjectId string
+        
       } else {
-        // try to find category by name (case-insensitive)
         try {
           const found = await Category.findOne({ name: { $regex: `^${category}$`, $options: 'i' } });
           if (found) category = found._id;
           else {
-            // invalid category value -> ignore it to avoid cast error
             console.warn('createProduct: provided category not an ObjectId and not found by name, ignoring:', category);
             category = undefined;
           }
@@ -58,6 +60,13 @@ export const createProduct = async (req, res) => {
     });
 
     await product.save();
+
+    //Delete cache sau khi tạo mới thành công
+    if (redisClient && redisClient.isOpen) {
+      await redisClient.del(PRODUCT_CACHE_KEY);
+      console.log('--- 🧹 Deleted stale cache after creation ---');
+    }
+
     return res.status(201).json(product);
   } catch (err) {
     console.error('createProduct error', err);
@@ -67,7 +76,26 @@ export const createProduct = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
+    //lay du lieu tu cache truoc
+    if (redisClient && redisClient.isOpen) {
+      const cachedProducts = await redisClient.get(PRODUCT_CACHE_KEY);
+      if (cachedProducts) {
+        console.log('--- REDIS CACHE HIT ---');
+        return res.json(JSON.parse(cachedProducts));
+      }
+    }
+
+    //Khong co trong cache thi lay tu db
+    console.log('--- MONGODB CACHE MISS ---');
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .populate('category', 'name');
+
+    // Luu vao redis, ttl la 3600 giay
+    if (redisClient && redisClient.isOpen) {
+      await redisClient.setEx(PRODUCT_CACHE_KEY, 3600, JSON.stringify(products));
+    }
+
     return res.json(products);
   } catch (err) {
     console.error('getProducts error', err);
@@ -89,7 +117,6 @@ export const updateProduct = async (req, res) => {
     if (stock !== undefined) product.stock = Number(stock);
     if (storeId !== undefined) product.storeId = storeId || undefined;
 
-    // resolve category similar to create
     if (category) {
       if (mongoose.Types.ObjectId.isValid(category)) {
         product.category = category;
@@ -101,7 +128,6 @@ export const updateProduct = async (req, res) => {
       product.category = undefined;
     }
 
-    // handle images: if files uploaded, replace images array with uploaded URLs
     if (req.files && req.files.length) {
       const images = [];
       for (const file of req.files) {
@@ -116,6 +142,13 @@ export const updateProduct = async (req, res) => {
     }
 
     await product.save();
+
+    // 6 Xoa cache sau khi cap nhat thanh cong
+    if (redisClient && redisClient.isOpen) {
+      await redisClient.del(PRODUCT_CACHE_KEY);
+      console.log('--- Deleted stale cache after update ---');
+    }
+
     return res.json(product);
   } catch (err) {
     console.error('updateProduct error', err);
@@ -128,6 +161,13 @@ export const deleteProduct = async (req, res) => {
     const { id } = req.params;
     const deleted = await Product.findByIdAndDelete(id);
     if (!deleted) return res.status(404).json({ message: 'Product not found' });
+
+    //xoa cache sau khi xoa thanh cong
+    if (redisClient && redisClient.isOpen) {
+      await redisClient.del(PRODUCT_CACHE_KEY);
+      console.log('--- Deleted stale cache after deletion ---');
+    }
+
     return res.json({ message: 'Product deleted', id: deleted._id });
   } catch (err) {
     console.error('deleteProduct error', err);
