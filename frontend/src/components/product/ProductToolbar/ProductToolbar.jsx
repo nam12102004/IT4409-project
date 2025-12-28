@@ -6,10 +6,10 @@ const ProductToolbar = ({ totalProducts, sortBy, onSortChange }) => {
   const dropdownRef = useRef(null);
 
   const sortOptions = [
-    { value: "default", label: "Mặc định", icon: "🔄" },
-    { value: "price-asc", label: "Giá: Thấp → Cao", icon: "💰" },
-    { value: "rating", label: "Đánh giá cao nhất", icon: "⭐" },
-    { value: "bestseller", label: "Bán chạy nhất", icon: "🔥" },
+    { value: "default", label: "Mặc định" },
+    { value: "price-asc", label: "Giá: Thấp → Cao" },
+    { value: "rating", label: "Đánh giá cao nhất" },
+    { value: "bestseller", label: "Bán chạy nhất" },
   ];
 
   const currentOption = sortOptions.find((opt) => opt.value === sortBy);
@@ -35,7 +35,7 @@ const ProductToolbar = ({ totalProducts, sortBy, onSortChange }) => {
     <div className="product-toolbar">
       <div className="toolbar-left">
         <span className="product-count">
-          📦 <strong>{totalProducts}</strong> sản phẩm
+          <strong>{totalProducts}</strong> sản phẩm
         </span>
       </div>
 

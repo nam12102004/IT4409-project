@@ -20,9 +20,7 @@ const CheckboxFilter = ({
 
   return (
     <div className="filter-section">
-      <h3 className="filter-title">
-        {emoji} {title}
-      </h3>
+      <h3 className="filter-title">{title}</h3>
       <div className="filter-options">
         {displayOptions.map((option) => (
           <label key={option.value || option} className="filter-checkbox">
@@ -40,7 +38,7 @@ const CheckboxFilter = ({
             className="filter-toggle-btn"
             onClick={() => setExpanded(!expanded)}
           >
-            {expanded ? "− Thu gọn" : `+ Xem thêm ${options.length - 5}`}
+            {expanded ? "Thu gọn" : `Xem thêm ${options.length - 5}`}
           </button>
         )}
       </div>

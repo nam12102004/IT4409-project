@@ -1,20 +1,20 @@
-import React from 'react';
-import { useCart } from '../../hooks/useCart';
-import { CheckoutForm } from './CheckOutForm.jsx'; 
-import { OrderSummary } from './OrderResult.jsx'; 
-import { motion } from 'framer-motion';
+import React from "react";
+import { useCart } from "../../hooks/useCart";
+import { CheckoutForm } from "./CheckOutForm.jsx";
+import { OrderSummary } from "./OrderSummary.jsx";
+import { motion } from "framer-motion";
 
-export function TrangThanhToan() { 
-  const { 
-    cartItems, 
-    formData, 
-    setFormData, 
-    orderSuccess, 
+export function TrangThanhToan() {
+  const {
+    cartItems,
+    formData,
+    setFormData,
+    orderSuccess,
     handlePlaceOrder,
     paymentMethod,
     setPaymentMethod,
     isCheckoutOpen,
-    setIsCheckoutOpen
+    setIsCheckoutOpen,
   } = useCart();
 
   if (!isCheckoutOpen) return null;
@@ -22,7 +22,7 @@ export function TrangThanhToan() {
   const modalVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.9 }
+    exit: { opacity: 0, scale: 0.9 },
   };
 
   return (
@@ -42,9 +42,11 @@ export function TrangThanhToan() {
         className="bg-gray-50 rounded-lg shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col"
       >
         <div className="p-5 border-b">
-          <h2 className="text-2xl font-bold text-center">Thanh toán đơn hàng</h2>
+          <h2 className="text-2xl font-bold text-center">
+            Thanh toán đơn hàng
+          </h2>
         </div>
-        
+
         <div className="p-5 overflow-y-auto">
           {orderSuccess ? (
             <div className="bg-green-100 text-green-700 p-4 rounded-lg text-center">

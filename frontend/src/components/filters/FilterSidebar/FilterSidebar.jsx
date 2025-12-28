@@ -5,7 +5,12 @@ import BrandFilter from "./BrandFilter";
 import PriceRangeFilter from "./PriceRangeFilter";
 import "./FilterSidebar.css";
 
-const FilterSidebar = ({ filters, onFilterChange, onClearFilters, brands = [] }) => {
+const FilterSidebar = ({
+  filters,
+  onFilterChange,
+  onClearFilters,
+  brands = [],
+}) => {
   const hasActiveFilters =
     filters.brands.length > 0 ||
     filters.needs.length > 0 ||
@@ -102,7 +107,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters, brands = [] })
   return (
     <aside className="filter-sidebar">
       <div className="filter-header">
-        <h2 className="filter-main-title">🔍 BỘ LỌC</h2>
+        <h2 className="filter-main-title">BỘ LỌC</h2>
         {hasActiveFilters && (
           <button className="clear-all-btn" onClick={onClearFilters}>
             Xóa tất cả
@@ -209,13 +214,7 @@ const FilterSidebar = ({ filters, onFilterChange, onClearFilters, brands = [] })
         />
       </div>
 
-      {hasActiveFilters && (
-        <div className="filter-footer">
-          <button className="clear-footer-btn" onClick={onClearFilters}>
-            🗑️ Xóa tất cả bộ lọc
-          </button>
-        </div>
-      )}
+      {/* Không cần filter-footer với icon */}
     </aside>
   );
 };
