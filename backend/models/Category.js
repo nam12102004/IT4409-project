@@ -32,13 +32,13 @@ const Category = mongoose.model("Category", CategorySchema);
 
 export const DEFAULT_CATEGORIES = [
   "Laptop",
-  "Điện thoại",
-  "PC",
-  "Headphone",
-  "Charger",
-  "Monitor",
-  "Battery",
-  "Tablet",
+  "Bàn phím",
+  "Chuột",
+  "Loa",
+  "Sạc",
+  "Màn hình",
+  "Ổ cứng",
+  "Balo",
 ];
 
 export default Category;
