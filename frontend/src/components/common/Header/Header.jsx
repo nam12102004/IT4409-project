@@ -239,6 +239,15 @@ function Header() {
               <div className="absolute right-0 mt-12 bg-white border rounded shadow p-2 w-40 z-50">
                 <button
                   onClick={() => {
+                    setUserMenuOpen(false);
+                    navigate("/profile");
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
+                >
+                  Hồ sơ của tôi
+                </button>
+                <button
+                  onClick={() => {
                     localStorage.removeItem("user");
                     localStorage.removeItem("token");
                     // remove axios header
@@ -251,7 +260,7 @@ function Header() {
                     setUserMenuOpen(false);
                     navigate("/");
                   }}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50"
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
                 >
                   Đăng xuất
                 </button>

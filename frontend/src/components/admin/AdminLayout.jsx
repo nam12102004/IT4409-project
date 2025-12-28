@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, BarChart3, ShoppingBag, Package, LogOut } from 'lucide-react';
+import { ShieldCheck, BarChart3, ShoppingBag, Package, MessagesSquare, LogOut } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 export const AdminLayout = ({ onLogout }) => {
@@ -42,6 +42,16 @@ export const AdminLayout = ({ onLogout }) => {
             }
           >
             <Package size={20}/> Sản phẩm
+          </NavLink>
+          <NavLink
+            to="/admin/chat"
+            className={({ isActive }) =>
+              `w-full block text-left px-6 py-3 hover:bg-slate-800 flex gap-3 ${
+                isActive ? 'bg-slate-800 text-blue-400' : ''
+              }`
+            }
+          >
+            <MessagesSquare size={20}/> Chat khách hàng
           </NavLink>
         </nav>
         <button onClick={handleLogoutClick} className="p-6 hover:text-red-400 flex gap-2 text-left">
