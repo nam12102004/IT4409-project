@@ -15,6 +15,8 @@ const CartSchema = new mongoose.Schema(
           ref: "Product",
           required: true,
         },
+        productName: { type: String },   // thêm tên sản phẩm
+        productImage: { type: String },  // thêm ảnh sản phẩm
         quantity: { type: Number, required: true, default: 1 },
 
         // ===== THÊM MỚI - Lưu variant đã chọn =====
