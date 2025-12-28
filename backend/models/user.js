@@ -23,6 +23,15 @@ const UserSchema = new mongoose.Schema(
     vehicleLicenseNumber: { type: String },
     discountCodes: [{ type: mongoose.Schema.Types.ObjectId, ref: "DiscountCode" }],
     refreshToken: { type: String },
+
+    // Xác thực email 
+    isEmailVerified: { type: Boolean, default: false },
+    emailVerificationCode: { type: String },
+    emailVerificationExpires: { type: Date },
+
+    // Quên mật khẩu
+    passwordResetCode: { type: String },
+    passwordResetExpires: { type: Date },
   },
   { timestamps: true }
 );

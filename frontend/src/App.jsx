@@ -10,6 +10,7 @@ import PageLoader from "./components/common/PageLoader";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { CartPopup } from "./components/cart/CartPopup";
 import { TrangThanhToan } from "./components/cart/TrangThanhToan";
+import ChatWidget from "./components/common/ChatWidget";
 
 // ===== LAZY IMPORTS (Pages - chỉ load khi cần) =====
 // Home components
@@ -24,6 +25,9 @@ const CategoryList = lazy(() =>
 const TestProductCard = lazy(() => import("./pages/TestProductCard"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
+const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
+const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ProductListingPage = lazy(() =>
   import("./pages/ProductListingPage/ProductListingPage")
 );
@@ -62,6 +66,9 @@ function App() {
             <Route path="/test-card" element={<TestProductCard />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/profile" element={<UserProfilePage />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
             <Route path="/products" element={<ProductListingPage />} />
             <Route
@@ -82,6 +89,7 @@ function App() {
         <Footer />
         <CartPopup />
         <TrangThanhToan />
+        <ChatWidget />
       </div>
     </ErrorBoundary>
   );

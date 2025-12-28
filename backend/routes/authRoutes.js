@@ -18,6 +18,9 @@ const authLimiter = rateLimit({
 
 router.post('/login', verifyCaptcha, authLimiter, authController.login);
 router.post('/register', verifyCaptcha, authLimiter, authController.register);
+router.post('/verify-email', authLimiter, authController.verifyEmailCode);
+router.post('/forgot-password', authLimiter, authController.forgotPasswordRequest);
+router.post('/reset-password', authLimiter, authController.resetPasswordWithCode);
 router.post('/refresh-token', authLimiter, authController.refreshToken);
 router.get('/profile', authenticateToken, authController.profile);
 router.get('/admin-only', authenticateToken, authorizeRole('admin'), authController.adminOnly);

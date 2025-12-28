@@ -5,6 +5,7 @@ import AdminLayout from './components/admin/AdminLayout.jsx';
 import AdminOverviewPage from './pages/admin/AdminOverviewPage.jsx';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage.jsx';
 import AdminProductsPage from './pages/admin/AdminProductsPage.jsx';
+import AdminChatPage from './pages/admin/AdminChatPage.jsx';
 
 export default function AdminPortal() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function AdminPortal() {
         <Route index element={<AdminOverviewPage />} />
         <Route path="orders" element={<AdminOrdersPage />} />
         <Route path="products" element={<AdminProductsPage />} />
+        <Route path="chat" element={<AdminChatPage />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Route>
     </Routes>
