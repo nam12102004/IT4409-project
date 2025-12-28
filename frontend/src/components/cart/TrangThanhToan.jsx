@@ -1,7 +1,7 @@
 import React from "react";
 import { useCart } from "../../hooks/useCart";
 import { CheckoutForm } from "./CheckOutForm.jsx";
-import OrderSummary from "./OrderSummary.jsx";
+import { OrderSummary } from "./OrderSummary.jsx";
 import { motion } from "framer-motion";
 
 export function TrangThanhToan() {
