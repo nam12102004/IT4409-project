@@ -1,7 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../../hooks/useCart";
-import { useNavigate } from "react-router-dom";
 import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 
 function formatPrice(price) {
@@ -21,7 +20,7 @@ export function CartPopup() {
     decreaseQuantity,
     removeFromCart,
   } = useCart();
-  const navigate = useNavigate();
+
   if (!isCartOpen) return null;
 
   const subtotal = cartItems.reduce(
@@ -32,11 +31,6 @@ export function CartPopup() {
   const handleCheckout = () => {
     setIsCheckoutOpen(true); //mo form
     setIsCartOpen(false); //dong popup
-  };
-
-  const goToOrders = () => {
-    setIsCartOpen(false); // đóng popup giỏ hàng
-    navigate("/orders"); // chuyển sang trang đơn hàng
   };
 
   return (
@@ -148,12 +142,6 @@ export function CartPopup() {
               className="w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700 transition shadow-lg"
             >
               Tiến hành thanh toán
-            </button>
-            <button
-              onClick={goToOrders}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-            >
-              Đơn hàng của tôi
             </button>
           </div>
         )}

@@ -151,4 +151,35 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
-export default { createOrder, getMyOrders, getAllOrders };
+export const cancelOrder = async (req, res) => {
+  try {
+    const customerId = req.user?.id;
+    const orderId = req.params.id;
+
+    if (!customerId || !mongoose.isValidObjectId(customerId)) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    if (!mongoose.isValidObjectId(orderId)) {
+      return res.status(400).json({ message: "Invalid order id" });
+    }
+
+    const order = await Order.findOne({ _id: orderId, customerId });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+    if (order.orderStatus === EOrderStatus.Cancelled) {
+      return res.status(400).json({ message: "Order already cancelled" });
+    }
+
+    order.orderStatus = EOrderStatus.Cancelled;
+    await order.save();
+
+    return res.json({ order });
+  } catch (err) {
+    console.error("cancelOrder error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+export default { createOrder, getMyOrders, getAllOrders, cancelOrder };

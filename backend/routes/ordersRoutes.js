@@ -8,5 +8,6 @@ const router = express.Router();
 router.post("/orders", authenticateToken, orderController.createOrder);
 router.get("/orders/my", authenticateToken, orderController.getMyOrders);
 router.get("/orders", authenticateToken, authorizeRole("admin"), orderController.getAllOrders);
+router.put("/orders/:id/cancel", authenticateToken, orderController.cancelOrder);
 
 export default router;

@@ -9,7 +9,6 @@ import "./index.css";
 import App from "./App.jsx";
 import AdminPortal from "./AdminPortal.jsx";
 import { CartProvider } from "./contexts/CartContext.jsx";
-//import { ProductProvider } from './contexts/ProductContext.jsx';
 
 // Tạo QueryClient instance
 const queryClient = new QueryClient({
