@@ -108,7 +108,7 @@ const ProductListingPage = () => {
     // Step 1: Filter by URL category first
     let result = category
       ? products.filter(
-          (p) => p.category.toLowerCase() === category.toLowerCase()
+          (p) => (p.category || "").toLowerCase() === category.toLowerCase()
         )
       : [...products];
 
@@ -116,24 +116,32 @@ const ProductListingPage = () => {
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.brand.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query)
+        (p) => {
+          const name = (p.name || "").toLowerCase();
+          const brand = (p.brand || "").toLowerCase();
+          const categoryValue = (p.category || "").toLowerCase();
+
+          return (
+            name.includes(query) ||
+            brand.includes(query) ||
+            categoryValue.includes(query)
+          );
+        }
       );
     }
 
     // Step 3: Filter by brand from URL
     if (brandFromUrl) {
       result = result.filter(
-        (p) => p.brand.toLowerCase() === brandFromUrl.toLowerCase()
+        (p) => (p.brand || "").toLowerCase() === brandFromUrl.toLowerCase()
       );
     }
 
     // Step 4: Filter by model from URL (search in product name)
     if (modelFromUrl) {
+      const modelQuery = modelFromUrl.toLowerCase();
       result = result.filter((p) =>
-        p.name.toLowerCase().includes(modelFromUrl.toLowerCase())
+        (p.name || "").toLowerCase().includes(modelQuery)
       );
     }
 
