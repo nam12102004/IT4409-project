@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCart } from '../../hooks/useCart';
-import { CheckoutForm } from './DonCheckOut.jsx'; 
-import { OrderSummary } from './TongKetDonHang.jsx'; 
+import { CheckoutForm } from './CheckOutForm.jsx'; 
+import { OrderSummary } from './OrderResult.jsx'; 
 import { motion } from 'framer-motion';
 
 export function TrangThanhToan() { 

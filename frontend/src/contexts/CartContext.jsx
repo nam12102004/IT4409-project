@@ -141,7 +141,7 @@ export function CartProvider({ children }) {
         paymentMethod,
         items: cartItems.map((item) => ({
           productId: item.id,
-          name: item.name,
+          productName: item.name,
           imageUrl: item.imageUrl,
           quantity: item.quantity,
           newPrice: item.newPrice,

@@ -102,7 +102,10 @@ function Header() {
   return (
     <header className="bg-sky-100 px-8 py-4 flex justify-between items-center border-b border-sky-200 font-sans z-10 relative">
       <div className="flex items-center gap-5">
-        <div className="text-3xl font-bold text-blue-500 relative pr-2.5">
+         <div
+          onClick={() => navigate("/")}
+          className="cursor-pointer text-3xl font-bold text-blue-500 relative pr-2.5"
+        >
           Tech-Geeks
           <span className="w-1 h-6 bg-orange-500 rounded absolute right-0 top-1/2 -translate-y-1/2"></span>
         </div>
@@ -246,6 +249,18 @@ function Header() {
                 >
                   Hồ sơ của tôi
                 </button>
+
+                {/* Nút chuyển sang trang đơn hàng */}
+                <button
+                  onClick={() => {
+                    setUserMenuOpen(false);
+                    navigate("/orders");
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
+                >
+                  Đơn hàng của tôi
+                </button>
+
                 <button
                   onClick={() => {
                     localStorage.removeItem("user");
