@@ -13,7 +13,7 @@ const BrandFilter = ({ selectedBrands, onBrandChange, brands }) => {
 
   return (
     <div className="filter-section">
-      <h3 className="filter-title">🏢 THƯƠNG HIỆU</h3>
+      <h3 className="filter-title">THƯƠNG HIỆU</h3>
       <div className="filter-options">
         {displayBrands.map((brand) => (
           <label key={brand.name} className="filter-checkbox">
@@ -33,7 +33,7 @@ const BrandFilter = ({ selectedBrands, onBrandChange, brands }) => {
             className="filter-toggle-btn"
             onClick={() => setShowAll(!showAll)}
           >
-            {showAll ? "− Thu gọn" : `+ Xem thêm ${brands.length - 5}`}
+            {showAll ? "Thu gọn" : `Xem thêm ${brands.length - 5}`}
           </button>
         )}
       </div>
