@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import path from "path";
+import { fileURLToPath } from "url";
 import { sanitizeRequest } from "./middleware/sanitize.js";
 
 import { connectRedis } from "./config/redis.js";
@@ -21,8 +23,12 @@ import productsRoutes from './routes/productsRoutes.js';
 import categoriesRoutes from './routes/categoriesRoutes.js';
 import ordersRoutes from './routes/ordersRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, ".env") });
 const app = express();
 
 
@@ -140,6 +146,8 @@ app.use('/api', categoriesRoutes);
 app.use('/api', ordersRoutes);
 app.use('/api', ordersRoutes);
 app.use('/api', paymentRoutes);
+app.use('/api', chatRoutes);
+app.use('/api', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

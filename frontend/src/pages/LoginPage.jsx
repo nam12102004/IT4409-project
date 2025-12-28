@@ -79,11 +79,20 @@ export default function LoginPage() {
             Đăng nhập
           </button>
         </form>
-        <div className="mt-4 text-center text-sm">
-          <span>Bạn chưa có tài khoản? </span>
-          <Link to="/register" className="text-sky-600 hover:underline">
-            Đăng ký
-          </Link>
+        <div className="mt-3 flex justify-between items-center text-sm">
+          <button
+            type="button"
+            onClick={() => navigate("/forgot-password")}
+            className="text-sky-600 hover:underline"
+          >
+            Quên mật khẩu?
+          </button>
+          <div>
+            <span>Bạn chưa có tài khoản? </span>
+            <Link to="/register" className="text-sky-600 hover:underline">
+              Đăng ký
+            </Link>
+          </div>
         </div>
       </div>
     </div>

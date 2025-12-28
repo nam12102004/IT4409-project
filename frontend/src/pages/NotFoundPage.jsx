@@ -24,7 +24,7 @@ const NotFoundPage = () => {
 
       <div className="not-found-page">
         <div className="not-found-container">
-          {/* Animated 404 */}
+  
           <div className="not-found-number">
             <span className="number-4 left">4</span>
             <span className="number-0">
@@ -33,13 +33,13 @@ const NotFoundPage = () => {
             <span className="number-4 right">4</span>
           </div>
 
-          {/* Message */}
+  
           <h1 className="not-found-title">Không tìm thấy trang</h1>
           <p className="not-found-description">
             Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.
           </p>
 
-          {/* Suggestions */}
+      
           <div className="not-found-suggestions">
             <p className="suggestions-title">Có thể bạn muốn:</p>
             <ul className="suggestions-list">
@@ -49,7 +49,7 @@ const NotFoundPage = () => {
             </ul>
           </div>
 
-          {/* Actions */}
+        
           <div className="not-found-actions">
             <button onClick={handleGoBack} className="btn-back">
               ← Quay lại
@@ -59,7 +59,7 @@ const NotFoundPage = () => {
             </button>
           </div>
 
-          {/* Decorative Elements */}
+      
           <div className="floating-shapes">
             <div className="shape shape-1"></div>
             <div className="shape shape-2"></div>
