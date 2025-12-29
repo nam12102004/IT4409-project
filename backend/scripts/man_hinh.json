@@ -1,0 +1,794 @@
+[
+  {
+    "storeId": null,
+    "name": "Smart Tivi Samsung UHD 4K 98 INCH 2024 (98DU9000)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": null,
+    "discountPrice": 38990000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/26/smart-tivi-samsung-uhd-4k-98-inch-2024-98du9000.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 38990000,
+        "stock": 10,
+        "sku": "12095"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell P2425 (23.8Inch/ WUXGA/ 8ms/ 100HZ/ 300cd/m2/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 6290000,
+    "discountPrice": 5599000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-p2425-238inch-wuxga-8ms-100hz-300cdm2-ips.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 5599000,
+        "stock": 10,
+        "sku": "12037"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell PRO 27 PLUS P2725H (27Inch/ Full HD/ 5ms/ 100HZ/ 300cd/m2/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 6590000,
+    "discountPrice": 5499000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-27-plus-p2725h-27inch-full-hd-5ms-100hz-300cdm2-ips.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 5499000,
+        "stock": 10,
+        "sku": "12041"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell PRO 24 PLUS P2425H (23.8Inch/ Full HD/ 5ms/ 100HZ/ 300cd/m2/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 5190000,
+    "discountPrice": 4399000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-24-plus-p2425h-238inch-full-hd-5ms-100hz-300cdm2-ips.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 4399000,
+        "stock": 10,
+        "sku": "12032"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell Pro 24 Plus QHD P2425D (23.8Inch/ 2K/ 5ms/ 100HZ/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 6990000,
+    "discountPrice": 6499000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-24-plus-qhd-p2425d-238inch-2k-5ms-100hz-ips.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 6499000,
+        "stock": 10,
+        "sku": "12033"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell 27 Plus 4K S2725QS (27Inch/ 4K (3840 x 2160)/ 5ms/ 120Hz/ IPS/ Tích hợp Loa)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 8990000,
+    "discountPrice": 8099000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-27-plus-4k-s2725qs-27inch-4k-3840-x-2160-5ms-120hz-ips-tich-hop-loa.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 8099000,
+        "stock": 10,
+        "sku": "12042"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell S2725DS (27Inch/ 2K/ 5ms/ 100HZ/ IPS/ Tích hợp Loa)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 7490000,
+    "discountPrice": 6599000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-s2725ds-27inch-2k-5ms-100hz-ips-tich-hop-loa.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 6599000,
+        "stock": 10,
+        "sku": "12035"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell UltraSharp U3425WE (34Inch/ UWQHD (3440x1440)/ 5ms/ 120Hz/ 300cd/m2/ IPS/ Loa/RJ45 / Type-C)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 27500000,
+    "discountPrice": 22490000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-ultrasharp-u3425we-34inch-uwqhd-3440x1440-5ms-120hz-300cdm2-ips-loarj45-type-c.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 22490000,
+        "stock": 10,
+        "sku": "12031"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell UltraSharp U2725QE Thunderbolt (27Inch/ 4K/ 5ms/ 120Hz/ IPS/ Thunderbolt)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 19900000,
+    "discountPrice": 15990000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/2/dell-ultrasharp-u2725qe-thunderbolt-27inch-4k-5ms-120hz-ips-thunderbolt.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 15990000,
+        "stock": 10,
+        "sku": "12028"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell Pro Plus 4K P2725QE (27Inch/ 4K/ 5ms/ 100HZ/ 350cd/m2/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 12900000,
+    "discountPrice": 10499000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-plus-4k-p2725qe-27inch-4k-5ms-100hz-350cdm2-ips.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 10499000,
+        "stock": 10,
+        "sku": "12030"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell E2225HSM (21.5Inch/ Full HD/ 5ms/ 75HZ/ 250cd/m2/ VA/ Tích hợp Loa)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 2990000,
+    "discountPrice": 2499000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-e2225hsm-215inch-full-hd-5ms-75hz-250cdm2-va-tich-hop-loa-bmh.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 2499000,
+        "stock": 10,
+        "sku": "12044"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell SE2725HM (27Inch/ Full HD/ 5ms/ 100HZ/ 250cd/m2/ IPS/ Black/ 3Y)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 3990000,
+    "discountPrice": 3599000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-se2725hm-27inch-full-hd-5ms-100hz-250cdm2-ips-black-3y.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 3599000,
+        "stock": 10,
+        "sku": "12034"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell P3425WE (34Inch/ UWQHD (3440x1440)/ 5ms/ 300cd/m2/ IPS/ Lan/USB-C)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 17590000,
+    "discountPrice": 16299000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-p3425we-34inch-uwqhd-3440x1440-5ms-300cdm2-ips-lanusb-c.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 16299000,
+        "stock": 10,
+        "sku": "12040"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell SE2725HG (27Inch/ Full HD/ 5ms/ 200Hz/ 250cd/m2/ IPS/ Black/ 3Y)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 4290000,
+    "discountPrice": 3599000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-se2725hg-27inch-full-hd-5ms-200hz-250cdm2-ips-black-3y.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 3599000,
+        "stock": 10,
+        "sku": "12043"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell Pro E2425HSM (23.8Inch/ Full HD/ 5ms/ 100HZ/ 250cd/m2/ VA/ Tích hợp Loa)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 3990000,
+    "discountPrice": 3299000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-e2425hsm-238inch-full-hd-5ms-100hz-250cdm2-va-tich-hop-loa.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 3299000,
+        "stock": 10,
+        "sku": "12039"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell Pro E2725HM (27Inch/ Full HD/ 5ms/ 100HZ/ 300cd/m2/ VA)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 4400000,
+    "discountPrice": 3599000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-e2725hm-27inch-full-hd-5ms-100hz-300cdm2-va.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 3599000,
+        "stock": 10,
+        "sku": "12036"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell UltraSharp U3225QE (31.5Inch/ 4K/ 5ms/ 120Hz/ 400cd/m2/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 23990000,
+    "discountPrice": 21990000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-ultrasharp-u3225qe-315inch-4k-5ms-120hz-400cdm2-ips-oke.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 21990000,
+        "stock": 10,
+        "sku": "12029"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Dell Pro Plus P2725D (27Inch/ 2K/ 5ms/ 100HZ/ 350cd/m2/ IPS)",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 7990000,
+    "discountPrice": 6999000,
+    "stock": 10,
+    "category": "Màn hình",
+    "brand": "Dell",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/12/3/dell-pro-plus-p2725d-27inch-2k-5ms-100hz-350cdm2-ips.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 6999000,
+        "stock": 10,
+        "sku": "12038"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  }
+]
