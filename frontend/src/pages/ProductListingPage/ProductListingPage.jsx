@@ -106,28 +106,33 @@ const ProductListingPage = () => {
   // Filter products - Lọc theo tất cả bộ lọc mới
   const filteredProducts = useMemo(() => {
     // Step 1: Filter by URL category first
+    const categoryParam = category ? category.toLowerCase() : "";
     let result = category
-      ? products.filter(
-          (p) => (p.category || "").toLowerCase() === category.toLowerCase()
-        )
+      ? products.filter((p) => {
+          const pcat = (p.category || "").toLowerCase();
+          // allow exact match or contains (handle slug vs name differences)
+          return (
+            pcat === categoryParam ||
+            pcat.includes(categoryParam) ||
+            categoryParam.includes(pcat)
+          );
+        })
       : [...products];
 
     // Step 2: Filter by search query from URL
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (p) => {
-          const name = (p.name || "").toLowerCase();
-          const brand = (p.brand || "").toLowerCase();
-          const categoryValue = (p.category || "").toLowerCase();
+      result = result.filter((p) => {
+        const name = (p.name || "").toLowerCase();
+        const brand = (p.brand || "").toLowerCase();
+        const categoryValue = (p.category || "").toLowerCase();
 
-          return (
-            name.includes(query) ||
-            brand.includes(query) ||
-            categoryValue.includes(query)
-          );
-        }
-      );
+        return (
+          name.includes(query) ||
+          brand.includes(query) ||
+          categoryValue.includes(query)
+        );
+      });
     }
 
     // Step 3: Filter by brand from URL
@@ -184,7 +189,9 @@ const ProductListingPage = () => {
         const storage = p.specs?.storage || "";
         if (!storage) return false;
         const storageLower = storage.toLowerCase();
-        return filters.ssds.some((opt) => storageLower.includes(opt.toLowerCase()));
+        return filters.ssds.some((opt) =>
+          storageLower.includes(opt.toLowerCase())
+        );
       });
     }
 
@@ -233,7 +240,9 @@ const ProductListingPage = () => {
         const screen = p.specs?.screen || "";
         if (!screen) return false;
         const screenLower = screen.toLowerCase();
-        return filters.resolutions.some((opt) => screenLower.includes(opt.toLowerCase()));
+        return filters.resolutions.some((opt) =>
+          screenLower.includes(opt.toLowerCase())
+        );
       });
     }
 
@@ -242,7 +251,9 @@ const ProductListingPage = () => {
       result = result.filter((p) => {
         const screen = p.specs?.screen || "";
         const specsAll = `${screen} ${p.specs?.display || ""}`.toLowerCase();
-        return filters.advanced.some((opt) => specsAll.includes(opt.toLowerCase()));
+        return filters.advanced.some((opt) =>
+          specsAll.includes(opt.toLowerCase())
+        );
       });
     }
 
@@ -446,7 +457,6 @@ const ProductListingPage = () => {
           filters={filters}
           onFilterChange={handleFilterChange}
           onClearFilters={handleClearFilters}
-          brands={brandsData}
         />
 
         {/* Main Content */}

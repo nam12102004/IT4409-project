@@ -24,6 +24,7 @@ import ordersRoutes from "./routes/ordersRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import reviewsRoutes from "./routes/reviewsRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -106,29 +107,7 @@ mongoose
 
 mongoose.connection.on("connected", async () => {
   console.log(" MongoDB connected");
-  try {
-    const ensureDefaultCategories = async () => {
-      try {
-        const names =
-          Array.isArray(DEFAULT_CATEGORIES) && DEFAULT_CATEGORIES.length
-            ? DEFAULT_CATEGORIES
-            : ["Laptop", "Điện thoại", "PC"];
-
-        for (const name of names) {
-          const existingCat = await Category.findOne({ name });
-          if (!existingCat) {
-            await Category.create({ name, description: `${name} category` });
-            console.log("✅ Default category created:", name);
-          }
-        }
-      } catch (e) {
-        console.error("Error ensuring default categories:", e?.message || e);
-      }
-    };
-    await ensureDefaultCategories();
-  } catch (err) {
-    console.error("Error after DB connect:", err);
-  }
+  // Đã tắt logic tự động tạo default category
 });
 
 mongoose.connection.on("error", (err) =>
@@ -157,6 +136,7 @@ app.use("/api", ordersRoutes);
 app.use("/api", paymentRoutes);
 app.use("/api", chatRoutes);
 app.use("/api", userRoutes);
+app.use("/api/reviews", reviewsRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

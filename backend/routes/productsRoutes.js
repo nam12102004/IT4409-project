@@ -14,5 +14,5 @@ router.post('/products', authenticateToken, authorizeRole('admin'), upload.array
 router.put('/products/:id', authenticateToken, authorizeRole('admin'), upload.array('images', 6), productController.updateProduct);
 // delete product
 router.delete('/products/:id', authenticateToken, authorizeRole('admin'), productController.deleteProduct);
-
+router.get("/products/featured", productController.getFeaturedProducts);
 export default router;

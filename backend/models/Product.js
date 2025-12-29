@@ -2,69 +2,152 @@ import mongoose from "mongoose";
 
 const ProductSchema = new mongoose.Schema(
   {
-    storeId: { type: mongoose.Schema.Types.ObjectId, ref: "Store" },
-    name: { type: String, required: true },
-    description: { type: String },
-    price: { type: Number, required: true },
-    discountPrice: { type: Number }, // Giá sau giảm
-    stock: { type: Number, required: true },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-    brand: { type: String }, // Thương hiệu (Intel, AMD, Dell, HP...)
-    images: [{ type: String }],
+    // ===== CỬA HÀNG =====
+    storeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Store",
+    },
 
-    // ===== THÊM MỚI - Khớp với Frontend =====
+    // ===== THÔNG TIN CƠ BẢN =====
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-    // Variants (phiên bản sản phẩm: RAM, SSD, màu sắc...)
-    variants: [
+    description: {
+      type: String,
+    },
+
+    price: {
+      type: Number,
+      required: true,
+    },
+
+    discountPrice: {
+      type: Number,
+    },
+
+    stock: {
+      type: Number,
+      required: true,
+    },
+
+    // ===== PHÂN LOẠI =====
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+
+    brand: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Brand",
+    },
+
+    // ===== HÌNH ẢNH =====
+    images: [
       {
-        ram: { type: String }, // "8GB", "16GB"
-        ssd: { type: String }, // "256GB", "512GB"
-        color: { type: String }, // "Bạc", "Đen"
-        price: { type: Number, required: true },
-        stock: { type: Number, required: true },
-        sku: { type: String }, // Mã sản phẩm
+        type: String, // URL ảnh
       },
     ],
 
-    // Điểm nổi bật
-    highlights: [{ type: String }], // ["Intel Core i7", "RAM 16GB", "SSD 512GB"]
+    // ===== BIẾN THỂ (DYNAMIC THEO CATEGORY) =====
+    variants: [
+      {
+        name: {
+          type: String, // VD: "16GB / 512GB / Black"
+        },
 
-    // Tính năng chi tiết
-    features: {
-      processor: { type: String }, // "Intel Core i7-1355U"
-      ram: { type: String }, // "16GB DDR4"
-      storage: { type: String }, // "512GB NVMe SSD"
-      display: { type: String }, // "15.6 inch Full HD"
-      graphics: { type: String }, // "Intel Iris Xe Graphics"
-      battery: { type: String }, // "56Wh"
-      weight: { type: String }, // "1.8kg"
-      os: { type: String }, // "Windows 11 Home"
+        attributes: {
+          type: mongoose.Schema.Types.Mixed,
+          // VD laptop: { ram: "16GB", storage: "512GB" }
+          // VD keyboard: { color: "Black", switch: "Caramel Latte" }
+        },
+
+        price: {
+          type: Number,
+          required: true,
+        },
+
+        stock: {
+          type: Number,
+          required: true,
+        },
+
+        sku: {
+          type: String,
+        },
+      },
+    ],
+
+    // ===== ĐIỂM NỔI BẬT (MARKETING) =====
+    highlights: [
+      {
+        type: String,
+      },
+    ],
+
+    // ===== THÔNG SỐ KỸ THUẬT (LINH HỒN CỦA SCHEMA) =====
+    specifications: {
+      type: mongoose.Schema.Types.Mixed,
+      // VD laptop:
+      // { processor, ram, storage, graphics, display, battery }
+      // VD keyboard:
+      // { switch, layout, connection, keycap }
+      // VD balo:
+      // { material, size, laptopFit, weight }
     },
 
-    // Thông tin khác
-    warranty: { type: String, default: "12 tháng" }, // Bảo hành
-    origin: { type: String, default: "Chính hãng" }, // Xuất xứ
-
-    // Đánh giá
-    ratings: {
-      average: { type: Number, default: 0, min: 0, max: 5 },
-      count: { type: Number, default: 0 },
+    // ===== THÔNG TIN KHÁC =====
+    warranty: {
+      type: String,
+      default: "12 tháng",
     },
 
-    // Thông số kỹ thuật (flexible object)
-    specifications: { type: mongoose.Schema.Types.Mixed },
+    origin: {
+      type: String,
+      default: "Chính hãng",
+    },
 
-    // Trạng thái
-    isActive: { type: Boolean, default: true },
-    isBestSeller: { type: Boolean, default: false },
-    isNew: { type: Boolean, default: false },
+    // ===== ĐÁNH GIÁ (TỔNG HỢP) =====
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
+
+    numReviews: {
+      type: Number,
+      default: 0,
+    },
+
+    // ===== TRẠNG THÁI =====
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+
+    isBestSeller: {
+      type: Boolean,
+      default: false,
+    },
+
+    isNew: {
+      type: Boolean,
+      default: false,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-// Index để tìm kiếm nhanh
+// ===== INDEX (PHỤC VỤ TÌM KIẾM & FILTER) =====
 ProductSchema.index({ name: "text", description: "text" });
-ProductSchema.index({ category: 1, brand: 1 });
+ProductSchema.index({ category: 1 });
+ProductSchema.index({ brand: 1 });
 ProductSchema.index({ price: 1 });
 
 export default mongoose.model("Product", ProductSchema);
