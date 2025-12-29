@@ -45,8 +45,9 @@ export const ProductInfo = ({
       {/* Rating & Stock */}
       <div className="product-meta">
         <div className="rating-section">
-          <span className="stars">⭐ {product.rating}</span>
-          <span className="review-count">({product.reviewCount} đánh giá)</span>
+          <span className="rating">
+            ⭐ {product.rating} ({product.numReviews} đánh giá)
+          </span>
         </div>
         <div className="stock-section">
           {inStock ? (

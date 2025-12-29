@@ -457,7 +457,6 @@ const ProductListingPage = () => {
           filters={filters}
           onFilterChange={handleFilterChange}
           onClearFilters={handleClearFilters}
-          brands={brandsData}
         />
 
         {/* Main Content */}
