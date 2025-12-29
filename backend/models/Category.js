@@ -30,7 +30,6 @@ CategorySchema.pre("save", function (next) {
 const Category = mongoose.model("Category", CategorySchema);
 
 export const DEFAULT_CATEGORIES = [
-  "Laptop",
   "Laptop nhập khẩu",
   "Laptop chính hãng",
   "Màn hình di động",
@@ -44,7 +43,7 @@ export const DEFAULT_CATEGORIES = [
   "Hộc tủ",
   "Arm màn hình",
   "Phụ kiện Setup",
-  "RAM",
+  "Ram",
   "Ổ cứng",
   "Merchandise",
 ];
