@@ -22,7 +22,10 @@ dotenv.config();
 const app = express();
 
 
-app.use(cors());
+app.use(cors({
+  origin: ['https://thnm.id.vn', 'https://it4409-81ee6.web.app'], 
+  credentials: true
+}));
 app.use(express.json());
 
 
