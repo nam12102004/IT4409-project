@@ -146,6 +146,16 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getFeaturedProducts = async (req, res) => {
+  try {
+    const ids = req.query.ids.split(",");
+    const products = await Product.find({ _id: { $in: ids } });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
