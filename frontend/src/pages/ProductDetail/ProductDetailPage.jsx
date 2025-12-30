@@ -266,15 +266,6 @@ export const ProductDetailPage = () => {
               onAddToCart={handleAddToCart}
               onBuyNow={handleBuyNow}
             />
-
-            {/* Variant Selector */}
-            {product.variants && product.variants.length > 0 && (
-              <VariantSelector
-                variants={product.variants}
-                selectedVariant={selectedVariant}
-                onVariantChange={setSelectedVariant}
-              />
-            )}
           </div>
         </div>
 
