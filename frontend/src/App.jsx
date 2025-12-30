@@ -20,6 +20,9 @@ const WelcomeBanner = lazy(() =>
 const CategoryList = lazy(() =>
   import("./components/home/CategoryList/CategoryList")
 );
+const FeaturedProductsSlider = lazy(() =>
+  import("./components/home/WelcomeBanner/FeatureProduct")
+);
 
 // Pages
 const TestProductCard = lazy(() => import("./pages/TestProductCard"));
@@ -59,6 +62,7 @@ function App() {
                     selectedCategory={selectedCategory}
                     onSelectCategory={setSelectedCategory}
                   /> 
+                  <FeaturedProductsSlider />
                   <TechNews />
                 </>
               }
