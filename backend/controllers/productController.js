@@ -94,7 +94,10 @@ export const createProduct = async (req, res) => {
           if (foundBrand) brand = foundBrand._id;
           else brand = undefined;
         } catch (e) {
-          console.warn("createProduct: error while resolving brand by name", e?.message || e);
+          console.warn(
+            "createProduct: error while resolving brand by name",
+            e?.message || e
+          );
           brand = undefined;
         }
       }
@@ -108,7 +111,10 @@ export const createProduct = async (req, res) => {
             ? JSON.parse(specifications)
             : specifications;
       } catch (e) {
-        console.warn("createProduct: cannot parse specifications", e?.message || e);
+        console.warn(
+          "createProduct: cannot parse specifications",
+          e?.message || e
+        );
         parsedSpecifications = specifications;
       }
     }
@@ -140,12 +146,15 @@ export const createProduct = async (req, res) => {
       warranty: warranty || undefined,
       origin: origin || undefined,
       isActive:
-        isActive === undefined ? undefined : isActive === "true" || isActive === true,
+        isActive === undefined 
+        ? undefined 
+        : isActive === "true" || isActive === true,
       isBestSeller:
         isBestSeller === undefined
           ? undefined
           : isBestSeller === "true" || isBestSeller === true,
-      isNew: isNew === undefined ? undefined : isNew === "true" || isNew === true,
+      isNew: 
+        isNew === undefined ? undefined : isNew === "true" || isNew === true,
     });
 
     await product.save();
@@ -175,17 +184,40 @@ export const getProducts = async (req, res) => {
     if (q) {
       console.log("--- SEARCH MODE (no redis cache) ---", q);
       const regex = new RegExp(q, "i");
-      const filter = {
-        $or: [{ name: regex }, { brand: regex }, { slug: regex }],
-      };
 
+      // Tìm brand IDs khớp với search query trước
+      const matchingBrands = await Brand.find({ name: regex }).select("_id");
+      const brandIds = matchingBrands.map((b) => b._id);
+      console.log("Matching brands:", matchingBrands.length, brandIds);
+
+      // Tìm category IDs khớp với search query
+      const matchingCategories = await Category.find({ name: regex }).select(
+        "_id"
+      );
+      const categoryIds = matchingCategories.map((c) => c._id);
+
+      // Xây dựng filter động - chỉ thêm điều kiện nếu có kết quả
+      const orConditions = [{ name: regex }, { slug: regex }];
+
+      if (brandIds.length > 0) {
+        orConditions.push({ brand: { $in: brandIds } });
+      }
+
+      if (categoryIds.length > 0) {
+        orConditions.push({ category: { $in: categoryIds } });
+      }
+
+      const filter = { $or: orConditions };
+      
       const query = Product.find(filter)
         .sort({ createdAt: -1 })
-        .populate("category", "name");
+        .populate("category", "name")
+        .populate("brand", "name");
 
       if (limit) query.limit(Number(limit));
 
       const products = await query.exec();
+      console.log("Search results:", products.length);
       return res.json(products);
     }
 
@@ -202,7 +234,8 @@ export const getProducts = async (req, res) => {
     console.log("--- MONGODB CACHE MISS ---");
     const products = await Product.find()
       .sort({ createdAt: -1 })
-      .populate("category", "name");
+      .populate("category", "name")
+      .populate("brand", "name");
 
     // Luu vao redis, ttl la 3600 giay
     if (redisClient && redisClient.isOpen) {
@@ -356,7 +389,10 @@ export const updateProduct = async (req, res) => {
               ? JSON.parse(specifications)
               : specifications;
         } catch (e) {
-          console.warn("updateProduct: cannot parse specifications", e?.message || e);
+          console.warn(
+            "updateProduct: cannot parse specifications", 
+            e?.message || e
+          );
           parsedSpecifications = specifications;
         }
       }
@@ -394,10 +430,15 @@ export const updateProduct = async (req, res) => {
       if (highlights) {
         try {
           const h =
-            typeof highlights === "string" ? JSON.parse(highlights) : highlights;
+            typeof highlights === "string" 
+            ? JSON.parse(highlights) 
+            : highlights;
           if (Array.isArray(h)) parsedHighlights = h;
         } catch (e) {
-          console.warn("updateProduct: cannot parse highlights", e?.message || e);
+          console.warn(
+            "updateProduct: cannot parse highlights", 
+            e?.message || e
+          );
         }
       }
       product.highlights = parsedHighlights;
