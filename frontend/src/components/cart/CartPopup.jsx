@@ -19,16 +19,35 @@ export function CartPopup() {
     addToCart,
     decreaseQuantity,
     removeFromCart,
+    selectedItemIds,
+    setSelectedItemIds,
+    setIsManualSelection,
   } = useCart();
 
   const navigate = useNavigate();
 
   if (!isCartOpen) return null;
 
-  const subtotal = cartItems.reduce(
+  const selectedItems = cartItems.filter((item) =>
+    selectedItemIds.includes(item.id)
+  );
+
+  const subtotal = selectedItems.reduce(
     (acc, item) => acc + item.newPrice * item.quantity,
     0
   );
+
+  const allSelected =
+    cartItems.length > 0 && selectedItemIds.length === cartItems.length;
+
+  const handleToggleSelectAll = () => {
+    setIsManualSelection(true);
+    if (allSelected) {
+      setSelectedItemIds([]);
+    } else {
+      setSelectedItemIds(cartItems.map((item) => item.id));
+    }
+  };
 
   const handleCheckout = () => {
     setIsCartOpen(false);
@@ -73,11 +92,41 @@ export function CartPopup() {
               <p className="text-sm mt-2">Hãy thêm sản phẩm vào giỏ hàng!</p>
             </div>
           ) : (
-            cartItems.map((item) => (
-              <div
-                key={item.id}
-                className="bg-white rounded-lg shadow-sm p-3 flex gap-3 relative hover:shadow-md transition"
-              >
+            <>
+              <div className="flex items-center justify-between mb-2 px-1">
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={allSelected}
+                    onChange={handleToggleSelectAll}
+                  />
+                  <span>Chọn tất cả sản phẩm</span>
+                </label>
+                <span className="text-xs text-gray-500">
+                  Đã chọn {selectedItems.length}/{cartItems.length}
+                </span>
+              </div>
+
+              {cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-lg shadow-sm p-3 flex gap-3 relative hover:shadow-md transition"
+                >
+                  <div className="flex flex-col items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedItemIds.includes(item.id)}
+                      onChange={() => {
+                        if (selectedItemIds.includes(item.id)) {
+                          setSelectedItemIds(
+                            selectedItemIds.filter((id) => id !== item.id)
+                          );
+                        } else {
+                          setSelectedItemIds([...selectedItemIds, item.id]);
+                        }
+                      }}
+                    />
+                  </div>
                 <img
                   src={item.imageUrl}
                   alt={item.name}
@@ -125,7 +174,8 @@ export function CartPopup() {
                   <Trash2 size={16} />
                 </button>
               </div>
-            ))
+              ))}
+            </>
           )}
         </div>
 

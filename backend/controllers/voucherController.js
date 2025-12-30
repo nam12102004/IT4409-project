@@ -28,6 +28,13 @@ export const calculateVoucherForItems = async ({ userId, code, items, orderTotal
     return { errorMessage: "Voucher không tồn tại hoặc đã bị vô hiệu." };
   }
 
+  // Kiểm tra số lượng sử dụng tối đa
+  if (voucher.maxUsage && voucher.maxUsage > 0) {
+    if (voucher.usedCount >= voucher.maxUsage) {
+      return { errorMessage: "Voucher đã được sử dụng hết số lượng cho phép." };
+    }
+  }
+
   const nowDate = now();
   if (voucher.startDate && voucher.startDate > nowDate) {
     return { errorMessage: "Voucher chưa bắt đầu hiệu lực." };
@@ -121,6 +128,7 @@ export const createVoucher = async (req, res) => {
       discountValue,
       maxDiscountAmount,
       minOrderValue,
+      maxUsage,
       startDate,
       endDate,
       appliesToAllUsers,
@@ -151,6 +159,7 @@ export const createVoucher = async (req, res) => {
       discountValue,
       maxDiscountAmount: maxDiscountAmount || 0,
       minOrderValue: minOrderValue || 0,
+      maxUsage: maxUsage || 0,
       startDate: startDate ? new Date(startDate) : undefined,
       endDate: endDate ? new Date(endDate) : undefined,
       appliesToAllUsers: normalizeBoolean(appliesToAllUsers),
@@ -222,6 +231,8 @@ export const getAvailableVouchersForUser = async (req, res) => {
         discountValue: v.discountValue,
         maxDiscountAmount: v.maxDiscountAmount,
         minOrderValue: v.minOrderValue,
+        maxUsage: v.maxUsage,
+        usedCount: v.usedCount,
         startDate: v.startDate,
         endDate: v.endDate,
       })),
@@ -261,6 +272,7 @@ export const updateVoucher = async (req, res) => {
       discountValue,
       maxDiscountAmount,
       minOrderValue,
+      maxUsage,
       startDate,
       endDate,
       isActive,
@@ -278,6 +290,7 @@ export const updateVoucher = async (req, res) => {
     if (typeof discountValue === "number") update.discountValue = discountValue;
     if (typeof maxDiscountAmount === "number") update.maxDiscountAmount = maxDiscountAmount;
     if (typeof minOrderValue === "number") update.minOrderValue = minOrderValue;
+    if (typeof maxUsage === "number") update.maxUsage = maxUsage;
     if (typeof isActive !== "undefined") update.isActive = normalizeBoolean(isActive);
     if (typeof appliesToAllUsers !== "undefined") {
       update.appliesToAllUsers = normalizeBoolean(appliesToAllUsers);
@@ -398,6 +411,8 @@ export const applyVoucher = async (req, res) => {
         discountValue: voucher.discountValue,
         maxDiscountAmount: voucher.maxDiscountAmount,
         minOrderValue: voucher.minOrderValue,
+        maxUsage: voucher.maxUsage,
+        usedCount: voucher.usedCount,
       },
       discountAmount,
       finalTotal,

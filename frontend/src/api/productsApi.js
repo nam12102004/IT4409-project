@@ -13,10 +13,16 @@ export const getProducts = async () => {
       ? Math.round((1 - discountPrice / originalPrice) * 100)
       : 0;
 
+    // Chuẩn hóa brand về dạng tên chuỗi để phục vụ filter/search ở frontend
+    const brandName =
+      typeof p.brand === "string"
+        ? p.brand
+        : p.brand?.name || "";
+
     return {
       id: p._id,
       name: p.name,
-      brand: p.brand,
+      brand: brandName,
       category:
         typeof p.category === "string"
           ? p.category
