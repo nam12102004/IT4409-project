@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { fetchChatHistory, sendChatMessage } from "../../api/chatApi";
+import { fetchChatHistory, sendChatMessage, fetchSupportStatus } from "../../api/chatApi";
 import { FiMessageSquare, FiX, FiSend } from "react-icons/fi";
 
 export default function ChatWidget() {
@@ -15,6 +15,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [initialLoaded, setInitialLoaded] = useState(false);
+  const [supportInfo, setSupportInfo] = useState(null);
   const messagesEndRef = useRef(null);
   const pollIntervalRef = useRef(null);
 
@@ -48,10 +49,16 @@ export default function ChatWidget() {
   useEffect(() => {
     if (!isLoggedIn) return;
 
-    const loadHistory = async () => {
+    const loadData = async () => {
       try {
         const history = await fetchChatHistory();
         setMessages(history);
+        try {
+          const status = await fetchSupportStatus();
+          setSupportInfo(status);
+        } catch (e) {
+          console.error("Failed to load support status", e);
+        }
       } catch (err) {
         console.error("Failed to load chat history", err);
       } finally {
@@ -62,13 +69,13 @@ export default function ChatWidget() {
 
     if (isOpen && !initialLoaded) {
       setLoading(true);
-      loadHistory();
+      loadData();
     }
 
     // tự động cập nhật tin nhắn khi cửa sổ đang mở
     if (isOpen && !pollIntervalRef.current) {
       pollIntervalRef.current = setInterval(() => {
-        loadHistory();
+        loadData();
       }, 5000);
     }
 
@@ -104,7 +111,6 @@ export default function ChatWidget() {
       setMessages((prev) => [...prev, optimisticUserMsg]);
 
       await sendChatMessage(content);
-
       const history = await fetchChatHistory();
       setMessages(history);
     } catch (err) {
@@ -146,7 +152,11 @@ export default function ChatWidget() {
             <div>
               <div className="font-semibold text-sm">Hỗ trợ khách hàng</div>
               <div className="text-xs text-sky-100">
-                Trao đổi với quản trị viên về sản phẩm, đơn hàng...
+                {supportInfo?.currentAdmin?.displayName
+                  ? `Đang được hỗ trợ bởi: ${supportInfo.currentAdmin.displayName}`
+                  : supportInfo?.lastAdmin?.displayName
+                  ? `Hỗ trợ gần nhất: ${supportInfo.lastAdmin.displayName}`
+                  : "Trao đổi với quản trị viên về sản phẩm, đơn hàng..."}
               </div>
             </div>
             <button

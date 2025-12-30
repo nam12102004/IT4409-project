@@ -3,6 +3,8 @@ import {
   fetchConversationsForAdmin,
   fetchChatHistoryForAdmin,
   adminSendMessage,
+  adminJoinSupport,
+  adminEndSupport,
 } from "../../api/chatApi";
 
 export default function AdminChat() {
@@ -15,14 +17,20 @@ export default function AdminChat() {
   const [loadingConversations, setLoadingConversations] = useState(false);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [sending, setSending] = useState(false);
+  const [supportChanging, setSupportChanging] = useState(false);
   const pollIntervalRef = useRef(null);
 
-  const loadConversations = async () => {
+  const loadConversations = async (options = {}) => {
     setLoadingConversations(true);
     try {
       const data = await fetchConversationsForAdmin();
       setConversations(data);
-      if (!selectedUserId && data.length > 0) {
+      if (options.syncSelected && selectedUserId) {
+        const matched = data.find((c) => c.userId === selectedUserId);
+        if (matched) {
+          setSelectedUserInfo(matched);
+        }
+      } else if (!selectedUserId && data.length > 0) {
         handleSelectUser(data[0]);
       }
     } catch (err) {
@@ -61,7 +69,7 @@ export default function AdminChat() {
 
     const poll = () => {
       loadMessages(selectedUserId);
-      loadConversations();
+      loadConversations({ syncSelected: true });
     };
 
     poll();
@@ -82,6 +90,32 @@ export default function AdminChat() {
     setSelectedUserId(conv.userId);
     setSelectedUserInfo(conv);
     loadMessages(conv.userId);
+  };
+
+  const handleJoinSupport = async () => {
+    if (!selectedUserId || supportChanging) return;
+    setSupportChanging(true);
+    try {
+      await adminJoinSupport(selectedUserId);
+      await loadConversations({ syncSelected: true });
+    } catch (err) {
+      console.error("Failed to join support", err);
+    } finally {
+      setSupportChanging(false);
+    }
+  };
+
+  const handleEndSupport = async () => {
+    if (!selectedUserId || supportChanging) return;
+    setSupportChanging(true);
+    try {
+      await adminEndSupport(selectedUserId);
+      await loadConversations({ syncSelected: true });
+    } catch (err) {
+      console.error("Failed to end support", err);
+    } finally {
+      setSupportChanging(false);
+    }
   };
 
   const handleSend = async (e) => {
@@ -117,7 +151,7 @@ export default function AdminChat() {
   });
 
   return (
-    <div className="flex h-full bg-white rounded-xl shadow overflow-hidden">
+    <div className="flex h-[70vh] bg-white rounded-xl shadow overflow-hidden">
       <div className="w-1/3 border-r flex flex-col">
         <div className="p-4 border-b space-y-2">
           <div className="flex justify-between items-center">
@@ -156,13 +190,16 @@ export default function AdminChat() {
                 {c.lastRole === "user" ? "KH: " : "Admin: "}
                 {c.lastMessage}
               </div>
-              <div className="text-[10px] text-gray-400 mt-0.5">
-                {c.lastAt ? new Date(c.lastAt).toLocaleString() : ""}
-                {typeof c.unreadCount === "number" && c.unreadCount > 0 && (
-                  <span className="ml-2 inline-flex items-center justify-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-red-500 text-white">
-                    {c.unreadCount}
-                  </span>
-                )}
+              <div className="text-[10px] text-gray-400 mt-0.5 space-y-0.5">
+                <div>{c.lastAt ? new Date(c.lastAt).toLocaleString() : ""}</div>
+                {c.currentAdminName ? (
+                  <div className={c.isHandledByMe ? "text-green-600" : ""}>
+                    Đang được hỗ trợ bởi: {c.currentAdminName}
+                    {c.isHandledByMe && " (bạn)"}
+                  </div>
+                ) : c.lastAdminName ? (
+                  <div>Hỗ trợ gần nhất: {c.lastAdminName}</div>
+                ) : null}
               </div>
             </button>
           ))}
@@ -173,19 +210,56 @@ export default function AdminChat() {
       </div>
 
       <div className="flex-1 flex flex-col">
-        <div className="p-4 border-b">
+        <div className="p-4 border-b flex items-center justify-between">
           {selectedUserInfo ? (
-            <div>
-              <div className="font-semibold text-sm">
-                
-                {selectedUserInfo.fullname || selectedUserInfo.username || selectedUserInfo.email || selectedUserInfo.userId}
+            <>
+              <div>
+                <div className="font-semibold text-sm">
+                  {selectedUserInfo.fullname ||
+                    selectedUserInfo.username ||
+                    selectedUserInfo.email ||
+                    selectedUserInfo.userId}
+                </div>
+                <div className="text-xs text-gray-500">
+                  ID: {selectedUserInfo.userId}
+                </div>
+                {selectedUserInfo.currentAdminName ? (
+                  <div className="text-xs mt-1">
+                    Đang được hỗ trợ bởi: {selectedUserInfo.currentAdminName}
+                    {selectedUserInfo.isHandledByMe && " (bạn)"}
+                  </div>
+                ) : selectedUserInfo.lastAdminName ? (
+                  <div className="text-xs mt-1 text-gray-500">
+                    Hỗ trợ gần nhất: {selectedUserInfo.lastAdminName}
+                  </div>
+                ) : null}
               </div>
-              <div className="text-xs text-gray-500">
-                ID: {selectedUserInfo.userId}
+              <div className="flex items-center gap-2">
+                {selectedUserInfo.isHandledByMe ? (
+                  <button
+                    type="button"
+                    onClick={handleEndSupport}
+                    disabled={supportChanging}
+                    className="px-3 py-1 text-xs border rounded text-red-600 hover:bg-red-50 disabled:opacity-60"
+                  >
+                    Kết thúc hỗ trợ
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleJoinSupport}
+                    disabled={supportChanging}
+                    className="px-3 py-1 text-xs border rounded text-sky-600 hover:bg-sky-50 disabled:opacity-60"
+                  >
+                    Tham gia hỗ trợ
+                  </button>
+                )}
               </div>
-            </div>
+            </>
           ) : (
-            <div className="text-sm text-gray-400">Chọn một khách hàng để xem chat.</div>
+            <div className="text-sm text-gray-400">
+              Chọn một khách hàng để xem chat.
+            </div>
           )}
         </div>
 

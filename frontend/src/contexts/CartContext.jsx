@@ -23,6 +23,10 @@ export function CartProvider({ children }) {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [orderSuccess, setOrderSuccess] = useState(false);
 
+  // Voucher đang áp dụng ở checkout
+  const [voucherCode, setVoucherCode] = useState("");
+  const [voucherResult, setVoucherResult] = useState(null);
+
   // state mở/đóng popup giỏ hàng
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -139,6 +143,7 @@ export function CartProvider({ children }) {
         customerPhone: formData.phone,
         shippingAddress: formData.address,
         paymentMethod,
+        voucherCode: voucherCode || undefined,
         items: cartItems.map((item) => ({
           productId: item.id,
           productName: item.name,
@@ -205,6 +210,8 @@ export function CartProvider({ children }) {
 
       setOrderSuccess(true);
       setCartItems([]);
+      setVoucherCode("");
+      setVoucherResult(null);
       setOrders((prevOrders) => [newOrder, ...prevOrders]);
 
       // đóng form sau 5s
@@ -232,6 +239,10 @@ export function CartProvider({ children }) {
     setIsCheckoutOpen,
     paymentMethod,
     setPaymentMethod,
+    voucherCode,
+    setVoucherCode,
+    voucherResult,
+    setVoucherResult,
     orders,
   };
 
