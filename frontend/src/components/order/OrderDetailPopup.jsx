@@ -1,57 +1,16 @@
 import React from "react";
 import axios from "axios";
 
-export default function OrderDetailPopup({ order, onClose, onUpdateStatus }) {
-  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
+export default function OrderDetailPopup({ order, onClose, onCancel }) {
   const handleCancelOrder = async () => {
     try {
-      if (!token) return;
-      const res = await axios.put(
-        `http://localhost:5000/api/orders/${order._id}/cancel`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      onUpdateStatus?.(order._id, res.data.order.orderStatus);
-      onClose();
+      const token = localStorage.getItem("token");
+      await axios.put(`http://localhost:5000/api/orders/${order._id}/cancel`, {}, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      onCancel(order._id);
     } catch (err) {
       console.error("Lỗi khi hủy đơn hàng:", err);
-    }
-  };
-
-  const handleReceiveOrder = async () => {
-    try {
-      if (!token) return;
-      const res = await axios.put(
-        `http://localhost:5000/api/orders/${order._id}/receive`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      onUpdateStatus?.(order._id, res.data.order.orderStatus);
-      onClose();
-    } catch (err) {
-      console.error("Lỗi khi xác nhận nhận hàng:", err);
-    }
-  };
-
-  const handleReturnOrder = async () => {
-    try {
-      if (!token) return;
-      const res = await axios.put(
-        `http://localhost:5000/api/orders/${order._id}/return`,
-        {},
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      onUpdateStatus?.(order._id, res.data.order.orderStatus);
-      onClose();
-    } catch (err) {
-      console.error("Lỗi khi trả hàng/hoàn đơn:", err);
     }
   };
 
@@ -81,40 +40,21 @@ export default function OrderDetailPopup({ order, onClose, onUpdateStatus }) {
           ))}
         </ul>
 
-        <div className="mt-6 flex flex-wrap justify-between gap-2">
+        <div className="mt-6 flex justify-between">
           <button
             onClick={onClose}
             className="bg-cyan-500 text-white px-6 py-3 rounded-full font-bold hover:bg-cyan-600 transition"
           >
             Đóng
           </button>
-          {order.orderStatus === "shipping" && (
-            <div className="flex gap-2 ml-auto">
-              <button
-                onClick={handleReceiveOrder}
-                className="bg-emerald-500 text-white px-4 py-3 rounded-full font-bold hover:bg-emerald-600 transition text-sm"
-              >
-                Đã nhận hàng
-              </button>
-              <button
-                onClick={handleReturnOrder}
-                className="bg-orange-500 text-white px-4 py-3 rounded-full font-bold hover:bg-orange-600 transition text-sm"
-              >
-                Trả hàng
-              </button>
-            </div>
+          {order.orderStatus !== "cancelled" && (
+            <button
+              onClick={handleCancelOrder}
+              className="bg-red-500 text-white px-6 py-3 rounded-full font-bold hover:bg-red-600 transition"
+            >
+              Hủy đơn
+            </button>
           )}
-          {order.orderStatus !== "cancelled" &&
-            order.orderStatus !== "shipping" &&
-            order.orderStatus !== "delivered" &&
-            order.orderStatus !== "refunded" && (
-              <button
-                onClick={handleCancelOrder}
-                className="bg-red-500 text-white px-6 py-3 rounded-full font-bold hover:bg-red-600 transition ml-auto"
-              >
-                Hủy đơn
-              </button>
-            )}
         </div>
       </div>
     </div>
