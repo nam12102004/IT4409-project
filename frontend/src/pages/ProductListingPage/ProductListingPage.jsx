@@ -9,14 +9,25 @@ import ProductToolbar from "../../components/product/ProductToolbar";
 import LoadMoreButton from "../../components/common/LoadMoreButton";
 import ScrollToTop from "../../components/common/ScrollToTop";
 import SEO from "../../components/common/SEO";
+import { getFilterTypeBySlug } from "../../data/filterConfigs";
+import {
+  slugToCategoryName,
+  getCategoryDisplayName,
+} from "../../data/categories";
 import "./ProductListingPage.css";
 
 const ProductListingPage = () => {
-  const { category } = useParams();
+  const { category: categorySlug } = useParams();
   const [searchParams] = useSearchParams();
   const brandFromUrl = searchParams.get("brand");
   const modelFromUrl = searchParams.get("model");
   const searchQuery = searchParams.get("search");
+
+  // Lấy filterType từ slug
+  const filterType = useMemo(() => {
+    if (!categorySlug) return "default";
+    return getFilterTypeBySlug(categorySlug) || "default";
+  }, [categorySlug]);
 
   const [products, setProducts] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]);
@@ -27,20 +38,12 @@ const ProductListingPage = () => {
   // Sort state
   const [sortBy, setSortBy] = useState("default");
 
-  // Filter state
+  // Filter state - Đơn giản hóa chỉ còn: brands, price, RAM/SSD (laptop), colors (others)
   const [filters, setFilters] = useState({
     brands: [],
-    needs: [],
     priceRange: null,
-    sources: [],
-    conditions: [],
-    cpus: [],
     rams: [],
     ssds: [],
-    screenSizes: [],
-    refreshRates: [],
-    resolutions: [],
-    advanced: [],
     colors: [],
   });
 
@@ -54,6 +57,56 @@ const ProductListingPage = () => {
     headphone: "Tai nghe",
   };
 
+  // Helper function: kiểm tra product có thuộc category slug không
+  const matchCategory = useCallback((product, slug) => {
+    if (!slug) return true;
+
+    // Lấy category name từ product (có thể là string hoặc object)
+    let productCategory = "";
+    if (typeof product.category === "string") {
+      productCategory = product.category;
+    } else if (product.category?.name) {
+      productCategory = product.category.name;
+    }
+
+    if (!productCategory) return false;
+
+    const productCatLower = productCategory.toLowerCase();
+    const slugLower = slug.toLowerCase();
+
+    // Lấy tên category từ mapping
+    const targetCategoryName = slugToCategoryName[slugLower];
+
+    if (targetCategoryName) {
+      // So sánh với tên category từ mapping
+      const targetLower = targetCategoryName.toLowerCase();
+      if (
+        productCatLower === targetLower ||
+        productCatLower.includes(targetLower) ||
+        targetLower.includes(productCatLower)
+      ) {
+        return true;
+      }
+    }
+
+    // Fallback: so sánh trực tiếp slug với category name
+    // Ví dụ: slug "laptop-nhap-khau" vs category "Laptop nhập khẩu"
+    const normalizedSlug = slugLower.replace(/-/g, " ");
+    if (
+      productCatLower.includes(normalizedSlug) ||
+      normalizedSlug.includes(productCatLower)
+    ) {
+      return true;
+    }
+
+    // Fallback cho laptop: nếu slug chứa "laptop", match tất cả laptop categories
+    if (slugLower.includes("laptop") && productCatLower.includes("laptop")) {
+      return true;
+    }
+
+    return false;
+  }, []);
+
   // Dynamic Breadcrumb
   const breadcrumbItems = useMemo(() => {
     const items = [
@@ -66,57 +119,46 @@ const ProductListingPage = () => {
         label: `Tìm kiếm: "${searchQuery}"`,
         path: `/products?search=${searchQuery}`,
       });
-    } else if (category) {
-      const categoryLabel = categoryNames[category.toLowerCase()] || category;
+    } else if (categorySlug) {
+      // Sử dụng getCategoryDisplayName để lấy tên hiển thị đúng
+      const categoryLabel = getCategoryDisplayName(categorySlug);
       items.push({
         label: categoryLabel,
-        path: `/products/${category}`,
+        path: `/products/${categorySlug}`,
       });
     }
 
     return items;
-  }, [category, searchQuery]);
+  }, [categorySlug, searchQuery]);
 
-  // Calculate categories and brands from products
-  const categoriesData = useMemo(() => {
-    const categoryCount = {};
-    products.forEach((product) => {
-      categoryCount[product.category] =
-        (categoryCount[product.category] || 0) + 1;
-    });
-    return Object.entries(categoryCount).map(([name, count]) => ({
-      name,
-      count,
-    }));
-  }, [products]);
+  // Lọc sản phẩm theo category trước để lấy brands đúng
+  const categoryFilteredProducts = useMemo(() => {
+    if (!categorySlug) return products;
+    return products.filter((p) => matchCategory(p, categorySlug));
+  }, [products, categorySlug, matchCategory]);
 
+  // Calculate brands from category-filtered products
   const brandsData = useMemo(() => {
     const brandCount = {};
-    products.forEach((product) => {
-      brandCount[product.brand] = (brandCount[product.brand] || 0) + 1;
+    categoryFilteredProducts.forEach((product) => {
+      if (product.brand) {
+        brandCount[product.brand] = (brandCount[product.brand] || 0) + 1;
+      }
     });
     return Object.entries(brandCount)
       .map(([name, count]) => ({
         name,
         count,
       }))
-      .sort((a, b) => b.count - a.count); // Sort by count descending
-  }, [products]);
+      .filter((b) => b.name) // Loại bỏ brand rỗng
+      .sort((a, b) => b.count - a.count);
+  }, [categoryFilteredProducts]);
 
   // Filter products - Lọc theo tất cả bộ lọc mới
   const filteredProducts = useMemo(() => {
     // Step 1: Filter by URL category first
-    const categoryParam = category ? category.toLowerCase() : "";
-    let result = category
-      ? products.filter((p) => {
-          const pcat = (p.category || "").toLowerCase();
-          // allow exact match or contains (handle slug vs name differences)
-          return (
-            pcat === categoryParam ||
-            pcat.includes(categoryParam) ||
-            categoryParam.includes(pcat)
-          );
-        })
+    let result = categorySlug
+      ? products.filter((p) => matchCategory(p, categorySlug))
       : [...products];
 
     // Step 2: Filter by search query from URL
@@ -125,7 +167,13 @@ const ProductListingPage = () => {
       result = result.filter((p) => {
         const name = (p.name || "").toLowerCase();
         const brand = (p.brand || "").toLowerCase();
-        const categoryValue = (p.category || "").toLowerCase();
+        // Lấy category name đúng cách
+        let categoryValue = "";
+        if (typeof p.category === "string") {
+          categoryValue = p.category.toLowerCase();
+        } else if (p.category?.name) {
+          categoryValue = p.category.name.toLowerCase();
+        }
 
         return (
           name.includes(query) ||
@@ -135,8 +183,19 @@ const ProductListingPage = () => {
       });
     }
 
-    // Step 3: Filter by brand from URL
-    if (brandFromUrl) {
+    // Step 3: Filter by brands - ƯU TIÊN sidebar filter, nếu không có thì dùng URL
+    // Nếu user đã chọn brand từ sidebar → dùng sidebar filter
+    // Nếu không có sidebar filter nhưng có brandFromUrl → dùng URL filter
+    if (filters.brands.length > 0) {
+      // User đã chọn brands từ sidebar - chỉ dùng sidebar filter
+      result = result.filter((p) => {
+        const productBrand = (p.brand || "").toLowerCase();
+        return filters.brands.some(
+          (selectedBrand) => selectedBrand.toLowerCase() === productBrand
+        );
+      });
+    } else if (brandFromUrl) {
+      // Không có sidebar filter, dùng URL brand
       result = result.filter(
         (p) => (p.brand || "").toLowerCase() === brandFromUrl.toLowerCase()
       );
@@ -150,12 +209,7 @@ const ProductListingPage = () => {
       );
     }
 
-    // Step 5: Filter by brands from filter sidebar
-    if (filters.brands.length > 0) {
-      result = result.filter((p) => filters.brands.includes(p.brand));
-    }
-
-    // Step 6: Filter by price range
+    // Step 5: Filter by price range
     if (filters.priceRange) {
       result = result.filter(
         (p) =>
@@ -163,105 +217,85 @@ const ProductListingPage = () => {
       );
     }
 
-    // Step 7: Filter by CPU options
-    if (filters.cpus.length > 0) {
-      result = result.filter((p) => {
-        const cpu = p.specs?.cpu || "";
-        if (!cpu) return false;
-        const cpuLower = cpu.toLowerCase();
-        return filters.cpus.some((opt) => cpuLower.includes(opt.toLowerCase()));
-      });
-    }
-
-    // Step 8: Filter by RAM options
+    // Step 6: Filter by RAM options (chỉ áp dụng cho Laptop)
     if (filters.rams.length > 0) {
       result = result.filter((p) => {
-        const ram = p.specs?.ram || "";
+        // Tìm RAM trong nhiều vị trí có thể
+        const ram = p.specs?.ram || p.specs?.RAM || p.specs?.memory || "";
         if (!ram) return false;
-        const ramLower = ram.toLowerCase();
-        return filters.rams.some((opt) => ramLower.includes(opt.toLowerCase()));
+
+        // Trích xuất số GB từ chuỗi RAM
+        const ramMatch = ram.match(/(\d+)\s*GB/i);
+        if (!ramMatch) return false;
+        const ramGB = ramMatch[1];
+
+        return filters.rams.some((opt) => {
+          // Trích xuất số GB từ option filter
+          const optMatch = opt.match(/(\d+)/);
+          if (!optMatch) return false;
+          return ramGB === optMatch[1];
+        });
       });
     }
 
-    // Step 9: Filter by SSD/storage options
+    // Step 8: Filter by SSD/storage options (chỉ áp dụng cho Laptop)
     if (filters.ssds.length > 0) {
       result = result.filter((p) => {
-        const storage = p.specs?.storage || "";
+        const storage =
+          p.specs?.storage ||
+          p.specs?.ssd ||
+          p.specs?.SSD ||
+          p.specs?.hardDrive ||
+          "";
         if (!storage) return false;
+
+        // Trích xuất dung lượng từ chuỗi storage
         const storageLower = storage.toLowerCase();
-        return filters.ssds.some((opt) =>
-          storageLower.includes(opt.toLowerCase())
-        );
-      });
-    }
 
-    // Step 10: Filter by screen size ranges (approximate by inches in specs.screen)
-    if (filters.screenSizes.length > 0) {
-      result = result.filter((p) => {
-        const screen = p.specs?.screen || "";
-        if (!screen) return false;
-        const match = screen.match(/(\d+(?:\.\d+)?)/);
-        const size = match ? parseFloat(match[1]) : null;
-        if (!size) return false;
-
-        return filters.screenSizes.some((label) => {
-          switch (label) {
-            case "Khoảng 13 inches":
-              return size >= 12.5 && size < 13.6;
-            case "Khoảng 14 inches":
-              return size >= 13.6 && size < 14.6;
-            case "Khoảng 15 inches":
-              return size >= 14.6 && size < 16.1;
-            case "Trên 16 inches":
-              return size >= 16.1;
-            default:
-              return true;
+        return filters.ssds.some((opt) => {
+          const optLower = opt.toLowerCase();
+          // So sánh trực tiếp hoặc trích xuất số
+          if (
+            storageLower.includes(optLower.replace(/\s/g, "")) ||
+            storageLower.includes(optLower)
+          ) {
+            return true;
           }
+          // Trích xuất số và đơn vị
+          const optMatch = opt.match(/(\d+)\s*(GB|TB)/i);
+          if (!optMatch) return false;
+          const optNum = optMatch[1];
+          const optUnit = optMatch[2].toUpperCase();
+          return (
+            storageLower.includes(optNum) &&
+            storageLower.toUpperCase().includes(optUnit)
+          );
         });
       });
     }
 
-    // Step 11: Filter by refresh rate (Hz) in screen specs
-    if (filters.refreshRates.length > 0) {
+    // Step 9: Filter by colors (áp dụng cho các danh mục không phải Laptop)
+    if (filters.colors.length > 0) {
       result = result.filter((p) => {
-        const screen = p.specs?.screen || "";
-        if (!screen) return false;
-        const screenLower = screen.toLowerCase();
-        return filters.refreshRates.some((opt) => {
-          const num = opt.replace(/[^0-9]/g, "");
-          return num && screenLower.includes(num.toLowerCase());
-        });
-      });
-    }
-
-    // Step 12: Filter by resolution labels
-    if (filters.resolutions.length > 0) {
-      result = result.filter((p) => {
-        const screen = p.specs?.screen || "";
-        if (!screen) return false;
-        const screenLower = screen.toLowerCase();
-        return filters.resolutions.some((opt) =>
-          screenLower.includes(opt.toLowerCase())
+        const color = p.color || p.specs?.color || "";
+        if (!color) return false;
+        const colorLower = color.toLowerCase();
+        return filters.colors.some((opt) =>
+          colorLower.includes(opt.toLowerCase())
         );
       });
     }
-
-    // Step 13: Filter by advanced options (e.g., OLED)
-    if (filters.advanced.length > 0) {
-      result = result.filter((p) => {
-        const screen = p.specs?.screen || "";
-        const specsAll = `${screen} ${p.specs?.display || ""}`.toLowerCase();
-        return filters.advanced.some((opt) =>
-          specsAll.includes(opt.toLowerCase())
-        );
-      });
-    }
-
-    // Note: needs, sources, conditions, colors hiện chưa có field tương ứng trong dữ liệu sản phẩm,
-    // nên chưa áp dụng lọc chi tiết cho các bộ lọc này.
 
     return result;
-  }, [products, filters, category, brandFromUrl, modelFromUrl, searchQuery]);
+  }, [
+    products,
+    filters,
+    categorySlug,
+    brandFromUrl,
+    modelFromUrl,
+    searchQuery,
+    matchCategory,
+  ]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -289,27 +323,40 @@ const ProductListingPage = () => {
     }
   }, [filteredProducts, sortBy]);
 
-  // Update displayed products when filters or sort change
-  // Reset filters when category changes (but not when search query changes)
+  // Reset filters when category changes (nhưng KHÔNG reset khi chỉ brandFromUrl thay đổi)
   useEffect(() => {
     setFilters({
       brands: [],
-      needs: [],
       priceRange: null,
-      sources: [],
-      conditions: [],
-      cpus: [],
       rams: [],
       ssds: [],
-      screenSizes: [],
-      refreshRates: [],
-      resolutions: [],
-      advanced: [],
       colors: [],
     });
     setSortBy("default");
     setItemsToShow(12);
-  }, [category, brandFromUrl, modelFromUrl]);
+  }, [categorySlug, modelFromUrl]);
+
+  // Khi có brandFromUrl và brandsData đã load, pre-select brand đó trong filter
+  useEffect(() => {
+    if (brandFromUrl && brandsData.length > 0) {
+      // Tìm brand chính xác trong brandsData
+      const matchedBrand = brandsData.find(
+        (b) => b.name.toLowerCase() === brandFromUrl.toLowerCase()
+      );
+      if (matchedBrand) {
+        setFilters((prev) => {
+          // Chỉ set nếu chưa có brand nào được chọn hoặc brand URL chưa được chọn
+          if (prev.brands.length === 0) {
+            return {
+              ...prev,
+              brands: [matchedBrand.name],
+            };
+          }
+          return prev;
+        });
+      }
+    }
+  }, [brandFromUrl, brandsData]);
 
   // Update displayed products when sorted products or itemsToShow changes
   useEffect(() => {
@@ -339,17 +386,9 @@ const ProductListingPage = () => {
   const handleClearFilters = useCallback(() => {
     setFilters({
       brands: [],
-      needs: [],
       priceRange: null,
-      sources: [],
-      conditions: [],
-      cpus: [],
       rams: [],
       ssds: [],
-      screenSizes: [],
-      refreshRates: [],
-      resolutions: [],
-      advanced: [],
       colors: [],
     });
   }, []);
@@ -424,15 +463,15 @@ const ProductListingPage = () => {
   // Tạo title và description động dựa trên category và search
   const pageTitle = searchQuery
     ? `Tìm kiếm: ${searchQuery}`
-    : category
-    ? `${categoryNames[category] || category}`
+    : categorySlug
+    ? `${categoryNames[categorySlug] || categorySlug}`
     : "Tất cả sản phẩm";
 
   const pageDescription = searchQuery
     ? `Kết quả tìm kiếm cho "${searchQuery}" - ${filteredProducts.length} sản phẩm`
-    : category
+    : categorySlug
     ? `Danh sách ${
-        categoryNames[category] || category
+        categoryNames[categorySlug] || categorySlug
       } chính hãng, giá tốt nhất. ${filteredProducts.length} sản phẩm.`
     : `Khám phá ${filteredProducts.length} sản phẩm công nghệ chính hãng.`;
 
@@ -442,7 +481,7 @@ const ProductListingPage = () => {
       <SEO
         title={pageTitle}
         description={pageDescription}
-        keywords={`${category || "sản phẩm"}, ${
+        keywords={`${categorySlug || "sản phẩm"}, ${
           searchQuery || ""
         }, laptop, pc, công nghệ, tech geeks`}
       />
@@ -457,6 +496,8 @@ const ProductListingPage = () => {
           filters={filters}
           onFilterChange={handleFilterChange}
           onClearFilters={handleClearFilters}
+          brands={brandsData}
+          filterType={filterType}
         />
 
         {/* Main Content */}
@@ -485,7 +526,6 @@ const ProductListingPage = () => {
             </div>
           ) : (
             <div className="plp-empty">
-              <div className="empty-icon">📦</div>
               <h3>Không tìm thấy sản phẩm</h3>
               <p>Vui lòng thử điều chỉnh bộ lọc hoặc tìm kiếm khác</p>
               <button className="clear-filter-btn" onClick={handleClearFilters}>

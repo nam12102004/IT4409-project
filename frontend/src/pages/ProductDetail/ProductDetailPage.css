@@ -17,29 +17,36 @@
   gap: 8px;
   margin-bottom: 24px;
   font-size: 14px;
-  padding: 12px 16px;
+  padding: 12px 20px;
   background: white;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .breadcrumb a {
   color: #2196f3;
   text-decoration: none;
   transition: color 0.3s;
+  font-weight: 500;
 }
 
 .breadcrumb a:hover {
   text-decoration: underline;
-  color: #1976d2;
+  color: #1565c0;
 }
 
 .breadcrumb-separator {
-  color: #999;
+  color: #bbb;
+  font-size: 12px;
 }
 
 .breadcrumb .current {
-  color: #666;
+  color: #555;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
 }
 
 /* Main Content Grid */

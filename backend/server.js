@@ -120,7 +120,7 @@ mongoose.connection.on("disconnected", () =>
 );
 
 //goi redis
-if (process.env.REDIS_URL) {
+if (process.env.REDIS_URL && process.env.REDIS_URL.trim()) {
   connectRedis();
 } else {
   console.log("Redis disabled (REDIS_URL not set)");
