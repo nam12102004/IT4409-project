@@ -8,6 +8,10 @@ export const zaloPayConfig = {
   key2: process.env.ZALOPAY_KEY2 || "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
   endpoint:
     process.env.ZALOPAY_ENDPOINT || "https://sb-openapi.zalopay.vn/v2/create",
+  // Endpoint truy vấn trạng thái thanh toán theo app_trans_id
+  query_endpoint:
+    process.env.ZALOPAY_QUERY_ENDPOINT ||
+    "https://sandbox.zalopay.com.vn/v001/tpe/getstatusbyapptransid",
   callback_url: process.env.ZALOPAY_CALLBACK_URL || "",
 };
 
@@ -68,5 +72,33 @@ export const createZaloPayOrder = async ({
     appTransId: order.app_trans_id,
   };
 };
- 
-export default { createZaloPayOrder, zaloPayConfig };
+
+// Truy vấn trạng thái thanh toán ZaloPay theo app_trans_id
+export const queryZaloPayStatus = async (appTransId) => {
+  if (!appTransId) {
+    throw new Error("appTransId is required to query ZaloPay status");
+  }
+
+  const postData = {
+    appid: String(zaloPayConfig.app_id),
+    apptransid: String(appTransId),
+  };
+
+  const data = `${postData.appid}|${postData.apptransid}|${zaloPayConfig.key1}`;
+  postData.mac = CryptoJS.HmacSHA256(data, zaloPayConfig.key1).toString();
+
+  const body = new URLSearchParams();
+  Object.entries(postData).forEach(([key, value]) => {
+    body.append(key, value);
+  });
+
+  const response = await axios.post(zaloPayConfig.query_endpoint, body.toString(), {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  });
+
+  return response.data;
+};
+
+export default { createZaloPayOrder, queryZaloPayStatus, zaloPayConfig };

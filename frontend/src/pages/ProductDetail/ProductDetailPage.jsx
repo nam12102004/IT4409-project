@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ProductGallery } from "../../components/ProductDetail/ProductGallery";
 import { ProductInfo } from "../../components/ProductDetail/ProductInfo";
 import { VariantSelector } from "../../components/ProductDetail/VariantSelector";
@@ -10,7 +10,6 @@ import SEO from "../../components/common/SEO";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../hooks/useCart";
 import { useToast } from "../../contexts/ToastContext";
-import { getSlugFromCategoryName } from "../../data/categories";
 import "./ProductDetailPage.css";
 import { getReviews } from "../../api/reviewApi";
 import { createReview } from "../../api/reviewApi";
@@ -205,11 +204,11 @@ export const ProductDetailPage = () => {
       <div className="product-detail-container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">
-          <Link to="/">Trang chủ</Link>
+          <a href="/">Trang chủ</a>
           <span className="breadcrumb-separator">/</span>
-          <Link to={`/products/${getSlugFromCategoryName(product.category)}`}>
+          <a href={`/category/${product.category.toLowerCase()}`}>
             {product.category}
-          </Link>
+          </a>
           <span className="breadcrumb-separator">/</span>
           <span className="current">{product.brand}</span>
         </nav>
