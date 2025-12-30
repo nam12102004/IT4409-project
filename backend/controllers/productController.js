@@ -5,6 +5,7 @@ import Brand from "../models/Brand.js";
 import cloudinary from "../config/cloudinary.js";
 
 import { redisClient } from "../config/redis.js";
+import Order, { EOrderStatus } from "../models/Order.js";
 
 const PRODUCT_CACHE_KEY = "products:all";
 
@@ -226,6 +227,90 @@ export const getFeaturedProducts = async (req, res) => {
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+// Top sản phẩm bán chạy dựa trên số lượng trong đơn hàng (đã giao / đã xác nhận)
+export const getBestSellingProducts = async (req, res) => {
+  try {
+    const limit = Math.min(Number(req.query.limit) || 15, 15);
+
+    const pipeline = [
+      {
+        $match: {
+          // Tính các đơn đã giao, đã xác nhận hoặc đang giao (shipping)
+          orderStatus: {
+            $in: [
+              EOrderStatus.Delivered,
+              EOrderStatus.Confirmed,
+              EOrderStatus.Shipping,
+            ],
+          },
+        },
+      },
+      { $unwind: "$items" },
+      {
+        $group: {
+          _id: "$items.productId",
+          soldQuantity: { $sum: "$items.quantity" },
+        },
+      },
+      { $sort: { soldQuantity: -1 } },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id",
+          foreignField: "_id",
+          as: "product",
+        },
+      },
+      { $unwind: "$product" },
+      {
+        $project: {
+          _id: "$product._id",
+          name: "$product.name",
+          price: "$product.price",
+          discountPrice: "$product.discountPrice",
+          images: "$product.images",
+          isBestSeller: "$product.isBestSeller",
+          soldQuantity: 1,
+        },
+      },
+    ];
+
+    let bestSelling = await Order.aggregate(pipeline);
+
+    // Nếu số sản phẩm bán chạy lấy được ít hơn limit,
+    // bổ sung thêm các sản phẩm được đánh dấu isBestSeller trong kho.
+    if (bestSelling.length < limit) {
+      const existingIds = new Set(bestSelling.map((p) => String(p._id)));
+
+      const extraBest = await Product.find({
+        isBestSeller: true,
+        _id: { $nin: Array.from(existingIds) },
+      })
+        .sort({ createdAt: -1 })
+        .limit(limit - bestSelling.length)
+        .lean();
+
+      const mappedExtra = extraBest.map((p) => ({
+        _id: p._id,
+        name: p.name,
+        price: p.price,
+        discountPrice: p.discountPrice,
+        images: p.images,
+        isBestSeller: p.isBestSeller,
+        soldQuantity: undefined,
+      }));
+
+      bestSelling = bestSelling.concat(mappedExtra);
+    }
+
+    return res.json(bestSelling.slice(0, limit));
+  } catch (err) {
+    console.error("getBestSellingProducts error", err);
+    return res.status(500).json({ message: "Error fetching best selling products" });
   }
 };
 

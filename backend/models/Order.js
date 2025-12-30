@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 export const EOrderStatus = {
   WaitingForPayment: "waiting_for_payment",
   Pending: "pending",
+  Shipping: "shipping",
+  Delivered: "delivered",
   Confirmed: "confirmed",
   Cancelled: "cancelled",
   Refunded: "refunded",

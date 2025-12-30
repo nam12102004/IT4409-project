@@ -102,14 +102,30 @@ export default function OrderPage() {
                         ? "bg-orange-100 text-orange-700"
                         : order.orderStatus === "pending"
                         ? "bg-yellow-100 text-yellow-700"
-                        : order.orderStatus === "confirmed"
+                        : order.orderStatus === "shipping"
+                        ? "bg-blue-100 text-blue-700"
+                        : order.orderStatus === "delivered"
                         ? "bg-green-100 text-green-700"
+                        : order.orderStatus === "refunded"
+                        ? "bg-purple-100 text-purple-700"
                         : order.orderStatus === "cancelled"
                         ? "bg-red-100 text-red-700"
                         : "bg-gray-100 text-gray-700"
                     }`}
                   >
-                    {order.orderStatus}
+                    {order.orderStatus === "waiting_for_payment"
+                      ? "Chờ thanh toán"
+                      : order.orderStatus === "pending"
+                      ? "Chờ duyệt"
+                      : order.orderStatus === "shipping"
+                      ? "Đang giao hàng"
+                      : order.orderStatus === "delivered"
+                      ? "Đã giao hàng"
+                      : order.orderStatus === "refunded"
+                      ? "Đã trả hàng/Hoàn tiền"
+                      : order.orderStatus === "cancelled"
+                      ? "Đã hủy"
+                      : order.orderStatus}
                   </span>
                 </td>
                 <td className="border p-3 text-center">
@@ -130,13 +146,10 @@ export default function OrderPage() {
         <OrderDetailPopup
           order={selectedOrder}
           onClose={() => setSelectedOrder(null)}
-          onCancel={(id) => {
+          onUpdateStatus={(id, status) => {
             setOrders((prev) =>
-              prev.map((o) =>
-                o._id === id ? { ...o, orderStatus: "cancelled" } : o
-              )
+              prev.map((o) => (o._id === id ? { ...o, orderStatus: status } : o))
             );
-            setSelectedOrder(null);
           }}
         />
       )}
