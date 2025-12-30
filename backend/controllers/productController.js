@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Product from "../models/Product.js";
 import Category from "../models/Category.js";
+import Brand from "../models/Brand.js"; // Import Brand để register schema trước khi populate
 import cloudinary from "../config/cloudinary.js";
 
 import { redisClient } from "../config/redis.js";
@@ -97,17 +98,36 @@ export const getProducts = async (req, res) => {
     const { search = "", limit } = req.query;
     const q = (search || "").trim();
 
-    // If searching, bypass redis cache and query DB with a filter
     if (q) {
       console.log("--- SEARCH MODE (no redis cache) ---", q);
       const regex = new RegExp(q, "i");
+
+      // Tìm các brand có tên khớp với regex
+      const brands = await Brand.find({ name: regex }).select("_id");
+      const brandIds = brands.map((b) => b._id);
+
+      // Tìm các category có tên khớp với regex
+      const categories = await Category.find({ name: regex }).select("_id");
+      const categoryIds = categories.map((c) => c._id);
+
+      // Tạo filter cho Product - chỉ sử dụng ObjectId cho brand và category
       const filter = {
-        $or: [{ name: regex }, { brand: regex }, { slug: regex }],
+        $or: [
+          { name: regex },
+          { description: regex },
+          // Tìm theo brand ObjectId nếu có kết quả
+          ...(brandIds.length > 0 ? [{ brand: { $in: brandIds } }] : []),
+          // Tìm theo category ObjectId nếu có kết quả
+          ...(categoryIds.length > 0
+            ? [{ category: { $in: categoryIds } }]
+            : []),
+        ],
       };
 
       const query = Product.find(filter)
         .sort({ createdAt: -1 })
-        .populate("category", "name");
+        .populate("category", "name")
+        .populate("brand", "name");
 
       if (limit) query.limit(Number(limit));
 
@@ -128,7 +148,8 @@ export const getProducts = async (req, res) => {
     console.log("--- MONGODB CACHE MISS ---");
     const products = await Product.find()
       .sort({ createdAt: -1 })
-      .populate("category", "name");
+      .populate("category", "name")
+      .populate("brand", "name");
 
     // Luu vao redis, ttl la 3600 giay
     if (redisClient && redisClient.isOpen) {
@@ -153,6 +174,45 @@ export const getFeaturedProducts = async (req, res) => {
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+// Get single product by ID
+export const getProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid product ID" });
+    }
+
+    // Kiểm tra cache trước
+    const cacheKey = `product:${id}`;
+    if (redisClient && redisClient.isOpen) {
+      const cached = await redisClient.get(cacheKey);
+      if (cached) {
+        console.log("--- REDIS CACHE HIT for product:", id);
+        return res.json(JSON.parse(cached));
+      }
+    }
+
+    const product = await Product.findById(id)
+      .populate("category", "name")
+      .populate("brand", "name");
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Lưu vào cache 5 phút
+    if (redisClient && redisClient.isOpen) {
+      await redisClient.setEx(cacheKey, 300, JSON.stringify(product));
+    }
+
+    return res.json(product);
+  } catch (err) {
+    console.error("getProductById error", err);
+    return res.status(500).json({ message: "Error fetching product" });
   }
 };
 

@@ -84,7 +84,9 @@ export default function SearchBar() {
                   <div className="suggestion-info">
                     <div className="suggestion-name">{p.name}</div>
                     <div className="suggestion-meta">
-                      <div className="suggestion-brand">{p.brand}</div>
+                      <div className="suggestion-brand">
+                        {p.brand?.name || ""}
+                      </div>
                       <div className="suggestion-price">
                         {typeof p.price === "number"
                           ? p.price.toLocaleString("vi-VN") + " đ"

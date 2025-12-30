@@ -11,10 +11,9 @@
   gap: 8px;
   list-style: none;
   margin: 0;
-  padding: 0;
-  max-width: 1400px;
-  margin: 0 auto;
   padding: 0 20px;
+  max-width: 1400px;
+  justify-content: flex-start; /* Căn trái */
 }
 
 .breadcrumb-item {
