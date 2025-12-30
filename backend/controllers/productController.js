@@ -188,6 +188,7 @@ export const getProducts = async (req, res) => {
       const products = await query.exec();
       return res.json(products);
     }
+    
 
     // No search: attempt to use redis cache
     if (redisClient && redisClient.isOpen) {

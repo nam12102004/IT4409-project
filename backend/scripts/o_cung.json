@@ -1,0 +1,1380 @@
+[
+  {
+    "storeId": null,
+    "name": "SSD Samsung 990 Pro 4TB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 11990000,
+    "discountPrice": 9990000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/27/ssd-samsung-990-pro-4tb-pcie-gen-4-x4-nvme-m2-2280-undefined.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 9990000,
+        "stock": 10,
+        "sku": "9713"
+      }
+    ],
+    "highlights": [
+      "4TB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung BM9C1 512GB PCIe Gen 4 x4 NVME M2 2230",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1990000,
+    "discountPrice": 1590000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-samsung-bm9c1-512gb-pcie-gen-4-x4-nvme-m2-2230-undefined.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB PCIe Gen 4 x4 NVME M2 2230",
+        "ssd": "",
+        "color": "Black",
+        "price": 1590000,
+        "stock": 10,
+        "sku": "9938"
+      }
+    ],
+    "highlights": [
+      "512GB PCIe Gen 4 x4 NVME M2 2230"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB PCIe Gen 4 x4 NVME M2 2230",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD WD SN5000 500GB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1490000,
+    "discountPrice": 1390000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "WD",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-wd-sn5000-500gb-pcie-gen-4-x4-nvme-m2-2280-undefined-U8a.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "500GB PCIe Gen 4 x4 NVME M2 2280",
+        "ssd": "",
+        "color": "Blue - White",
+        "price": 1390000,
+        "stock": 10,
+        "sku": "9921"
+      }
+    ],
+    "highlights": [
+      "500GB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "500GB PCIe Gen 4 x4 NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Micron 256GB NVME M2 2280",
+    "description": "Used, Nhập khẩu",
+    "price": 590000,
+    "discountPrice": 499000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Micron",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/26/ssd-micron-256gb-nvme-m2-2280-undefined-0Az.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB NVME M2 2280",
+        "ssd": "",
+        "color": "Green",
+        "price": 499000,
+        "stock": 10,
+        "sku": "9701"
+      }
+    ],
+    "highlights": [
+      "512GB NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Union 512GB NVME M2 2242",
+    "description": "Used, Nhập khẩu",
+    "price": 1190000,
+    "discountPrice": 999000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Union",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/7/ssd-union-512gb-nvme-m2-2242-undefined-WsK.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB NVME M2 2242",
+        "ssd": "",
+        "color": "Blue",
+        "price": 999000,
+        "stock": 10,
+        "sku": "9805"
+      }
+    ],
+    "highlights": [
+      "512GB NVME M2 2242"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB NVME M2 2242",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Micron 512GB NVME M2 2280",
+    "description": "Used, Nhập khẩu",
+    "price": 999000,
+    "discountPrice": 999000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Micron",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/26/ssd-micron-256gb-nvme-m2-2280-undefined-0Az.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB NVME M2 2280",
+        "ssd": "",
+        "color": "Oak - Black",
+        "price": 999000,
+        "stock": 10,
+        "sku": "10569"
+      }
+    ],
+    "highlights": [
+      "512GB NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kioxia 256GB NVME M2 2242",
+    "description": "Used, Nhập khẩu",
+    "price": 890000,
+    "discountPrice": 499000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kioxia",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/5/ssd-kioxia-256gb-nvme-m2-2242-undefined-eEV.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "256GB NVME M2 2242",
+        "ssd": "",
+        "color": "Blue",
+        "price": 499000,
+        "stock": 10,
+        "sku": "10028"
+      }
+    ],
+    "highlights": [
+      "256GB NVME M2 2242"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "256GB NVME M2 2242",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Skhynix 256GB NVME M2 2280",
+    "description": "Used, Nhập khẩu",
+    "price": 590000,
+    "discountPrice": 590000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Skhynix",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/backend/uploads/product/avatar/2020/8/28/SSD-SK-Hynix-256GB-M2-NVMe.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "256GB NVME M2 2280",
+        "ssd": "",
+        "color": "Xanh",
+        "price": 590000,
+        "stock": 10,
+        "sku": "37"
+      }
+    ],
+    "highlights": [
+      "256GB NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "256GB NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung PM9A1 512GB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1690000,
+    "discountPrice": 1199000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/27/ssd-samsung-pm9a1-512gb-pcie-gen-4-x4-nvme-m2-2280-undefined-GYy.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB PCIe Gen 4 x4 NVME M2 2280",
+        "ssd": "",
+        "color": "Black",
+        "price": 1199000,
+        "stock": 10,
+        "sku": "9714"
+      }
+    ],
+    "highlights": [
+      "512GB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB PCIe Gen 4 x4 NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Skhynix 512GB NVME M2 2280",
+    "description": "Used, Nhập khẩu",
+    "price": 1290000,
+    "discountPrice": 1290000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Skhynix",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/26/ssd-skhynix-512gb-nvme-m2-2280-undefined-x4t.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB NVME M2 2280",
+        "ssd": "",
+        "color": "Đen",
+        "price": 1290000,
+        "stock": 10,
+        "sku": "9698"
+      }
+    ],
+    "highlights": [
+      "512GB NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD WD Black SN770 2TB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 3990000,
+    "discountPrice": 3190000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "WD",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-wd-black-sn770-2tb-pcie-gen-4-x4-nvme-m2-2280-undefined-XZj.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 3190000,
+        "stock": 10,
+        "sku": "9944"
+      }
+    ],
+    "highlights": [
+      "2TB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kingston NV3 2TB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 3990000,
+    "discountPrice": 3290000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kingston",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-kingston-nv3-2tb-pcie-gen-4-x4-nvme-m2-2280-undefined-Irn.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Blue - White",
+        "price": 3290000,
+        "stock": 10,
+        "sku": "9896"
+      }
+    ],
+    "highlights": [
+      "2TB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung 980 500B PCIe Gen 3 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1790000,
+    "discountPrice": 1490000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-samsung-980-500b-pcie-gen-3-x4-nvme-m2-2280-undefined-bkZ.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 1490000,
+        "stock": 10,
+        "sku": "9928"
+      }
+    ],
+    "highlights": [
+      "500B PCIe Gen 3 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kingston KC3000 1TB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 2990000,
+    "discountPrice": 2390000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kingston",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-kingston-kc3000-1tb-pcie-gen-4-x4-nvme-m2-2280-undefined-jrp.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 2390000,
+        "stock": 10,
+        "sku": "9883"
+      }
+    ],
+    "highlights": [
+      "1TB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kingston NV3 1TB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1990000,
+    "discountPrice": 1590000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kingston",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-kingston-nv3-1tb-pcie-gen-4-x4-nvme-m2-2280-undefined-Kf4.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Blue",
+        "price": 1590000,
+        "stock": 10,
+        "sku": "9891"
+      }
+    ],
+    "highlights": [
+      "1TB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kingston KC3000 512GB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1990000,
+    "discountPrice": 1490000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kingston",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-kingston-kc3000-512gb-pcie-gen-4-x4-nvme-m2-2280-undefined-7MT.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB PCIe Gen 4 x4 NVME M2 2280",
+        "ssd": "",
+        "color": "Black",
+        "price": 1490000,
+        "stock": 10,
+        "sku": "9878"
+      }
+    ],
+    "highlights": [
+      "512GB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB PCIe Gen 4 x4 NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kingston NV3 500GB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1390000,
+    "discountPrice": 1190000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kingston",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-kingston-nv3-500gb-pcie-gen-4-x4-nvme-m2-2280-undefined-83Z.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "500GB PCIe Gen 4 x4 NVME M2 2280",
+        "ssd": "",
+        "color": "Blue",
+        "price": 1190000,
+        "stock": 10,
+        "sku": "9900"
+      }
+    ],
+    "highlights": [
+      "500GB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "500GB PCIe Gen 4 x4 NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kioxia 512GB NVME M2 2230",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1490000,
+    "discountPrice": 1490000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kioxia",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/8/24/o-cung-ssd-kioxia-512gb-nvme-2230-undefined.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "512GB NVME M2 2230",
+        "ssd": "",
+        "color": "Blue",
+        "price": 1490000,
+        "stock": 10,
+        "sku": "8895"
+      }
+    ],
+    "highlights": [
+      "512GB NVME M2 2230"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB NVME M2 2230",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Crucial P3 500GB PCIe Gen 3 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1290000,
+    "discountPrice": 1090000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Crucial",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-crucial-p3-500gb-pcie-gen-3-x4-nvme-m2-2280-undefined-0Z3.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "500GB PCIe Gen 3 x4 NVME M2 2280",
+        "ssd": "",
+        "color": "Black",
+        "price": 1090000,
+        "stock": 10,
+        "sku": "9870"
+      }
+    ],
+    "highlights": [
+      "500GB PCIe Gen 3 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "500GB PCIe Gen 3 x4 NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kioxia 512GB NVME M2 2280",
+    "description": "Used, Nhập khẩu",
+    "price": 1190000,
+    "discountPrice": 1190000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kioxia",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/26/o-cung-ssd-kioxia-512gb-m2-nvme-2280-undefined.webp"
+    ],
+    "variants": [
+      {
+        "ram": "512GB NVME M2 2280",
+        "ssd": "",
+        "color": "Green",
+        "price": 1190000,
+        "stock": 10,
+        "sku": "733"
+      }
+    ],
+    "highlights": [
+      "512GB NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD WD 256GB NVME M2 2280",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 499000,
+    "discountPrice": 499000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "WD",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/26/ssd-wd-256gb-nvme-m2-2280-undefined.webp"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "none",
+        "price": 499000,
+        "stock": 10,
+        "sku": "1319"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Kioxia 256GB NVME M2 2280",
+    "description": "Used, Nhập khẩu",
+    "price": 499000,
+    "discountPrice": 499000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Kioxia",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/26/ssd-kioxia-256gb-nvme-m2-2280-undefined.webp"
+    ],
+    "variants": [
+      {
+        "ram": "256GB NVME M2 2280",
+        "ssd": "",
+        "color": "none",
+        "price": 499000,
+        "stock": 10,
+        "sku": "6248"
+      }
+    ],
+    "highlights": [
+      "256GB NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "256GB NVME M2 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Crucial T500 1TB PCIe Gen 4 x4 M2 NVME 2280",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 2790000,
+    "discountPrice": 2790000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Crucial",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/2/18/ssd-crucial-t500-1tb-pcie-gen-4-x4-m2-nvme-2280-vml.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "",
+        "price": 2790000,
+        "stock": 10,
+        "sku": "10128"
+      }
+    ],
+    "highlights": [
+      "1TB PCIe Gen 4 x4 M2 NVME 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD WD 256GB NVME M2 2242",
+    "description": "Outlet, Nhập khẩu",
+    "price": 890000,
+    "discountPrice": 549000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "WD",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/14/ssd-wd-256gb-nvme-m2-2242-undefined-VWb.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "256GB NVME M2 2242",
+        "ssd": "",
+        "color": "Black",
+        "price": 549000,
+        "stock": 10,
+        "sku": "9973"
+      }
+    ],
+    "highlights": [
+      "256GB NVME M2 2242"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "256GB NVME M2 2242",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung 970 Evo Plus 500GB PCIe Gen 3 x4 NVME 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 1790000,
+    "discountPrice": 1590000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-samsung-970-evo-plus-500gb-pcie-gen-3-x4-nvme-2280-undefined-IH2.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "500GB PCIe Gen 3 x4 NVME 2280",
+        "ssd": "",
+        "color": "Black - Glass",
+        "price": 1590000,
+        "stock": 10,
+        "sku": "9935"
+      }
+    ],
+    "highlights": [
+      "500GB PCIe Gen 3 x4 NVME 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "500GB PCIe Gen 3 x4 NVME 2280",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung 256GB NVME M2 2242",
+    "description": "Outlet, Nhập khẩu",
+    "price": 890000,
+    "discountPrice": 549000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/5/ssd-samsung-256gb-nvme-m2-2242-undefined-7YM.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "256GB NVME M2 2242",
+        "ssd": "",
+        "color": "Black",
+        "price": 549000,
+        "stock": 10,
+        "sku": "9777"
+      }
+    ],
+    "highlights": [
+      "256GB NVME M2 2242"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "256GB NVME M2 2242",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung 990 Evo Plus 1TB/2TB PCIe Gen 5 x2 NVME M2 2280",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 2990000,
+    "discountPrice": 2699000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/14/ssd-samsung-990-evo-plus-1tb-pcie-gen-5-x2-nvme-m2-2280-undefined-JMT.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 2699000,
+        "stock": 10,
+        "sku": "9956"
+      }
+    ],
+    "highlights": [
+      "1TB PCIe Gen 5 x2 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Crucial P310 2TB PCIe Gen4 x4 NVME M2 2230",
+    "description": "Outlet, Nhập khẩu",
+    "price": 6190000,
+    "discountPrice": 5890000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Crucial",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/10/ssd-crucial-p310-2tb-pcie-gen4-x4-nvme-m2-2230-undefined-zWf.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 5890000,
+        "stock": 10,
+        "sku": "9875"
+      }
+    ],
+    "highlights": [
+      "2TB PCIe Gen4 x4 NVME M2 2230"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD Samsung PM991A 1TB PCIe Gen 3 x4 NVME M2 2230",
+    "description": "Outlet, Nhập khẩu",
+    "price": 2990000,
+    "discountPrice": 2190000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "Samsung",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-samsung-pm991a-1tb-pcie-gen-3-x4-nvme-m2-2230-undefined-SNq.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Blacks",
+        "price": 2190000,
+        "stock": 10,
+        "sku": "9948"
+      }
+    ],
+    "highlights": [
+      "1TB PCIe Gen 3 x4 NVME M2 2230"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "SSD WD SN5000 1TB PCIe Gen 4 x4 NVME M2 2280",
+    "description": "Outlet, Nhập khẩu",
+    "price": 2490000,
+    "discountPrice": 2090000,
+    "stock": 10,
+    "category": "Ổ cứng",
+    "brand": "WD",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/13/ssd-wd-sn5000-1tb-pcie-gen-4-x4-nvme-m2-2280-undefined-t0T.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Blue - White",
+        "price": 2090000,
+        "stock": 10,
+        "sku": "9912"
+      }
+    ],
+    "highlights": [
+      "1TB PCIe Gen 4 x4 NVME M2 2280"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  }
+]

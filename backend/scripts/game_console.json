@@ -1,0 +1,364 @@
+[
+  {
+    "storeId": null,
+    "name": "Máy chơi game Nintendo Switch 2",
+    "description": "Outlet, Nhập khẩu",
+    "price": 16990000,
+    "discountPrice": 16990000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Nintendo",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/6/11/may-choi-game-nintendo-switch-2-jmr.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Jelly Black",
+        "price": 16990000,
+        "stock": 10,
+        "sku": "10995"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Máy chơi game Sony PlayStation 5 - PS5",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 16990000,
+    "discountPrice": 9690000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "PlayStation",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/backend/uploads/product/avatar/2021/10/9/ps5-standard-edition-thinkpro.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Frost White",
+        "price": 9690000,
+        "stock": 10,
+        "sku": "3027"
+      }
+    ],
+    "highlights": [
+      "Standard Edition"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Tay cầm Machenike G5 Pro Hall-effect",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 1290000,
+    "discountPrice": 1290000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Machenike",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/7/9/tay-cam-machenike-g5-pro-hall-effect-undefined-dib.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Slate Gray",
+        "price": 1290000,
+        "stock": 10,
+        "sku": "8649"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Máy chơi game Xbox S",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 10490000,
+    "discountPrice": 6990000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Xbox",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2022/3/9/XboxS_01.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Frost White",
+        "price": 6990000,
+        "stock": 10,
+        "sku": "3815"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Máy chơi game Nintendo Switch OLED",
+    "description": "Used, Nhập khẩu",
+    "price": 8600000,
+    "discountPrice": 6090000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Nintendo",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2022/11/8/nintendo-switch-console-oled-model-w-2.jpeg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Red & Blue",
+        "price": 6090000,
+        "stock": 10,
+        "sku": "11113"
+      }
+    ],
+    "highlights": [
+      "Combo:Model Neon Blue/Neon Red With Carrying Travel Case"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Máy chơi game Valve Steam Deck",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 18990000,
+    "discountPrice": 17990000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Valve",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2022/11/5/may-choi-game-valve-steam-deck-01.png"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 17990000,
+        "stock": 10,
+        "sku": "10102"
+      }
+    ],
+    "highlights": [
+      "1TB - OLED"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "1TB - OLED",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Máy chơi game Playstation PS4 Pro",
+    "description": "Used, Nhập khẩu",
+    "price": 7990000,
+    "discountPrice": 4690000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Playstation",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2022/10/15/may-choi-game-playstation-ps4-pro-product-thinkpro.vn.jpeg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Obsidian Black",
+        "price": 4690000,
+        "stock": 10,
+        "sku": "5322"
+      }
+    ],
+    "highlights": [
+      "1TB"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Tay cầm Playstation PS5 DualSense",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 1890000,
+    "discountPrice": 1390000,
+    "stock": 10,
+    "category": "Máy chơi game",
+    "brand": "Playstation",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/12/5/tay-cam-playstation-ps5-dualsense-undefined.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 1390000,
+        "stock": 10,
+        "sku": "3880"
+      }
+    ],
+    "highlights": [
+      "Normal"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  }
+]

@@ -1,0 +1,3 @@
+commit: 
+fix bug lần 1
+update lần cuối

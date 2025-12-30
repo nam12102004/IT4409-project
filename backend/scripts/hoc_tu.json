@@ -1,0 +1,320 @@
+[
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu 3 ngăn The Leaf Slim",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 3690000,
+    "discountPrice": 2890000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "The Leaf",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/5/29/hoc-tu-tai-lieu-3-ngan-the-leaf-slim-tz3.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 2890000,
+        "stock": 10,
+        "sku": "11163"
+      }
+    ],
+    "highlights": [
+      "Slim - 3 Ngăn"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu 2 ngăn The Leaf Plus",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 4090000,
+    "discountPrice": 2290000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "The Leaf",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/3/18/hoc-tu-tai-lieu-the-leaf-2-ngan-keo-undefined.png"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 2290000,
+        "stock": 10,
+        "sku": "7924"
+      }
+    ],
+    "highlights": [
+      "2 ngăn"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu di động HyperWork Ivy Slim",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 2490000,
+    "discountPrice": 2440000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "HyperWork",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/9/17/hoc-tu-tai-lieu-di-dong-hyperwork-ivy-slim-undefined-7op.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 2440000,
+        "stock": 10,
+        "sku": "9019"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu 3 ngăn The Leaf Plus",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 4639000,
+    "discountPrice": 3390000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "The Leaf",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/4/10/hoc-tu-tai-lieu-the-leaf-plus.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Grey - White",
+        "price": 3390000,
+        "stock": 10,
+        "sku": "6386"
+      }
+    ],
+    "highlights": [
+      "3 Ngăn"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu di động ERM-04",
+    "description": "Mới, Full box, Chính hãng",
+    "price": 3190000,
+    "discountPrice": 2390000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "ERM-04",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2023/6/29/hoc-tu-tai-lieu-di-dong-upgen-thinkpro-nicespace.png"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 2390000,
+        "stock": 10,
+        "sku": "6973"
+      }
+    ],
+    "highlights": [],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu The Leaf - Outlet",
+    "description": "Outlet, Chính hãng",
+    "price": 3800000,
+    "discountPrice": 1690000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "The Leaf",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/4/10/hoc-tu-tai-lieu-the-leaf-outlet.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "White",
+        "price": 1690000,
+        "stock": 10,
+        "sku": "9704"
+      }
+    ],
+    "highlights": [
+      "2 ngăn"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Hộc tủ tài liệu 2 ngăn Alexa - By NiceDesign",
+    "description": "Mới, Sealed, Chính hãng",
+    "price": 3690000,
+    "discountPrice": 3290000,
+    "stock": 10,
+    "category": "Hộc tủ",
+    "brand": "Alexa",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/10/17/hoc-tu-tai-lieu-2-ngan-alexa-by-nicedesign.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black - Acacia Teaklook",
+        "price": 3290000,
+        "stock": 10,
+        "sku": "11087"
+      }
+    ],
+    "highlights": [
+      "2 ngăn"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  }
+]

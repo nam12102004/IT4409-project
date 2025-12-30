@@ -1,0 +1,370 @@
+[
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo AR Xreal One",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 14990000,
+    "discountPrice": 13990000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Xreal",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/7/kinh-thuc-te-ao-ar-xreal-one-series-undefined.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 13990000,
+        "stock": 10,
+        "sku": "9785"
+      }
+    ],
+    "highlights": [
+      "XREAL One"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo AR Xreal One Pro",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 19990000,
+    "discountPrice": 19990000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Xreal",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/1/7/kinh-thuc-te-ao-ar-xreal-one-pro-undefined-yov.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 19990000,
+        "stock": 10,
+        "sku": "9795"
+      }
+    ],
+    "highlights": [
+      "XREAL One Pro - Size M"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Ray-Ban Meta Wayfarer AI Glasses",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 9900000,
+    "discountPrice": 9900000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Ray-Ban Meta",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2025/8/29/kinh-ray-ban-meta-wayfarer-ai-glasses-0zx.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Dark Green",
+        "price": 9900000,
+        "stock": 10,
+        "sku": "11357"
+      }
+    ],
+    "highlights": [
+      "Frame size: Standard 50mm"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo VR Apple Vision Pro",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 99000000,
+    "discountPrice": 96690000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Apple",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/2/27/kinh-vr-apple-vision-pro-thinkpro-epiczone-Fal.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "256GB",
+        "ssd": "",
+        "color": "Shell White",
+        "price": 96690000,
+        "stock": 10,
+        "sku": "7840"
+      }
+    ],
+    "highlights": [
+      "256GB"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "256GB",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo AR Rokid Max",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 11990000,
+    "discountPrice": 7990000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Rokid",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2023/12/7/kinh-thong-minh-ar-rokid-max-thinkpro-epiczone.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black Cyan",
+        "price": 7990000,
+        "stock": 10,
+        "sku": "7702"
+      }
+    ],
+    "highlights": [
+      "Glasses only"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo VR Meta Quest 3",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 19990000,
+    "discountPrice": 14490000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Meta Quest",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2023/10/2/kinh-thuc-te-ao-meta-quest-3-thinkpro-epiczone.png"
+    ],
+    "variants": [
+      {
+        "ram": "512GB",
+        "ssd": "",
+        "color": "White",
+        "price": 14490000,
+        "stock": 10,
+        "sku": "7421"
+      }
+    ],
+    "highlights": [
+      "512GB"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "512GB",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo VR Meta Quest 3S",
+    "description": "Mới, Sealed, Nhập khẩu",
+    "price": 12990000,
+    "discountPrice": 8490000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Meta Quest",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2024/10/9/kinh-thuc-te-ao-vr-meta-quest-3s-undefined-Yzg.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "3S-128GB",
+        "ssd": "",
+        "color": "White",
+        "price": 8490000,
+        "stock": 10,
+        "sku": "9200"
+      }
+    ],
+    "highlights": [
+      "3S-128GB"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "3S-128GB",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  },
+  {
+    "storeId": null,
+    "name": "Kính Thực Tế Ảo AR Xreal Air Series",
+    "description": "Mới, Full box, Nhập khẩu",
+    "price": 12900000,
+    "discountPrice": 9990000,
+    "stock": 10,
+    "category": "Kính thực tế ảo",
+    "brand": "Xreal",
+    "images": [
+      "https://d28jzcg6y4v9j1.cloudfront.net/media/core/products/2023/11/30/kinh-3d-thong-minh-xreal-air-thinkpro-epiczone-KIV.jpg"
+    ],
+    "variants": [
+      {
+        "ram": "",
+        "ssd": "",
+        "color": "Black",
+        "price": 9990000,
+        "stock": 10,
+        "sku": "7578"
+      }
+    ],
+    "highlights": [
+      "Air 2 Pro"
+    ],
+    "features": {
+      "processor": "",
+      "ram": "",
+      "storage": "",
+      "display": "",
+      "graphics": "",
+      "battery": "",
+      "weight": "",
+      "os": ""
+    },
+    "warranty": "12 tháng",
+    "origin": "Chính hãng",
+    "ratings": {
+      "average": 0,
+      "count": 0
+    },
+    "specifications": {},
+    "isActive": true,
+    "isBestSeller": false,
+    "isNew": true
+  }
+]
