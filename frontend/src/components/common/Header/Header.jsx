@@ -204,9 +204,11 @@ function Header() {
       {/* Icons & Giỏ hàng (Code theo logic mới của Team) */}
       <div className="flex items-center gap-5">
         <a
-          href="#"
+          href="https://maps.app.goo.gl/xoJgcG75CwWiaHd98"
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
-        >
+     >
           <FiMapPin />
           <span>Địa chỉ cửa hàng</span>
         </a>
