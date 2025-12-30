@@ -61,6 +61,7 @@ const OrderSchema = new mongoose.Schema(
       enum: Object.values(EOrderStatus),
       default: EOrderStatus.Pending,
     },
+    zaloPayAppTransId: { type: String },
     paymentMethod: {
       type: String,
       enum: Object.values(EPaymentMethod),

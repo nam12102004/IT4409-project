@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import SEO from "../components/common/SEO";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [captchaToken, setCaptchaToken] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    (async () => {
-      try {
-        const res = await axios.post("http://localhost:5000/api/login", {
-          username,
-          password,
-        });
+    try {
+      if (!captchaToken) {
+        alert("Vui lòng xác nhận captcha");
+        return;
+      }
+
+      const res = await axios.post("http://localhost:5000/api/login", {
+        username,
+        password,
+        captchaToken,
+      });
         const user = res.data.user;
         const token = res.data.token;
         localStorage.setItem("user", JSON.stringify(user));
@@ -23,10 +30,9 @@ export default function LoginPage() {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         window.dispatchEvent(new Event("authChanged"));
         navigate("/");
-      } catch (err) {
-        alert(err?.response?.data?.message || "Đăng nhập thất bại");
-      }
-    })();
+    } catch (err) {
+      alert(err?.response?.data?.message || "Đăng nhập thất bại");
+    }
   };
 
   return (
@@ -64,15 +70,29 @@ export default function LoginPage() {
             />
           </div>
 
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+            onChange={setCaptchaToken}
+          />
+
           <button className="w-full bg-sky-600 text-white py-2 rounded-lg font-medium hover:bg-sky-700">
             Đăng nhập
           </button>
         </form>
-        <div className="mt-4 text-center text-sm">
-          <span>Bạn chưa có tài khoản? </span>
-          <Link to="/register" className="text-sky-600 hover:underline">
-            Đăng ký
-          </Link>
+        <div className="mt-3 flex justify-between items-center text-sm">
+          <button
+            type="button"
+            onClick={() => navigate("/forgot-password")}
+            className="text-sky-600 hover:underline"
+          >
+            Quên mật khẩu?
+          </button>
+          <div>
+            <span>Bạn chưa có tài khoản? </span>
+            <Link to="/register" className="text-sky-600 hover:underline">
+              Đăng ký
+            </Link>
+          </div>
         </div>
       </div>
     </div>

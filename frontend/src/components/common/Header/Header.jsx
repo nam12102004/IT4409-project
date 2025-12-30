@@ -102,7 +102,10 @@ function Header() {
   return (
     <header className="bg-sky-100 px-8 py-4 flex justify-between items-center border-b border-sky-200 font-sans z-10 relative">
       <div className="flex items-center gap-5">
-        <div className="text-3xl font-bold text-blue-500 relative pr-2.5">
+         <div
+          onClick={() => navigate("/")}
+          className="cursor-pointer text-3xl font-bold text-blue-500 relative pr-2.5"
+        >
           Tech-Geeks
           <span className="w-1 h-6 bg-orange-500 rounded absolute right-0 top-1/2 -translate-y-1/2"></span>
         </div>
@@ -201,11 +204,11 @@ function Header() {
       {/* Icons & Giỏ hàng (Code theo logic mới của Team) */}
       <div className="flex items-center gap-5">
         <a
-          href="https://maps.app.goo.gl/hi1koEvqrQyGp5j66"
+          href="https://maps.app.goo.gl/xoJgcG75CwWiaHd98"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
-        >
+     >
           <FiMapPin />
           <span>Địa chỉ cửa hàng</span>
         </a>
@@ -241,6 +244,27 @@ function Header() {
               <div className="absolute right-0 mt-12 bg-white border rounded shadow p-2 w-40 z-50">
                 <button
                   onClick={() => {
+                    setUserMenuOpen(false);
+                    navigate("/profile");
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
+                >
+                  Hồ sơ của tôi
+                </button>
+
+                {/* Nút chuyển sang trang đơn hàng */}
+                <button
+                  onClick={() => {
+                    setUserMenuOpen(false);
+                    navigate("/orders");
+                  }}
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
+                >
+                  Đơn hàng của tôi
+                </button>
+
+                <button
+                  onClick={() => {
                     localStorage.removeItem("user");
                     localStorage.removeItem("token");
                     // remove axios header
@@ -253,7 +277,7 @@ function Header() {
                     setUserMenuOpen(false);
                     navigate("/");
                   }}
-                  className="w-full text-left px-3 py-2 hover:bg-gray-50"
+                  className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
                 >
                   Đăng xuất
                 </button>

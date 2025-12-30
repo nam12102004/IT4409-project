@@ -3,7 +3,7 @@ import React from "react";
 const CategoryFilter = ({ selectedCategory, onCategoryChange, categories }) => {
   return (
     <div className="filter-section">
-      <h3 className="filter-title">📦 DANH MỤC</h3>
+      <h3 className="filter-title">DANH MỤC</h3>
       <div className="filter-options">
         <label className="filter-radio">
           <input

@@ -5,13 +5,14 @@ import { ProductInfo } from "../../components/ProductDetail/ProductInfo";
 import { VariantSelector } from "../../components/ProductDetail/VariantSelector";
 import { SpecificationsTable } from "../../components/ProductDetail/SpecificationsTable";
 import { ReviewsSection } from "../../components/ProductDetail/ReviewsSection";
-import { getProductById } from "../../api/mockService";
+import { getProductById } from "../../api/productsApi";
 import SEO from "../../components/common/SEO";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../hooks/useCart";
 import { useToast } from "../../contexts/ToastContext";
 import "./ProductDetailPage.css";
-
+import { getReviews } from "../../api/reviewApi";
+import { createReview } from "../../api/reviewApi";
 /**
  * ProductDetailPage Component
  * Trang chi tiết sản phẩm
@@ -24,17 +25,26 @@ export const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedVariant, setSelectedVariant] = useState(null);
+  // ===== REVIEW STATE =====
+  const [reviews, setReviews] = useState([]);
+  const [rating, setRating] = useState(5);
+  const [comment, setComment] = useState("");
+  const [guestName, setGuestName] = useState("");
 
   useEffect(() => {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const data = await getProductById(id || 1); // Default to product ID 1 for demo
+        const data = await getProductById(id || 1);
         setProduct(data);
-        // Set default variant if available
+
         if (data.variants && data.variants.length > 0) {
           setSelectedVariant(data.variants[0]);
         }
+
+        // ✅ LOAD REVIEWS
+        const reviewRes = await getReviews(id);
+        setReviews(reviewRes.data);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {
@@ -86,10 +96,25 @@ export const ProductDetailPage = () => {
     setIsCheckoutOpen(true);
   };
 
-  const handleSubmitReview = (review) => {
-    // TODO: Implement submit review functionality
-    console.log("New review:", review);
-    alert("Cảm ơn bạn đã đánh giá sản phẩm!");
+  const handleSubmitReview = async () => {
+    try {
+      await createReview(id, {
+        rating,
+        comment,
+        userName: guestName,
+      });
+
+      const res = await getReviews(id);
+      setReviews(res.data);
+
+      setRating(5);
+      setComment("");
+      setGuestName("");
+
+      success("Cảm ơn bạn đã đánh giá sản phẩm!");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   if (loading) {
@@ -145,6 +170,16 @@ export const ProductDetailPage = () => {
     product.discount ? `Giảm giá ${product.discount}%` : null,
   ].filter(Boolean);
 
+  // ===== TÍNH RATING TỪ REVIEWS =====
+  const reviewCount = reviews.length;
+
+  const averageRating =
+    reviews.length > 0
+      ? (
+          reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+        ).toFixed(1)
+      : 0;
+
   return (
     <div className="product-detail-page">
       {/* ===== SEO META TAGS ===== */}
@@ -179,7 +214,11 @@ export const ProductDetailPage = () => {
           {/* Right: Product Info */}
           <div className="product-info-section">
             <ProductInfo
-              product={product}
+              product={{
+                ...product,
+                rating: averageRating,
+                numReviews: reviewCount,
+              }}
               selectedVariant={selectedVariant}
               onAddToCart={handleAddToCart}
               onBuyNow={handleBuyNow}
@@ -203,8 +242,14 @@ export const ProductDetailPage = () => {
 
         {/* Reviews Section */}
         <ReviewsSection
-          reviews={product.reviews || []}
-          productRating={product.rating}
+          reviews={reviews}
+          productRating={averageRating}
+          rating={rating}
+          setRating={setRating}
+          comment={comment}
+          setComment={setComment}
+          guestName={guestName}
+          setGuestName={setGuestName}
           onSubmitReview={handleSubmitReview}
         />
       </div>

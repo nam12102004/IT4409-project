@@ -66,7 +66,7 @@ const PriceRangeFilter = ({ selectedPriceRange, onPriceRangeChange }) => {
 
   return (
     <div className="filter-section">
-      <h3 className="filter-title">💰 KHOẢNG GIÁ</h3>
+      <h3 className="filter-title">KHOẢNG GIÁ</h3>
       <div className="filter-options">
         {priceRanges.map((range, index) => (
           <label key={index} className="filter-radio">
@@ -79,35 +79,6 @@ const PriceRangeFilter = ({ selectedPriceRange, onPriceRangeChange }) => {
             <span>{range.label}</span>
           </label>
         ))}
-      </div>
-
-      <div className="custom-price-input">
-        <div className="price-input-label">Hoặc nhập khoảng giá:</div>
-        <div className="price-input-row">
-          <input
-            type="number"
-            placeholder="Từ"
-            value={customMin}
-            onChange={(e) => setCustomMin(e.target.value)}
-            className="price-input"
-          />
-          <span className="price-separator">-</span>
-          <input
-            type="number"
-            placeholder="Đến"
-            value={customMax}
-            onChange={(e) => setCustomMax(e.target.value)}
-            className="price-input"
-          />
-        </div>
-        <div className="price-input-unit">Đơn vị: triệu VNĐ</div>
-        <button
-          className="price-apply-btn"
-          onClick={handleCustomApply}
-          disabled={!customMin && !customMax}
-        >
-          Áp dụng
-        </button>
       </div>
     </div>
   );

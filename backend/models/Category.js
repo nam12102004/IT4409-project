@@ -3,11 +3,10 @@ import mongoose from "mongoose";
 const CategorySchema = new mongoose.Schema(
   {
     name: { type: String, required: true, unique: true },
-    slug: { type: String, unique: true }, // URL-friendly name
-    description: { type: String },
-    icon: { type: String }, // Emoji hoặc URL icon (💻, 📱)
-    image: { type: String }, // URL hình ảnh category
-    subcategories: [{ type: String }], // Danh mục con ["Gaming Laptop", "Ultrabook"]
+    slug: { type: String, unique: true },
+    icon: { type: String },
+    image: { type: String },
+    subcategories: [{ type: String }],
     isActive: { type: Boolean, default: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
@@ -31,14 +30,22 @@ CategorySchema.pre("save", function (next) {
 const Category = mongoose.model("Category", CategorySchema);
 
 export const DEFAULT_CATEGORIES = [
-  "Laptop",
-  "Điện thoại",
-  "PC",
-  "Headphone",
-  "Charger",
-  "Monitor",
-  "Battery",
-  "Tablet",
+  "Laptop nhập khẩu",
+  "Laptop chính hãng",
+  "Màn hình di động",
+  "Máy chơi game/Game Console",
+  "Kính Thực Tế Ảo VR/AR",
+  "Bàn phím",
+  "Chuột",
+  "Balo, Túi",
+  "Ghế công thái học",
+  "Bàn nâng hạ",
+  "Hộc tủ",
+  "Arm màn hình",
+  "Phụ kiện Setup",
+  "Ram",
+  "Ổ cứng",
+  "Merchandise",
 ];
 
 export default Category;

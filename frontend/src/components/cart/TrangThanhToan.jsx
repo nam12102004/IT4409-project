@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCart } from '../../hooks/useCart';
-import { CheckoutForm } from './DonCheckOut.jsx'; 
-import { OrderSummary } from './TongKetDonHang.jsx'; 
+import { CheckoutForm } from './CheckOutForm.jsx'; 
+import { OrderSummary } from './OrderSummary.jsx'; 
 import { motion } from 'framer-motion';
 
 export function TrangThanhToan() { 
@@ -11,6 +11,8 @@ export function TrangThanhToan() {
     setFormData, 
     orderSuccess, 
     handlePlaceOrder,
+    paymentMethod,
+    setPaymentMethod,
     isCheckoutOpen,
     setIsCheckoutOpen
   } = useCart();
@@ -54,6 +56,33 @@ export function TrangThanhToan() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <CheckoutForm formData={formData} setFormData={setFormData} />
                 <div className="flex flex-col gap-6">
+                  <div className="bg-white p-4 rounded-lg shadow-md">
+                    <h3 className="text-lg font-semibold mb-3">
+                      Phương thức thanh toán
+                    </h3>
+                    <div className="space-y-2">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="cash"
+                          checked={paymentMethod === "cash"}
+                          onChange={() => setPaymentMethod("cash")}
+                        />
+                        <span>Thanh toán khi nhận hàng (Tiền mặt)</span>
+                      </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value="zalopay"
+                          checked={paymentMethod === "zalopay"}
+                          onChange={() => setPaymentMethod("zalopay")}
+                        />
+                        <span>Thanh toán qua ZaloPay</span>
+                      </label>
+                    </div>
+                  </div>
                   <OrderSummary cartItems={cartItems} />
                   <button
                     type="submit"

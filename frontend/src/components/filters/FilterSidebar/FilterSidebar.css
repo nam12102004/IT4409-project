@@ -1,7 +1,7 @@
 /* ================================
    FILTER SIDEBAR - MAIN CONTAINER
    ================================ */
-.filter-sidebar {
+ .filter-sidebar {
   width: 260px;
   background: #fff;
   border-right: 1px solid #e5e7eb;
@@ -10,7 +10,9 @@
   position: sticky;
   top: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   flex-shrink: 0;
+  border-radius: 16px;
 }
 
 /* ================================
@@ -100,10 +102,10 @@
 /* ================================
    FILTER OPTIONS
    ================================ */
-.filter-options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+ .filter-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
 }
 
 /* ================================

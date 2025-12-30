@@ -1,65 +1,114 @@
 export const categories = [
   {
-    id: "laptop",
+    id: "laptop-nhap-khau",
     slug: "laptop",
-    name: "Laptop",
-    icon: "💻",
+    name: "Laptop nhập khẩu",
     image:
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/logo/laptop-nhap-khau-khong-nen.png",
   },
   {
-    id: "phone",
-    slug: "phone",
-    name: "Điện thoại",
-    icon: "📱",
+    id: "laptop-chinh-hang",
+    slug: "laptop",
+    name: "Laptop chính hãng",
     image:
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/logo/laptop-chinh-hang-khong-nen.png",
   },
   {
-    id: "tablet",
-    slug: "tablet",
-    name: "Tablet",
-    icon: "📱",
+    id: "man-hinh-di-dong",
+    slug: "monitor",
+    name: "Màn hình di động",
     image:
-      "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2025/10/3/man-hinh-di-dong-aoc-16t10-74-2-5f95555fab274fe8abc3b5230feeadd4-master-dfz.png",
   },
   {
-    id: "keyboard",
+    id: "may-choi-game",
+    slug: "game-console",
+    name: "Máy chơi game/ Game Console",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2023/3/25/danh-muc-icon-may-choi-game-game-console-thinkpro.vn.png",
+  },
+  {
+    id: "vr-ar",
+    slug: "vr-ar",
+    name: "Kính Thực Tế Ảo VR/AR",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2024/3/27/danh-muc-icon-kinh-thuc-te-ao-vrar-thinkpro.vn.png",
+  },
+  {
+    id: "ban-phim",
     slug: "keyboard",
     name: "Bàn phím",
-    icon: "⌨️",
     image:
-      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2024/1/24/danh-muc-icon-ban-phim-thinkpro.vn.png",
   },
   {
-    id: "mouse",
+    id: "chuot",
     slug: "mouse",
     name: "Chuột",
-    icon: "🖱️",
     image:
-      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d2j0501oehjiz9.cloudfront.net/media/core/categories/2024/12/12/chuot.png",
   },
   {
-    id: "headphone",
-    slug: "headphone",
-    name: "Tai nghe",
-    icon: "🎧",
+    id: "balo-tui",
+    slug: "balo-tui",
+    name: "Balo, Túi",
     image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2024/1/24/danh-muc-icon-balo-tui-thinkpro.vn.png",
   },
   {
-    id: "monitor",
-    slug: "monitor",
-    name: "Màn hình",
-    icon: "🖥️",
+    id: "ghe-cong-thai-hoc",
+    slug: "ghe-cong-thai-hoc",
+    name: "Ghế công thái học",
     image:
-      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2024/1/23/danh-muc-icon-ghe-cong-thai-hoc-thinkpro.vn.png",
   },
   {
-    id: "accessories",
-    name: "Phụ kiện",
-    icon: "🔌",
+    id: "ban-nang-ha",
+    slug: "ban-nang-ha",
+    name: "Bàn nâng hạ",
     image:
-      "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=80&h=80&fit=crop",
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2023/3/18/danh-muc-icon-ban-nang-ha-thinkpro.vn.png",
+  },
+  {
+    id: "hoc-tu",
+    slug: "hoc-tu",
+    name: "Hộc tủ",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2022/12/14/danh-muc-icon-hoc-tu-thinkpro.vn.png",
+  },
+  {
+    id: "arm-man-hinh",
+    slug: "arm-man-hinh",
+    name: "Arm màn hình",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2022/3/15/danh-muc-icon-arm-man-hinh-thinkpro.vn.png",
+  },
+  {
+    id: "phu-kien-setup",
+    slug: "phu-kien-setup",
+    name: "Phụ kiện Setup",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2023/3/30/danh-muc-icon-phu-kien-setup-thinkpro.vn.png",
+  },
+  {
+    id: "ram",
+    slug: "ram",
+    name: "RAM",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2025/1/20/32d4sam3200-512x512-png.png",
+  },
+  {
+    id: "o-cung",
+    slug: "o-cung",
+    name: "Ổ cứng",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2025/1/20/samsung-990-512x512png.png",
+  },
+  {
+    id: "merchandise",
+    slug: "merchandise",
+    name: "Merchandise",
+    image:
+      "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2025/8/21/vyuj.png",
   },
 ];

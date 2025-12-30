@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
-import { getProducts } from "../../api/mockService";
+import { getProducts } from "../../api/productsApi";
 import ProductCard from "../../components/product/ProductCard";
 import ProductCardSkeleton from "../../components/product/ProductCard/ProductCardSkeleton";
 import Breadcrumb from "../../components/common/Breadcrumb";
@@ -106,34 +106,47 @@ const ProductListingPage = () => {
   // Filter products - Lọc theo tất cả bộ lọc mới
   const filteredProducts = useMemo(() => {
     // Step 1: Filter by URL category first
+    const categoryParam = category ? category.toLowerCase() : "";
     let result = category
-      ? products.filter(
-          (p) => p.category.toLowerCase() === category.toLowerCase()
-        )
+      ? products.filter((p) => {
+          const pcat = (p.category || "").toLowerCase();
+          // allow exact match or contains (handle slug vs name differences)
+          return (
+            pcat === categoryParam ||
+            pcat.includes(categoryParam) ||
+            categoryParam.includes(pcat)
+          );
+        })
       : [...products];
 
     // Step 2: Filter by search query from URL
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      result = result.filter(
-        (p) =>
-          p.name.toLowerCase().includes(query) ||
-          p.brand.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query)
-      );
+      result = result.filter((p) => {
+        const name = (p.name || "").toLowerCase();
+        const brand = (p.brand || "").toLowerCase();
+        const categoryValue = (p.category || "").toLowerCase();
+
+        return (
+          name.includes(query) ||
+          brand.includes(query) ||
+          categoryValue.includes(query)
+        );
+      });
     }
 
     // Step 3: Filter by brand from URL
     if (brandFromUrl) {
       result = result.filter(
-        (p) => p.brand.toLowerCase() === brandFromUrl.toLowerCase()
+        (p) => (p.brand || "").toLowerCase() === brandFromUrl.toLowerCase()
       );
     }
 
     // Step 4: Filter by model from URL (search in product name)
     if (modelFromUrl) {
+      const modelQuery = modelFromUrl.toLowerCase();
       result = result.filter((p) =>
-        p.name.toLowerCase().includes(modelFromUrl.toLowerCase())
+        (p.name || "").toLowerCase().includes(modelQuery)
       );
     }
 
@@ -150,8 +163,102 @@ const ProductListingPage = () => {
       );
     }
 
-    // TODO: Các bộ lọc khác sẽ cần thêm fields vào mockService.js
-    // needs, sources, conditions, cpus, rams, ssds, screenSizes, refreshRates, resolutions, advanced, colors
+    // Step 7: Filter by CPU options
+    if (filters.cpus.length > 0) {
+      result = result.filter((p) => {
+        const cpu = p.specs?.cpu || "";
+        if (!cpu) return false;
+        const cpuLower = cpu.toLowerCase();
+        return filters.cpus.some((opt) => cpuLower.includes(opt.toLowerCase()));
+      });
+    }
+
+    // Step 8: Filter by RAM options
+    if (filters.rams.length > 0) {
+      result = result.filter((p) => {
+        const ram = p.specs?.ram || "";
+        if (!ram) return false;
+        const ramLower = ram.toLowerCase();
+        return filters.rams.some((opt) => ramLower.includes(opt.toLowerCase()));
+      });
+    }
+
+    // Step 9: Filter by SSD/storage options
+    if (filters.ssds.length > 0) {
+      result = result.filter((p) => {
+        const storage = p.specs?.storage || "";
+        if (!storage) return false;
+        const storageLower = storage.toLowerCase();
+        return filters.ssds.some((opt) =>
+          storageLower.includes(opt.toLowerCase())
+        );
+      });
+    }
+
+    // Step 10: Filter by screen size ranges (approximate by inches in specs.screen)
+    if (filters.screenSizes.length > 0) {
+      result = result.filter((p) => {
+        const screen = p.specs?.screen || "";
+        if (!screen) return false;
+        const match = screen.match(/(\d+(?:\.\d+)?)/);
+        const size = match ? parseFloat(match[1]) : null;
+        if (!size) return false;
+
+        return filters.screenSizes.some((label) => {
+          switch (label) {
+            case "Khoảng 13 inches":
+              return size >= 12.5 && size < 13.6;
+            case "Khoảng 14 inches":
+              return size >= 13.6 && size < 14.6;
+            case "Khoảng 15 inches":
+              return size >= 14.6 && size < 16.1;
+            case "Trên 16 inches":
+              return size >= 16.1;
+            default:
+              return true;
+          }
+        });
+      });
+    }
+
+    // Step 11: Filter by refresh rate (Hz) in screen specs
+    if (filters.refreshRates.length > 0) {
+      result = result.filter((p) => {
+        const screen = p.specs?.screen || "";
+        if (!screen) return false;
+        const screenLower = screen.toLowerCase();
+        return filters.refreshRates.some((opt) => {
+          const num = opt.replace(/[^0-9]/g, "");
+          return num && screenLower.includes(num.toLowerCase());
+        });
+      });
+    }
+
+    // Step 12: Filter by resolution labels
+    if (filters.resolutions.length > 0) {
+      result = result.filter((p) => {
+        const screen = p.specs?.screen || "";
+        if (!screen) return false;
+        const screenLower = screen.toLowerCase();
+        return filters.resolutions.some((opt) =>
+          screenLower.includes(opt.toLowerCase())
+        );
+      });
+    }
+
+    // Step 13: Filter by advanced options (e.g., OLED)
+    if (filters.advanced.length > 0) {
+      result = result.filter((p) => {
+        const screen = p.specs?.screen || "";
+        const specsAll = `${screen} ${p.specs?.display || ""}`.toLowerCase();
+        return filters.advanced.some((opt) =>
+          specsAll.includes(opt.toLowerCase())
+        );
+      });
+    }
+
+    // Note: needs, sources, conditions, colors hiện chưa có field tương ứng trong dữ liệu sản phẩm,
+    // nên chưa áp dụng lọc chi tiết cho các bộ lọc này.
 
     return result;
   }, [products, filters, category, brandFromUrl, modelFromUrl, searchQuery]);
