@@ -49,14 +49,18 @@ export default function CheckoutPage() {
       try {
         setLoadingVoucherList(true);
         setVoucherListError("");
-        const res = await axios.get("http://localhost:5000/api/vouchers/available", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axios.get(
+          "http://localhost:5000/api/vouchers/available",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setAvailableVouchers(res.data?.vouchers || []);
       } catch (err) {
         console.error("Failed to load available vouchers", err);
         setVoucherListError(
-          err?.response?.data?.message || "Không thể tải danh sách voucher của bạn."
+          err?.response?.data?.message ||
+            "Không thể tải danh sách voucher của bạn."
         );
       } finally {
         setLoadingVoucherList(false);
@@ -115,7 +119,8 @@ export default function CheckoutPage() {
     } catch (err) {
       setVoucherResult(null);
       setVoucherError(
-        err?.response?.data?.message || "Áp dụng voucher thất bại. Vui lòng thử lại."
+        err?.response?.data?.message ||
+          "Áp dụng voucher thất bại. Vui lòng thử lại."
       );
     } finally {
       setApplying(false);
@@ -196,7 +201,9 @@ export default function CheckoutPage() {
                     <input
                       type="text"
                       value={voucherCode}
-                      onChange={(e) => setVoucherCode(e.target.value.toUpperCase())}
+                      onChange={(e) =>
+                        setVoucherCode(e.target.value.toUpperCase())
+                      }
                       placeholder="Nhập mã voucher"
                       className="flex-1 border rounded px-3 py-2 text-sm"
                     />
@@ -223,8 +230,7 @@ export default function CheckoutPage() {
                   )}
                   {voucherResult?.voucher && (
                     <p className="text-xs text-green-700 mt-1">
-                      Đã áp dụng voucher {voucherResult.voucher.code} - Giảm
-                      {" "}
+                      Đã áp dụng voucher {voucherResult.voucher.code} - Giảm{" "}
                       {voucherResult.discountAmount.toLocaleString("vi-VN")}đ
                     </p>
                   )}
@@ -235,18 +241,28 @@ export default function CheckoutPage() {
                       onClick={() => setShowVoucherList((prev) => !prev)}
                       className="text-xs px-3 py-2 border rounded hover:bg-gray-100"
                     >
-                      {showVoucherList ? "Ẩn voucher khả dụng" : "Xem voucher khả dụng"}
+                      {showVoucherList
+                        ? "Ẩn voucher khả dụng"
+                        : "Xem voucher khả dụng"}
                     </button>
 
                     {showVoucherList && (
                       <div className="mt-2">
-                        <div className="text-sm font-semibold mb-1">Voucher của bạn</div>
+                        <div className="text-sm font-semibold mb-1">
+                          Voucher của bạn
+                        </div>
                         {loadingVoucherList ? (
-                          <p className="text-xs text-gray-500">Đang tải danh sách voucher...</p>
+                          <p className="text-xs text-gray-500">
+                            Đang tải danh sách voucher...
+                          </p>
                         ) : voucherListError ? (
-                          <p className="text-xs text-red-600">{voucherListError}</p>
+                          <p className="text-xs text-red-600">
+                            {voucherListError}
+                          </p>
                         ) : availableVouchers.length === 0 ? (
-                          <p className="text-xs text-gray-500">Hiện bạn chưa có voucher khả dụng.</p>
+                          <p className="text-xs text-gray-500">
+                            Hiện bạn chưa có voucher khả dụng.
+                          </p>
                         ) : (
                           <div className="space-y-1 max-h-40 overflow-y-auto">
                             {availableVouchers.map((v) => (
@@ -265,14 +281,17 @@ export default function CheckoutPage() {
                                   )}
                                   {v.minOrderValue > 0 && (
                                     <div className="text-[11px] text-gray-500">
-                                      Đơn tối thiểu: {v.minOrderValue.toLocaleString("vi-VN")}đ
+                                      Đơn tối thiểu:{" "}
+                                      {v.minOrderValue.toLocaleString("vi-VN")}đ
                                     </div>
                                   )}
                                 </div>
                                 <span className="text-[11px] text-gray-700">
                                   {v.discountType === "percent"
                                     ? `- ${v.discountValue}%`
-                                    : `- ${v.discountValue.toLocaleString("vi-VN")}đ`}
+                                    : `- ${v.discountValue.toLocaleString(
+                                        "vi-VN"
+                                      )}đ`}
                                 </span>
                               </button>
                             ))}
@@ -283,7 +302,10 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <OrderSummary cartItems={selectedItems} voucherResult={voucherResult} />
+                <OrderSummary
+                  cartItems={selectedItems}
+                  voucherResult={voucherResult}
+                />
 
                 <button
                   type="submit"
