@@ -78,7 +78,7 @@ if (isProduction) {
   app.use(helmet());
 }
 
-app.use(cors(corsOptions)); //ap dung cors cho tat ca
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(sanitizeRequest);
 
@@ -120,7 +120,7 @@ mongoose.connection.on("disconnected", () =>
 );
 
 //goi redis
-if (process.env.REDIS_URL) {
+if (process.env.REDIS_URL && process.env.REDIS_URL.trim()) {
   connectRedis();
 } else {
   console.log("Redis disabled (REDIS_URL not set)");
