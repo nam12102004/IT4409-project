@@ -20,6 +20,7 @@ import Review from "./models/Review.js";
 import authRoutes from "./routes/authRoutes.js";
 import productsRoutes from "./routes/productsRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
+import brandsRoutes from "./routes/brandsRoutes.js";
 import ordersRoutes from "./routes/ordersRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
@@ -131,6 +132,7 @@ app.get("/", (req, res) => {
 app.use("/api", authRoutes);
 app.use("/api", productsRoutes);
 app.use("/api", categoriesRoutes);
+app.use("/api", brandsRoutes);
 app.use("/api", ordersRoutes);
 app.use("/api", ordersRoutes);
 app.use("/api", paymentRoutes);
