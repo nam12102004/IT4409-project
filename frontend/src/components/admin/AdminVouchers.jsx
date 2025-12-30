@@ -13,6 +13,7 @@ export default function AdminVouchers() {
     discountValue: 0,
     maxDiscountAmount: 0,
     minOrderValue: 0,
+    maxUsage: 0,
     startDate: "",
     endDate: "",
     appliesToAllUsers: true,
@@ -67,7 +68,12 @@ export default function AdminVouchers() {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
       setForm((prev) => ({ ...prev, [name]: checked }));
-    } else if (name === "discountValue" || name === "maxDiscountAmount" || name === "minOrderValue") {
+    } else if (
+      name === "discountValue" ||
+      name === "maxDiscountAmount" ||
+      name === "minOrderValue" ||
+      name === "maxUsage"
+    ) {
       setForm((prev) => ({ ...prev, [name]: Number(value) || 0 }));
     } else {
       setForm((prev) => ({ ...prev, [name]: value }));
@@ -97,6 +103,7 @@ export default function AdminVouchers() {
         discountValue: 0,
         maxDiscountAmount: 0,
         minOrderValue: 0,
+        maxUsage: 0,
         startDate: "",
         endDate: "",
         userIds: [],
@@ -279,6 +286,8 @@ export default function AdminVouchers() {
                     <th className="px-3 py-2 text-left">Giá trị</th>
                     <th className="px-3 py-2 text-left">Tối đa</th>
                     <th className="px-3 py-2 text-left">Đơn tối thiểu</th>
+                    <th className="px-3 py-2 text-left">SL tối đa</th>
+                    <th className="px-3 py-2 text-left">Đã dùng</th>
                     <th className="px-3 py-2 text-left">Trạng thái</th>
                     <th className="px-3 py-2"></th>
                   </tr>
@@ -307,6 +316,12 @@ export default function AdminVouchers() {
                         {v.minOrderValue
                           ? `${v.minOrderValue.toLocaleString("vi-VN")}đ`
                           : "0đ"}
+                      </td>
+                      <td className="px-3 py-2">
+                        {v.maxUsage && v.maxUsage > 0 ? v.maxUsage : "Không giới hạn"}
+                      </td>
+                      <td className="px-3 py-2">
+                        {typeof v.usedCount === "number" ? v.usedCount : 0}
                       </td>
                       <td className="px-3 py-2">
                         {v.isActive ? (
@@ -432,6 +447,20 @@ export default function AdminVouchers() {
               inputMode="numeric"
               name="minOrderValue"
               value={form.minOrderValue}
+              onChange={handleFormChange}
+              className="w-full border rounded px-3 py-2 text-sm"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">
+              Số lượng sử dụng tối đa (0 = không giới hạn)
+            </label>
+            <input
+              type="text"
+              inputMode="numeric"
+              name="maxUsage"
+              value={form.maxUsage}
               onChange={handleFormChange}
               className="w-full border rounded px-3 py-2 text-sm"
             />

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Order, { EOrderStatus, EPaymentMethod } from "../models/Order.js";
+import Voucher from "../models/Voucher.js";
 import { createZaloPayOrder } from "../config/zalopay.js";
 import { calculateVoucherForItems } from "./voucherController.js";
 
@@ -124,6 +125,10 @@ export const createOrder = async (req, res) => {
             quantity: item.quantity,
             price: item.price,
           })),
+          // Không truyền bankCode để ZaloPay hiển thị danh sách kênh thanh toán (gateway) theo tài liệu
+          bankCode: undefined,
+          // callbackUrl sẽ lấy từ config (ZALOPAY_CALLBACK_URL) nếu đã cấu hình
+          callbackUrl: undefined,
         });
         paymentData = data;
         zaloPayAppTransId = appTransId;
@@ -152,6 +157,17 @@ export const createOrder = async (req, res) => {
       voucherId: appliedVoucherId,
       zaloPayAppTransId,
     });
+
+    // Tăng số lần sử dụng voucher nếu có
+    if (appliedVoucherId) {
+      try {
+        await Voucher.findByIdAndUpdate(appliedVoucherId, {
+          $inc: { usedCount: 1 },
+        });
+      } catch (usageErr) {
+        console.error("Failed to increment voucher usedCount", usageErr);
+      }
+    }
 
     return res.status(201).json({ order, paymentData });
   } catch (err) {

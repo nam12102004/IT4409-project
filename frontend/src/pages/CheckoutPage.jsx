@@ -9,6 +9,8 @@ import SEO from "../components/common/SEO";
 export default function CheckoutPage() {
   const {
     cartItems,
+    selectedItemIds,
+    directCheckoutItems,
     formData,
     setFormData,
     orderSuccess,
@@ -27,6 +29,12 @@ export default function CheckoutPage() {
   const [voucherListError, setVoucherListError] = useState("");
   const [loadingVoucherList, setLoadingVoucherList] = useState(false);
   const [showVoucherList, setShowVoucherList] = useState(false);
+
+  // Nếu có danh sách Mua ngay thì ưu tiên dùng, nếu không thì dùng các sản phẩm đã chọn trong giỏ
+  const selectedItems =
+    directCheckoutItems && directCheckoutItems.length > 0
+      ? directCheckoutItems
+      : cartItems.filter((item) => selectedItemIds.includes(item.id));
 
   const handleBackToCart = () => {
     navigate(-1);
@@ -67,8 +75,8 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (!cartItems || cartItems.length === 0) {
-      setVoucherError("Giỏ hàng trống, không thể áp dụng voucher.");
+    if (!selectedItems || selectedItems.length === 0) {
+      setVoucherError("Không có sản phẩm nào được chọn để áp dụng voucher.");
       return;
     }
 
@@ -80,7 +88,7 @@ export default function CheckoutPage() {
 
     try {
       setApplying(true);
-      const subtotal = cartItems.reduce(
+      const subtotal = selectedItems.reduce(
         (acc, item) => acc + item.newPrice * item.quantity,
         0
       );
@@ -89,7 +97,7 @@ export default function CheckoutPage() {
         "http://localhost:5000/api/vouchers/apply",
         {
           code,
-          items: cartItems.map((item) => ({
+          items: selectedItems.map((item) => ({
             productId: item.id,
             newPrice: item.newPrice,
             quantity: item.quantity,
@@ -275,7 +283,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <OrderSummary cartItems={cartItems} voucherResult={voucherResult} />
+                <OrderSummary cartItems={selectedItems} voucherResult={voucherResult} />
 
                 <button
                   type="submit"

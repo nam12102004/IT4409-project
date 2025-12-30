@@ -23,6 +23,16 @@ export function CartProvider({ children }) {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [orderSuccess, setOrderSuccess] = useState(false);
 
+  // Danh sách id sản phẩm được chọn để thanh toán
+  const [selectedItemIds, setSelectedItemIds] = useState(() =>
+    cartItems.map((item) => item.id)
+  );
+  // Khi true, giữ nguyên lựa chọn hiện tại, không tự động thêm sản phẩm mới
+  const [isManualSelection, setIsManualSelection] = useState(false);
+
+  // Danh sách sản phẩm thanh toán trực tiếp (Mua ngay), tách biệt với giỏ hàng
+  const [directCheckoutItems, setDirectCheckoutItems] = useState([]);
+
   // Voucher đang áp dụng ở checkout
   const [voucherCode, setVoucherCode] = useState("");
   const [voucherResult, setVoucherResult] = useState(null);
@@ -44,6 +54,26 @@ export function CartProvider({ children }) {
       console.error("Error saving cart to localStorage:", error);
     }
   }, [cartItems]);
+
+  // Đồng bộ selectedItemIds với cartItems
+  // - Luôn loại bỏ các id không còn trong giỏ
+  // - Nếu không ở chế độ chọn thủ công, tự động chọn sản phẩm mới thêm
+  useEffect(() => {
+    setSelectedItemIds((prev) => {
+      const currentIds = cartItems.map((item) => item.id);
+
+      // Giữ lại những id còn tồn tại trong giỏ
+      let next = prev.filter((id) => currentIds.includes(id));
+
+      // Nếu không ở chế độ chọn thủ công thì tự động thêm sản phẩm mới
+      if (!isManualSelection) {
+        const newlyAddedIds = currentIds.filter((id) => !next.includes(id));
+        next = [...next, ...newlyAddedIds];
+      }
+
+      return next;
+    });
+  }, [cartItems, isManualSelection]);
 
   // load orders từ backend khi đã đăng nhập
   useEffect(() => {
@@ -122,13 +152,22 @@ export function CartProvider({ children }) {
   // xử lý đặt hàng
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+
+    // Nếu có danh sách Mua ngay thì ưu tiên dùng, ngược lại dùng sản phẩm đã chọn trong giỏ
+    const selectedItems =
+      directCheckoutItems && directCheckoutItems.length > 0
+        ? directCheckoutItems
+        : cartItems.filter((item) => selectedItemIds.includes(item.id));
+
     if (
       !formData.name ||
       !formData.phone ||
       !formData.address ||
-      cartItems.length === 0
+      selectedItems.length === 0
     ) {
-      alert("Vui lòng điền đầy đủ thông tin và có sản phẩm trong giỏ.");
+      alert(
+        "Vui lòng điền đầy đủ thông tin và chọn ít nhất 1 sản phẩm để thanh toán."
+      );
       return;
     }
     const token = localStorage.getItem("token");
@@ -144,7 +183,7 @@ export function CartProvider({ children }) {
         shippingAddress: formData.address,
         paymentMethod,
         voucherCode: voucherCode || undefined,
-        items: cartItems.map((item) => ({
+        items: selectedItems.map((item) => ({
           productId: item.id,
           productName: item.name,
           imageUrl: item.imageUrl,
@@ -193,7 +232,7 @@ export function CartProvider({ children }) {
                     quantity: it.quantity,
                     newPrice: it.price,
                   }))
-                : cartItems,
+                : selectedItems,
             total: createdOrder.totalPrice,
           }
         : {
@@ -201,15 +240,25 @@ export function CartProvider({ children }) {
             customer: formData.name,
             phone: formData.phone,
             address: formData.address,
-            items: cartItems,
-            total: cartItems.reduce(
+            items: selectedItems,
+            total: selectedItems.reduce(
               (acc, item) => acc + item.newPrice * item.quantity,
               0
             ),
           };
 
       setOrderSuccess(true);
-      setCartItems([]);
+      // Nếu đặt từ giỏ hàng: xóa các sản phẩm đã chọn khỏi giỏ
+      if (!directCheckoutItems || directCheckoutItems.length === 0) {
+        setCartItems((prev) =>
+          prev.filter((item) => !selectedItemIds.includes(item.id))
+        );
+        setSelectedItemIds([]);
+        setIsManualSelection(false);
+      }
+
+      // Luôn reset chế độ Mua ngay sau khi đặt
+      setDirectCheckoutItems([]);
       setVoucherCode("");
       setVoucherResult(null);
       setOrders((prevOrders) => [newOrder, ...prevOrders]);
@@ -229,6 +278,12 @@ export function CartProvider({ children }) {
     addToCart,
     decreaseQuantity,
     removeFromCart,
+    selectedItemIds,
+    setSelectedItemIds,
+    isManualSelection,
+    setIsManualSelection,
+    directCheckoutItems,
+    setDirectCheckoutItems,
     formData,
     setFormData,
     orderSuccess,
