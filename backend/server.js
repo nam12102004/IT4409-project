@@ -36,12 +36,6 @@ const allowedOrigins = (process.env.CLIENT_URL || "")
   .map((o) => o.trim())
   .filter((o) => o.length > 0);
 
-<<<<<<< HEAD
-app.use(cors({
-  origin: ['https://thnm.id.vn', 'https://it4409-81ee6.web.app'], 
-  credentials: true
-}));
-=======
 const corsOptions = {
   origin: allowedOrigins.length ? allowedOrigins : "*",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
@@ -83,7 +77,6 @@ if (isProduction) {
 }
 
 app.use(cors(corsOptions));
->>>>>>> main
 app.use(express.json());
 app.use(sanitizeRequest);
 
