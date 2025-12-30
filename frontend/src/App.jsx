@@ -1,11 +1,10 @@
 import React, { useState, lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom"; 
-
+import { Routes, Route } from "react-router-dom";
 
 // ===== EAGER IMPORTS (Components luôn cần) =====
 import Header from "./components/common/Header/Header";
-import Footer from "./components/home/WelcomeBanner/Footer"; 
-import TechNews from './components/home/WelcomeBanner/TechNews';
+import Footer from "./components/home/WelcomeBanner/Footer";
+import TechNews from "./components/home/WelcomeBanner/TechNews";
 import PageLoader from "./components/common/PageLoader";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { CartPopup } from "./components/cart/CartPopup";
@@ -22,12 +21,17 @@ const CategoryList = lazy(() =>
 const FeaturedProductsSlider = lazy(() =>
   import("./components/home/WelcomeBanner/FeatureProduct")
 );
+const BestSellerProducts = lazy(() =>
+  import("./components/home/BestSellerProducts")
+);
 
 // Pages
 const TestProductCard = lazy(() => import("./pages/TestProductCard"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
-const GoogleCompleteProfilePage = lazy(() => import("./pages/GoogleCompleteProfilePage"));
+const GoogleCompleteProfilePage = lazy(() =>
+  import("./pages/GoogleCompleteProfilePage")
+);
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
@@ -62,8 +66,9 @@ function App() {
                   <CategoryList
                     selectedCategory={selectedCategory}
                     onSelectCategory={setSelectedCategory}
-                  /> 
+                  />
                   <FeaturedProductsSlider />
+                  <BestSellerProducts />
                   <TechNews />
                 </>
               }
@@ -94,8 +99,7 @@ function App() {
             {/* 404 Page - Phải đặt cuối cùng */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </Suspense> 
-        
+        </Suspense>
 
         <Footer />
         <CartPopup />

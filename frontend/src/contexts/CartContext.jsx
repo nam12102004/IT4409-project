@@ -23,6 +23,25 @@ export function CartProvider({ children }) {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [orderSuccess, setOrderSuccess] = useState(false);
 
+  // Trạng thái chờ xác nhận ZaloPay (xử lý ở background) - load từ localStorage
+  const [pendingZaloPayOrder, setPendingZaloPayOrder] = useState(() => {
+    try {
+      const saved = localStorage.getItem("pendingZaloPayOrder");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Kiểm tra xem đã quá 60 giây chưa (cho phép buffer)
+        if (parsed.createdAt && Date.now() - parsed.createdAt < 60000) {
+          return parsed;
+        } else {
+          localStorage.removeItem("pendingZaloPayOrder");
+        }
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  });
+
   // Danh sách id sản phẩm được chọn để thanh toán
   const [selectedItemIds, setSelectedItemIds] = useState(() =>
     cartItems.map((item) => item.id)
@@ -45,6 +64,80 @@ export function CartProvider({ children }) {
 
   // danh sách đơn hàng đã đặt (lấy từ backend)
   const [orders, setOrders] = useState([]);
+
+  // Tự động xác nhận ZaloPay order sau 30 giây (chạy ở background)
+  useEffect(() => {
+    if (!pendingZaloPayOrder) return;
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setPendingZaloPayOrder(null);
+      localStorage.removeItem("pendingZaloPayOrder");
+      return;
+    }
+
+    // Tính thời gian còn lại (nếu order được tạo trước đó)
+    const elapsed = Date.now() - (pendingZaloPayOrder.createdAt || Date.now());
+    const remainingTime = Math.max(30000 - elapsed, 1000); // Tối thiểu 1 giây
+
+    console.log(`[ZaloPay] Will auto confirm in ${remainingTime}ms`);
+
+    // Sau thời gian còn lại, tự động confirm order
+    const timeoutId = setTimeout(async () => {
+      console.log(
+        `[ZaloPay] Starting auto confirm for order: ${pendingZaloPayOrder.id}`
+      );
+      try {
+        const res = await axios.post(
+          `http://localhost:5000/api/payment/zalopay/confirm/${pendingZaloPayOrder.id}`,
+          {},
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        console.log("[ZaloPay] Confirm response:", res.data);
+
+        if (res.data?.orderStatus === "confirmed") {
+          console.log("[ZaloPay] Order auto confirmed");
+
+          // Refresh orders list
+          const ordersRes = await axios.get(
+            "http://localhost:5000/api/orders/my",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          const serverOrders = Array.isArray(ordersRes?.data?.orders)
+            ? ordersRes.data.orders
+            : [];
+          const mappedOrders = serverOrders.map((o) => ({
+            id: o._id,
+            customer: o.customerName,
+            phone: o.customerPhone,
+            address: o.shippingAddress,
+            total: o.totalPrice,
+            items: Array.isArray(o.items)
+              ? o.items.map((it, idx) => ({
+                  id: it.productId || idx,
+                  name: it.productName,
+                  quantity: it.quantity,
+                  newPrice: it.price,
+                }))
+              : [],
+          }));
+          setOrders(mappedOrders);
+        }
+      } catch (err) {
+        console.error("[ZaloPay] Auto confirm error:", err);
+      } finally {
+        setPendingZaloPayOrder(null);
+        localStorage.removeItem("pendingZaloPayOrder");
+      }
+    }, remainingTime);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [pendingZaloPayOrder]);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
@@ -95,15 +188,14 @@ export function CartProvider({ children }) {
           phone: o.customerPhone,
           address: o.shippingAddress,
           total: o.totalPrice,
-          items:
-            Array.isArray(o.items)
-              ? o.items.map((it, idx) => ({
-                  id: it.productId || idx,
-                  name: it.productName,
-                  quantity: it.quantity,
-                  newPrice: it.price,
-                }))
-              : [],
+          items: Array.isArray(o.items)
+            ? o.items.map((it, idx) => ({
+                id: it.productId || idx,
+                name: it.productName,
+                quantity: it.quantity,
+                newPrice: it.price,
+              }))
+            : [],
         }));
 
         setOrders(mappedOrders);
@@ -203,15 +295,40 @@ export function CartProvider({ children }) {
       const createdOrder = res?.data?.order;
       const paymentData = res?.data?.paymentData;
 
-      // Nếu chọn ZaloPay: chuyển sang trang thanh toán ZaloPay
+      // Nếu chọn ZaloPay: lưu pending order và mở trang thanh toán trong tab mới
       if (paymentMethod === "zalopay") {
         const redirectUrl =
           paymentData?.order_url ||
           paymentData?.orderurl ||
           paymentData?.orderUrl;
 
-        if (redirectUrl) {
-          window.location.href = redirectUrl;
+        if (redirectUrl && createdOrder) {
+          // Lưu pending order để tự động confirm sau 30 giây (lưu cả vào localStorage)
+          const pendingOrder = {
+            id: createdOrder._id,
+            createdAt: Date.now(),
+          };
+          setPendingZaloPayOrder(pendingOrder);
+          localStorage.setItem(
+            "pendingZaloPayOrder",
+            JSON.stringify(pendingOrder)
+          );
+
+          // Xóa sản phẩm khỏi giỏ ngay khi đặt hàng
+          if (!directCheckoutItems || directCheckoutItems.length === 0) {
+            setCartItems((prev) =>
+              prev.filter((item) => !selectedItemIds.includes(item.id))
+            );
+            setSelectedItemIds([]);
+            setIsManualSelection(false);
+          }
+          setDirectCheckoutItems([]);
+          setVoucherCode("");
+          setVoucherResult(null);
+
+          // Mở trang thanh toán ZaloPay trong tab mới và chuyển về trang chủ
+          window.open(redirectUrl, "_blank");
+          window.location.href = "/";
           return;
         }
 
@@ -224,15 +341,14 @@ export function CartProvider({ children }) {
             customer: createdOrder.customerName,
             phone: createdOrder.customerPhone,
             address: createdOrder.shippingAddress,
-            items:
-              Array.isArray(createdOrder.items)
-                ? createdOrder.items.map((it, idx) => ({
-                    id: it.productId || idx,
-                    name: it.productName,
-                    quantity: it.quantity,
-                    newPrice: it.price,
-                  }))
-                : selectedItems,
+            items: Array.isArray(createdOrder.items)
+              ? createdOrder.items.map((it, idx) => ({
+                  id: it.productId || idx,
+                  name: it.productName,
+                  quantity: it.quantity,
+                  newPrice: it.price,
+                }))
+              : selectedItems,
             total: createdOrder.totalPrice,
           }
         : {

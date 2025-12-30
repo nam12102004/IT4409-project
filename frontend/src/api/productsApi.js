@@ -33,7 +33,18 @@ const getBrandMap = async () => {
   return brandMapCache;
 };
 
-export const getProducts = async () => {
+// Cache products với TTL 5 phút
+let productsCache = null;
+let productsCacheTime = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+export const getProducts = async (forceRefresh = false) => {
+  // Check cache first
+  const now = Date.now();
+  if (!forceRefresh && productsCache && now - productsCacheTime < CACHE_TTL) {
+    return productsCache;
+  }
+
   // Fetch products và brands song song
   const [productsRes, brandMap] = await Promise.all([
     axios.get(`${API_BASE_URL}/products`),
@@ -88,6 +99,19 @@ export const getProducts = async () => {
       isBestSeller: p.isBestSeller ?? false,
     };
   });
+
+  // Update cache
+  productsCache = products;
+  productsCacheTime = now;
+
+  return products;
+};
+
+// Clear cache when needed (e.g., after product update)
+export const clearProductsCache = () => {
+  productsCache = null;
+  productsCacheTime = 0;
+  brandMapCache = null;
 };
 
 export const getProductById = async (productId) => {
