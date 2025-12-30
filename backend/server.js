@@ -20,11 +20,13 @@ import Review from "./models/Review.js";
 import authRoutes from "./routes/authRoutes.js";
 import productsRoutes from "./routes/productsRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
+import brandsRoutes from "./routes/brandsRoutes.js";
 import ordersRoutes from "./routes/ordersRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import reviewsRoutes from "./routes/reviewsRoutes.js";
+import voucherRoutes from "./routes/voucherRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -76,7 +78,7 @@ if (isProduction) {
   app.use(helmet());
 }
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); //ap dung cors cho tat ca
 app.use(express.json());
 app.use(sanitizeRequest);
 
@@ -131,12 +133,14 @@ app.get("/", (req, res) => {
 app.use("/api", authRoutes);
 app.use("/api", productsRoutes);
 app.use("/api", categoriesRoutes);
+app.use("/api", brandsRoutes);
 app.use("/api", ordersRoutes);
 app.use("/api", ordersRoutes);
 app.use("/api", paymentRoutes);
 app.use("/api", chatRoutes);
 app.use("/api", userRoutes);
 app.use("/api/reviews", reviewsRoutes);
+app.use("/api", voucherRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

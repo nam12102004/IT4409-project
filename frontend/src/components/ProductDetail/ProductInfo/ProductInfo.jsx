@@ -1,4 +1,15 @@
 import React from "react";
+import {
+  FaTruck,
+  FaShieldAlt,
+  FaExchangeAlt,
+  FaGift,
+  FaShoppingCart,
+  FaStarHalfAlt,
+  FaStarAndCrescent,
+  FaStarOfLife,
+  FaRegStar,
+} from "react-icons/fa";
 import "./ProductInfo.css";
 
 /**
@@ -46,7 +57,8 @@ export const ProductInfo = ({
       <div className="product-meta">
         <div className="rating-section">
           <span className="rating">
-            ⭐ {product.rating} ({product.numReviews} đánh giá)
+            <FaRegStar color="#ffc107" size={20} /> {product.rating} (
+            {product.numReviews} đánh giá)
           </span>
         </div>
         <div className="stock-section">

@@ -9,5 +9,8 @@ router.post("/orders", authenticateToken, orderController.createOrder);
 router.get("/orders/my", authenticateToken, orderController.getMyOrders);
 router.get("/orders", authenticateToken, authorizeRole("admin"), orderController.getAllOrders);
 router.put("/orders/:id/cancel", authenticateToken, orderController.cancelOrder);
+router.put("/orders/:id/receive", authenticateToken, orderController.confirmReceiveOrder);
+router.put("/orders/:id/return", authenticateToken, orderController.returnOrder);
+router.get("/orders/stats", authenticateToken, authorizeRole("admin"), orderController.getOrderStats);
 
 export default router;

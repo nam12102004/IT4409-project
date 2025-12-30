@@ -20,7 +20,13 @@ import { createReview } from "../../api/reviewApi";
 export const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart, setIsCartOpen, setIsCheckoutOpen } = useCart();
+  const {
+    addToCart,
+    setIsCartOpen,
+    setSelectedItemIds,
+    setIsManualSelection,
+    setDirectCheckoutItems,
+  } = useCart();
   const { success } = useToast();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -80,8 +86,8 @@ export const ProductDetailPage = () => {
   const handleBuyNow = () => {
     if (!product) return;
 
-    // Tạo object sản phẩm để thêm vào giỏ
-    const cartItem = {
+    // Tạo object sản phẩm chỉ dùng cho thanh toán trực tiếp (không thêm vào giỏ)
+    const checkoutItem = {
       id: product.id,
       name: product.name,
       imageUrl: product.images?.[0] || product.image,
@@ -89,11 +95,14 @@ export const ProductDetailPage = () => {
       oldPrice: product.oldPrice,
       variant: selectedVariant?.name || null,
       specs: product.specifications,
+      quantity: 1,
     };
 
-    // Thêm vào giỏ hàng và mở form thanh toán ngay
-    addToCart(cartItem);
-    setIsCheckoutOpen(true);
+    // Thiết lập chế độ Mua ngay: chỉ thanh toán 1 sản phẩm, không ảnh hưởng giỏ hàng
+    setIsManualSelection(false);
+    setSelectedItemIds([]);
+    setDirectCheckoutItems([checkoutItem]);
+    navigate("/checkout");
   };
 
   const handleSubmitReview = async () => {
@@ -223,15 +232,6 @@ export const ProductDetailPage = () => {
               onAddToCart={handleAddToCart}
               onBuyNow={handleBuyNow}
             />
-
-            {/* Variant Selector */}
-            {product.variants && product.variants.length > 0 && (
-              <VariantSelector
-                variants={product.variants}
-                selectedVariant={selectedVariant}
-                onVariantChange={setSelectedVariant}
-              />
-            )}
           </div>
         </div>
 

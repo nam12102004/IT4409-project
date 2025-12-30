@@ -3,8 +3,11 @@ import mongoose from "mongoose";
 export const EOrderStatus = {
   WaitingForPayment: "waiting_for_payment",
   Pending: "pending",
+  Shipping: "shipping",
+  Delivered: "delivered",
   Confirmed: "confirmed",
   Cancelled: "cancelled",
+  Refunded: "refunded",
 };
 
 export const EPaymentMethod = {
@@ -68,8 +71,12 @@ const OrderSchema = new mongoose.Schema(
       required: true,
     },
     shippingAddress: { type: String, required: true },
-    note: { type: String }, // Ghi chú đơn hàng
+    note: { type: String },
     totalPrice: { type: Number, required: true },
+    originalTotalPrice: { type: Number },
+    discountAmount: { type: Number, default: 0 },
+    voucherCode: { type: String },
+    voucherId: { type: mongoose.Schema.Types.ObjectId, ref: "Voucher" },
     createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true }
