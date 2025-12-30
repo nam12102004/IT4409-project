@@ -137,35 +137,17 @@ export default function Dashboard() {
         {ordersError && (
           <p className="text-xs text-red-600 mb-3">{ordersError}</p>
         )}
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4 text-sm">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4 text-sm">
           <div>
-            <div className="text-gray-500">Tiền kiếm được (đơn thành công)</div>
+            <div className="text-gray-500">Doanh thu</div>
             <div className="text-lg font-semibold mt-1">
               {displayStats.totalRevenue.toLocaleString("vi-VN")}₫
             </div>
           </div>
           <div>
-            <div className="text-gray-500">Tiền đang pending (COD)</div>
-            <div className="text-lg font-semibold mt-1">
-              {displayStats.pendingCash.toLocaleString("vi-VN")}₫
-            </div>
-          </div>
-          <div>
-            <div className="text-gray-500">Đơn bán ra thành công</div>
+            <div className="text-gray-500">Đơn giao thành công</div>
             <div className="text-lg font-semibold mt-1">
               {displayStats.successOrders}
-            </div>
-          </div>
-          <div>
-            <div className="text-gray-500">Số tiền hoàn trả (đơn hoàn trả)</div>
-            <div className="text-lg font-semibold mt-1">
-              {displayStats.refundAmount.toLocaleString("vi-VN")}₫
-            </div>
-          </div>
-          <div>
-            <div className="text-gray-500">Số đơn hoàn trả</div>
-            <div className="text-lg font-semibold mt-1">
-              {displayStats.refundOrders}
             </div>
           </div>
         </div>

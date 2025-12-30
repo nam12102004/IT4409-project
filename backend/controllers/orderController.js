@@ -4,6 +4,8 @@ import Voucher from "../models/Voucher.js";
 import { createZaloPayOrder } from "../config/zalopay.js";
 import { calculateVoucherForItems } from "./voucherController.js";
 
+const BASE_SHIPPING_FEE = 30000; // phí ship cố định cho mỗi đơn
+
 export const createOrder = async (req, res) => {
   try {
     const customerId = req.user?.id;
@@ -54,16 +56,29 @@ export const createOrder = async (req, res) => {
         productImage: item.productImage || item.imageUrl || item.image,
         quantity,
         price,
+        // Tạm gán, sẽ cập nhật lại bên dưới để phân bổ tổng phí ship
         shippingPrice: 0,
       };
     });
+    // Phân bổ phí ship cố định cho toàn bộ đơn (tổng 30.000)
+    if (normalizedItems.length > 0) {
+      const shippingPerItem = BASE_SHIPPING_FEE / normalizedItems.length;
+      normalizedItems.forEach((item) => {
+        item.shippingPrice = shippingPerItem;
+      });
+    }
 
-    const totalPrice = normalizedItems.reduce(
-      (sum, item) => sum + item.price * item.quantity + item.shippingPrice,
+    const itemsTotal = normalizedItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
       0
     );
 
-    const originalTotalPrice = totalPrice;
+    const shippingTotal = normalizedItems.reduce(
+      (sum, item) => sum + item.shippingPrice,
+      0
+    );
+
+    const originalTotalPrice = itemsTotal + shippingTotal;
 
     // Áp dụng voucher (nếu có)
     let finalTotalPrice = originalTotalPrice;
@@ -82,7 +97,8 @@ export const createOrder = async (req, res) => {
         userId: customerId,
         code: voucherCode,
         items: voucherItems,
-        orderTotal: originalTotalPrice,
+        // Voucher chỉ tính trên tiền hàng, không tính phí ship
+        orderTotal: itemsTotal,
       });
 
       if (voucherResult.errorMessage) {
@@ -115,7 +131,8 @@ export const createOrder = async (req, res) => {
           : {};
 
         const { data, appTransId } = await createZaloPayOrder({
-          amount: totalPrice,
+          // Tổng số tiền khách cần thanh toán bao gồm cả phí ship
+          amount: originalTotalPrice,
           appUser: customerEmail || customerPhone || String(customerId),
           description: `Payment for order by ${customerName}`,
           embedData,

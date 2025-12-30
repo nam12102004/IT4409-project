@@ -7,25 +7,66 @@ export default function OrderPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
-  const fetchOrders = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/orders/my", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const fetchOrdersAndSyncZaloPay = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const authHeaders = token
+          ? { headers: { Authorization: `Bearer ${token}` } }
+          : {};
 
-      const serverOrders = Array.isArray(res.data.orders)
-        ? res.data.orders
-        : [];
+        const res = await axios.get(
+          "http://localhost:5000/api/orders/my",
+          authHeaders
+        );
 
-      setOrders(serverOrders);
-    } catch (err) {
-      console.error("Lỗi khi lấy đơn hàng:", err);
-      setOrders([]); // fallback để tránh lỗi map
-    }
-  };
-  fetchOrders();
-}, []);
+        let serverOrders = Array.isArray(res.data.orders)
+          ? res.data.orders
+          : [];
+
+        // Với các đơn thanh toán ZaloPay đang chờ (waiting_for_payment),
+        // tự động gọi API kiểm tra trạng thái để cập nhật nếu đã thanh toán thành công.
+        const waitingOrders = serverOrders.filter(
+          (o) => o.orderStatus === "waiting_for_payment"
+        );
+
+        if (waitingOrders.length && token) {
+          try {
+            const checks = await Promise.all(
+              waitingOrders.map((o) =>
+                axios.get(
+                  `http://localhost:5000/api/zalopay/status/${o._id}`,
+                  { headers: { Authorization: `Bearer ${token}` } }
+                ).catch(() => null)
+              )
+            );
+
+            const updatedById = new Map();
+            checks.forEach((resCheck) => {
+              const updatedOrder = resCheck?.data?.order;
+              if (updatedOrder?._id) {
+                updatedById.set(updatedOrder._id, updatedOrder);
+              }
+            });
+
+            if (updatedById.size) {
+              serverOrders = serverOrders.map((o) =>
+                updatedById.has(o._id) ? updatedById.get(o._id) : o
+              );
+            }
+          } catch (syncErr) {
+            console.error("Lỗi khi đồng bộ trạng thái ZaloPay:", syncErr);
+          }
+        }
+
+        setOrders(serverOrders);
+      } catch (err) {
+        console.error("Lỗi khi lấy đơn hàng:", err);
+        setOrders([]); // fallback để tránh lỗi map
+      }
+    };
+
+    fetchOrdersAndSyncZaloPay();
+  }, []);
 
 
   return (
@@ -55,11 +96,19 @@ export default function OrderPage() {
                   {order.totalPrice.toLocaleString()}₫
                 </td>
                 <td className="border p-3">
-                  <span className={`px-2 py-1 rounded-full text-sm ${
-                    order.orderStatus === "pending" ? "bg-yellow-100 text-yellow-700" :
-                    order.orderStatus === "confirmed" ? "bg-green-100 text-green-700" :
-                    order.orderStatus === "cancelled" ? "bg-red-100 text-red-700" : ""
-                  }`}>
+                  <span
+                    className={`px-2 py-1 rounded-full text-sm ${
+                      order.orderStatus === "waiting_for_payment"
+                        ? "bg-orange-100 text-orange-700"
+                        : order.orderStatus === "pending"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : order.orderStatus === "confirmed"
+                        ? "bg-green-100 text-green-700"
+                        : order.orderStatus === "cancelled"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
                     {order.orderStatus}
                   </span>
                 </td>
