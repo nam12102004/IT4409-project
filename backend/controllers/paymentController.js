@@ -28,7 +28,7 @@ export const zaloPayCallback = async (req, res) => {
       if (appTransId) {
         await Order.findOneAndUpdate(
           { zaloPayAppTransId: appTransId },
-          { $set: { orderStatus: EOrderStatus.Confirmed } }
+          { $set: { orderStatus: EOrderStatus.Shipping } }
         );
         console.log(
           "[ZaloPay] Updated order status to confirmed for app_trans_id =",
@@ -83,7 +83,7 @@ export const getZaloPayStatus = async (req, res) => {
       if (isSuccess && order.orderStatus === EOrderStatus.WaitingForPayment) {
         const updated = await Order.findByIdAndUpdate(
           orderId,
-          { $set: { orderStatus: EOrderStatus.Confirmed } },
+          { $set: { orderStatus: EOrderStatus.Shipping } },
           { new: true }
         ).lean();
         if (updated) {

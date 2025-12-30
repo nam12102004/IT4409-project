@@ -52,12 +52,14 @@ export default function Dashboard() {
       const method = o.paymentMethod;
       const amount = Number(o.totalPrice || 0);
 
-      if (status === "confirmed") {
+      // Đơn đã bán thành công: đã giao (delivered) hoặc các đơn cũ ở trạng thái confirmed
+      if (status === "delivered" || status === "confirmed") {
         totalRevenue += amount;
         successOrders += 1;
       }
 
-      if (method === "cash" && status === "pending") {
+      // Tiền COD đang trên đường giao (shipping)
+      if (method === "cash" && status === "shipping") {
         pendingCash += amount;
       }
 

@@ -118,10 +118,12 @@ export const createOrder = async (req, res) => {
     let paymentData = null;
     let zaloPayAppTransId = null;
 
+    // ZaloPay: tạo đơn chờ thanh toán trên cổng (waiting_for_payment)
+    // COD (cash) và các phương thức khác: sau khi đặt xong sẽ chuyển sang trạng thái đang giao (shipping)
     const orderStatus =
       resolvedPaymentMethod === EPaymentMethod.Zalopay
         ? EOrderStatus.WaitingForPayment
-        : EOrderStatus.Pending;
+        : EOrderStatus.Shipping;
 
     if (resolvedPaymentMethod === EPaymentMethod.Zalopay) {
       try {
@@ -279,7 +281,12 @@ export const getOrderStats = async (req, res) => {
           returnedOrders: {
             $sum: {
               $cond: [
-                { $eq: ["$orderStatus", EOrderStatus.Cancelled] },
+                {
+                  $or: [
+                    { $eq: ["$orderStatus", EOrderStatus.Cancelled] },
+                    { $eq: ["$orderStatus", EOrderStatus.Refunded] },
+                  ],
+                },
                 1,
                 0,
               ],
@@ -288,7 +295,12 @@ export const getOrderStats = async (req, res) => {
           revenue: {
             $sum: {
               $cond: [
-                { $eq: ["$orderStatus", EOrderStatus.Confirmed] },
+                {
+                  $or: [
+                    { $eq: ["$orderStatus", EOrderStatus.Confirmed] },
+                    { $eq: ["$orderStatus", EOrderStatus.Delivered] },
+                  ],
+                },
                 "$totalPrice",
                 0,
               ],
@@ -354,8 +366,17 @@ export const cancelOrder = async (req, res) => {
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
-    if (order.orderStatus === EOrderStatus.Cancelled) {
-      return res.status(400).json({ message: "Order already cancelled" });
+
+    // Chỉ cho phép huỷ khi đơn còn ở trạng thái chờ thanh toán / chờ duyệt
+    if (
+      ![
+        EOrderStatus.WaitingForPayment,
+        EOrderStatus.Pending,
+      ].includes(order.orderStatus)
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Không thể hủy đơn ở trạng thái hiện tại" });
     }
 
     order.orderStatus = EOrderStatus.Cancelled;
@@ -368,5 +389,81 @@ export const cancelOrder = async (req, res) => {
   }
 };
 
+// Khách xác nhận đã nhận hàng thành công
+export const confirmReceiveOrder = async (req, res) => {
+  try {
+    const customerId = req.user?.id;
+    const orderId = req.params.id;
 
-export default { createOrder, getMyOrders, getAllOrders, cancelOrder, getOrderStats };
+    if (!customerId || !mongoose.isValidObjectId(customerId)) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    if (!mongoose.isValidObjectId(orderId)) {
+      return res.status(400).json({ message: "Invalid order id" });
+    }
+
+    const order = await Order.findOne({ _id: orderId, customerId });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (order.orderStatus !== EOrderStatus.Shipping) {
+      return res
+        .status(400)
+        .json({ message: "Chỉ có thể xác nhận với đơn đang giao" });
+    }
+
+    order.orderStatus = EOrderStatus.Delivered;
+    await order.save();
+
+    return res.json({ order });
+  } catch (err) {
+    console.error("confirmReceiveOrder error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Khách chọn trả hàng / hoàn đơn
+export const returnOrder = async (req, res) => {
+  try {
+    const customerId = req.user?.id;
+    const orderId = req.params.id;
+
+    if (!customerId || !mongoose.isValidObjectId(customerId)) {
+      return res.status(401).json({ message: "Not authenticated" });
+    }
+    if (!mongoose.isValidObjectId(orderId)) {
+      return res.status(400).json({ message: "Invalid order id" });
+    }
+
+    const order = await Order.findOne({ _id: orderId, customerId });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (order.orderStatus !== EOrderStatus.Shipping) {
+      return res
+        .status(400)
+        .json({ message: "Chỉ có thể trả hàng với đơn đang giao" });
+    }
+
+    order.orderStatus = EOrderStatus.Refunded;
+    await order.save();
+
+    return res.json({ order });
+  } catch (err) {
+    console.error("returnOrder error:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+export default {
+  createOrder,
+  getMyOrders,
+  getAllOrders,
+  cancelOrder,
+  getOrderStats,
+  confirmReceiveOrder,
+  returnOrder,
+};
