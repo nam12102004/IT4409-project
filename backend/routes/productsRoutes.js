@@ -14,9 +14,7 @@ router.post('/products', authenticateToken, authorizeRole('admin'), upload.array
 router.put('/products/:id', authenticateToken, authorizeRole('admin'), upload.array('images', 6), productController.updateProduct);
 // delete product
 router.delete('/products/:id', authenticateToken, authorizeRole('admin'), productController.deleteProduct);
-// feature product (static ids)
+//feature product
 router.get("/products/featured", productController.getFeaturedProducts);
-// best selling products from order history
-router.get("/products/best-selling", productController.getBestSellingProducts);
 
 export default router;

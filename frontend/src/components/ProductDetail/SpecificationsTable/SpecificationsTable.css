@@ -1,5 +1,5 @@
 .specifications-table {
-  margin: 40px 0;
+  margin: 32px 0;
   padding: 24px;
   background: white;
   border-radius: 12px;
@@ -7,7 +7,7 @@
 }
 
 .specs-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 24px 0;
@@ -23,13 +23,13 @@
 
 .spec-section {
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   transition: box-shadow 0.3s ease;
 }
 
 .spec-section:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .section-header {
@@ -38,19 +38,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border: none;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .section-header:hover {
-  background: #e9ecef;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
 }
 
 .section-header h3 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: #1a1a1a;
   margin: 0;
 }
@@ -79,55 +79,77 @@
   transition: background 0.2s ease;
 }
 
+.section-content tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
 .section-content tbody tr:last-child {
   border-bottom: none;
 }
 
 .section-content tbody tr:hover {
-  background: #f8f9fa;
+  background: #e3f2fd;
 }
 
 .spec-label {
-  padding: 16px 20px;
+  padding: 14px 20px;
   font-weight: 600;
-  color: #666;
-  width: 40%;
-  vertical-align: top;
+  color: #555;
+  width: 35%;
+  vertical-align: middle;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .spec-value {
-  padding: 16px 20px;
+  padding: 14px 20px;
   color: #1a1a1a;
-  width: 60%;
+  width: 65%;
+  font-size: 14px;
+  font-weight: 500;
+  vertical-align: middle;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .specifications-table {
+    margin: 24px 0;
     padding: 16px;
   }
 
   .specs-title {
-    font-size: 20px;
+    font-size: 18px;
+  }
+
+  .section-header {
+    padding: 14px 16px;
   }
 
   .section-header h3 {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .section-content tbody tr {
+    display: flex;
+    flex-direction: column;
   }
 
   .spec-label,
   .spec-value {
     display: block;
     width: 100%;
-    padding: 12px 16px;
+    padding: 10px 16px;
   }
 
   .spec-label {
     padding-bottom: 4px;
-    border-bottom: none;
+    background: #f0f0f0;
+    font-size: 13px;
   }
 
   .spec-value {
-    padding-top: 4px;
+    padding-top: 6px;
+    padding-bottom: 14px;
+    font-size: 14px;
   }
 }
