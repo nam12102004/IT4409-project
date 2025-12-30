@@ -23,7 +23,7 @@ export const categories = [
   {
     id: "may-choi-game",
     slug: "may-choi-game",
-    name: "Máy chơi game/Game Console",
+    name: "Máy chơi game/ Game Console",
     image:
       "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2023/3/25/danh-muc-icon-may-choi-game-game-console-thinkpro.vn.png",
   },
@@ -93,7 +93,7 @@ export const categories = [
   {
     id: "ram",
     slug: "ram",
-    name: "Ram",
+    name: "RAM",
     image:
       "https://imagor.owtg.one/unsafe/fit-in/240x240/https://d28jzcg6y4v9j1.cloudfront.net/media/core/categories/2025/1/20/32d4sam3200-512x512-png.png",
   },
@@ -132,7 +132,7 @@ export const slugToCategoryName = {
   "hoc-tu": "Hộc tủ",
   "arm-man-hinh": "Arm màn hình",
   "phu-kien-setup": "Phụ kiện Setup",
-  ram: "Ram",
+  ram: "RAM",
   "o-cung": "Ổ cứng",
   merchandise: "Merchandise",
 };
@@ -153,7 +153,7 @@ export const categoryNameToSlug = {
   "Hộc tủ": "hoc-tu",
   "Arm màn hình": "arm-man-hinh",
   "Phụ kiện Setup": "phu-kien-setup",
-  Ram: "ram",
+  RAM: "ram",
   "Ổ cứng": "o-cung",
   Merchandise: "merchandise",
 };

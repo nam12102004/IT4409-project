@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/common/Header/Header";
 import Footer from "./components/home/WelcomeBanner/Footer"; 
 import TechNews from './components/home/WelcomeBanner/TechNews';
+import BestSellingGrid from './components/home/BestSellingGrid';
 import PageLoader from "./components/common/PageLoader";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { CartPopup } from "./components/cart/CartPopup";
@@ -64,6 +65,7 @@ function App() {
                     onSelectCategory={setSelectedCategory}
                   /> 
                   <FeaturedProductsSlider />
+                  <BestSellingGrid />
                   <TechNews />
                 </>
               }
