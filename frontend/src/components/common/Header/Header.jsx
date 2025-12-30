@@ -102,7 +102,7 @@ function Header() {
   return (
     <header className="bg-sky-100 px-8 py-4 flex justify-between items-center border-b border-sky-200 font-sans z-10 relative">
       <div className="flex items-center gap-5">
-        <div
+         <div
           onClick={() => navigate("/")}
           className="cursor-pointer text-3xl font-bold text-blue-500 relative pr-2.5"
         >
@@ -132,7 +132,7 @@ function Header() {
                       <button
                         key={brand}
                         onClick={() => {
-                          navigate(`/products/laptop-nhap-khau?brand=${brand}`);
+                          navigate(`/products/laptop?brand=${brand}`);
                           setProductOpen(false);
                         }}
                         className="px-4 py-2 border border-gray-300 rounded-full text-sm hover:border-blue-500 hover:text-blue-500"
@@ -143,7 +143,7 @@ function Header() {
                   </div>
 
                   <div className="space-y-1">
-                    {categories.map((category) => (
+                    {categories.slice(0, 10).map((category) => (
                       <button
                         key={category.id}
                         onClick={() => {
@@ -164,9 +164,7 @@ function Header() {
                     <div key={brand.name}>
                       <h4
                         onClick={() => {
-                          navigate(
-                            `/products/laptop-nhap-khau?brand=${brand.name}`
-                          );
+                          navigate(`/products/laptop?brand=${brand.name}`);
                           setProductOpen(false);
                         }}
                         className="font-bold text-gray-800 mb-2 flex items-center gap-2 cursor-pointer hover:text-blue-500"
@@ -180,7 +178,7 @@ function Header() {
                             key={item}
                             onClick={() => {
                               navigate(
-                                `/products/laptop-nhap-khau?brand=${brand.name}&model=${item}`
+                                `/products/laptop?brand=${brand.name}&model=${item}`
                               );
                               setProductOpen(false);
                             }}
@@ -210,7 +208,7 @@ function Header() {
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-gray-800 font-medium text-sm hover:text-blue-500"
-        >
+     >
           <FiMapPin />
           <span>Địa chỉ cửa hàng</span>
         </a>

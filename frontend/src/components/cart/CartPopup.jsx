@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { X, Plus, Minus, Trash2, ShoppingBag } from "lucide-react";
 
@@ -15,11 +16,12 @@ export function CartPopup() {
     cartItems,
     isCartOpen,
     setIsCartOpen,
-    setIsCheckoutOpen,
     addToCart,
     decreaseQuantity,
     removeFromCart,
   } = useCart();
+
+  const navigate = useNavigate();
 
   if (!isCartOpen) return null;
 
@@ -29,8 +31,8 @@ export function CartPopup() {
   );
 
   const handleCheckout = () => {
-    setIsCheckoutOpen(true); //mo form
-    setIsCartOpen(false); //dong popup
+    setIsCartOpen(false);
+    navigate("/checkout");
   };
 
   return (

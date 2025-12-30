@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
       newPrice: product.price,
       imageUrl: product.thumbnail || product.image,
       oldPrice: product.originalPrice,
-      brand: product.brand?.name || "",
+      brand: product.brand,
     };
     addToCart(cartProduct);
 
@@ -107,12 +107,6 @@ const ProductCard = ({ product }) => {
         >
           {product.name || product.title}
         </h3>
-        {/* Brand */}
-        {product.brand?.name && (
-          <div className="text-gray-500 text-sm mb-1">
-            Thương hiệu: {product.brand.name}
-          </div>
-        )}
         {/* Giá */}
         <div className="mb-3">
           {product.originalPrice && product.originalPrice > product.price && (

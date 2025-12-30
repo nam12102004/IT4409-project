@@ -11,6 +11,7 @@ const MOCK_PRODUCTS = [
 
 export const AdminProducts = () => {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [showAdd, setShowAdd] = useState(false);
@@ -118,6 +119,11 @@ export const AdminProducts = () => {
     }
   };
 
+  const normalizedSearch = search.trim().toLowerCase();
+  const filteredProducts = normalizedSearch
+    ? products.filter((p) => (p.name || '').toLowerCase().includes(normalizedSearch))
+    : products;
+
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <div className="flex justify-between items-center mb-6">
@@ -130,6 +136,17 @@ export const AdminProducts = () => {
             <RefreshCw size={16} />
           </button>
         </div>
+      </div>
+
+      {/* Tìm kiếm sản phẩm theo tên trong admin */}
+      <div className="mb-4">
+        <input
+          type="text"
+          className="w-full max-w-sm px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+          placeholder="Tìm sản phẩm theo tên..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       {error && <div className="text-sm text-yellow-600 mb-3">{error}</div>}
@@ -151,7 +168,7 @@ export const AdminProducts = () => {
             {loading ? (
               <tr><td colSpan={7} className="p-4 text-center">Đang tải...</td></tr>
             ) : (
-              products.map((p) => (
+              filteredProducts.map((p) => (
                 <tr key={p._id} className="border-b hover:bg-gray-50">
                   <td className="p-3 font-medium text-blue-600">{p._id}</td>
                   <td className="p-3">
