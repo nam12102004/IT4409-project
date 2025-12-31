@@ -10,7 +10,7 @@ export default function OrderPage() {
     const fetchOrders = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/orders/my", {
+        const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -33,7 +33,7 @@ export default function OrderPage() {
     if (!token) return;
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/receive`,
+        `https://it4409-deploy-backend.onrender.com/api/orders/${orderId}/receive`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -55,7 +55,7 @@ export default function OrderPage() {
       return;
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/refund`,
+        `https://it4409-deploy-backend.onrender.com/api/orders/${orderId}/refund`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

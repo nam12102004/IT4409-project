@@ -105,7 +105,7 @@ export default function BestSellerProducts() {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch("http://localhost:5000/api/products/bestsellers?limit=15", {
+    fetch("https://it4409-deploy-backend.onrender.com/api/products/bestsellers?limit=15", {
       signal: controller.signal,
     })
       .then((res) => res.json())

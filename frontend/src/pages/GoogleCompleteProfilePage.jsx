@@ -47,7 +47,7 @@ export default function GoogleCompleteProfilePage() {
       }
 
       const res = await axios.post(
-        "http://localhost:5000/api/google/complete-profile",
+        "https://it4409-deploy-backend.onrender.com/api/google/complete-profile",
         {
           googleSignupToken,
           username: form.username,

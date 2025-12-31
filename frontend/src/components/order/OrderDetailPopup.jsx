@@ -5,7 +5,7 @@ export default function OrderDetailPopup({ order, onClose, onCancel }) {
   const handleCancelOrder = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:5000/api/orders/${order._id}/cancel`, {}, {
+      await axios.put(`https://it4409-deploy-backend.onrender.com/api/orders/${order._id}/cancel`, {}, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onCancel(order._id);

@@ -20,7 +20,7 @@ export const AdminOrders = () => {
     setLoading(true);
     setError("");
     try {
-      const res = await axios.get("http://localhost:5000/api/orders", {
+      const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const serverOrders = Array.isArray(res?.data?.orders)
@@ -64,7 +64,7 @@ export const AdminOrders = () => {
     if (!token) return;
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/confirm`,
+        `https://it4409-deploy-backend.onrender.com/api/orders/${orderId}/confirm`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -84,7 +84,7 @@ export const AdminOrders = () => {
     if (!window.confirm("Bạn có chắc muốn hủy đơn hàng này?")) return;
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/admin-cancel`,
+        `https://it4409-deploy-backend.onrender.com/api/orders/${orderId}/admin-cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

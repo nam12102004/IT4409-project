@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import SEO from "../components/common/SEO";
-import ReCAPTCHA from "react-google-recaptcha";
 import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [captchaToken, setCaptchaToken] = useState(null);
+  
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
@@ -19,7 +18,7 @@ export default function LoginPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/login/google", {
+      const res = await axios.post("https://thnm.id.vn/api/login/google", {
         idToken,
       });
 
@@ -59,15 +58,12 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!captchaToken) {
-        alert("Vui lòng xác nhận captcha");
-        return;
-      }
+      
 
-      const res = await axios.post("http://localhost:5000/api/login", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/login", {
         username,
         password,
-        captchaToken,
+        
       });
         const user = res.data.user;
         const token = res.data.token;
@@ -116,10 +112,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <ReCAPTCHA
-            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-            onChange={setCaptchaToken}
-          />
+         
 
           <button className="w-full bg-sky-600 text-white py-2 rounded-lg font-medium hover:bg-sky-700">
             Đăng nhập

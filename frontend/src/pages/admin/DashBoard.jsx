@@ -21,7 +21,7 @@ export default function Dashboard() {
             }
           : {};
 
-        const res = await axios.get("http://localhost:5000/api/orders", {
+        const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders", {
           headers,
         });
 

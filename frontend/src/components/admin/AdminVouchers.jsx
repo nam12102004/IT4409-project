@@ -46,7 +46,7 @@ export default function AdminVouchers() {
     try {
       setLoading(true);
       setError("");
-      const res = await axios.get("http://localhost:5000/api/vouchers", {
+      const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/vouchers", {
         headers: authHeaders,
       });
       setVouchers(res.data.vouchers || []);
@@ -91,7 +91,7 @@ export default function AdminVouchers() {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/vouchers",
+        "https://it4409-deploy-backend.onrender.com/api/vouchers",
         payload,
         { headers: authHeaders }
       );
@@ -121,7 +121,7 @@ export default function AdminVouchers() {
   const handleDeleteVoucher = async (id) => {
     if (!window.confirm("Xóa voucher này?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/vouchers/${id}`, {
+      await axios.delete(`https://it4409-deploy-backend.onrender.com/api/vouchers/${id}`, {
         headers: authHeaders,
       });
       setVouchers((prev) => prev.filter((v) => v._id !== id));
@@ -136,7 +136,7 @@ export default function AdminVouchers() {
     try {
       setUserLoading(true);
       const res = await axios.get(
-        "http://localhost:5000/api/vouchers/search-users",
+        "https://it4409-deploy-backend.onrender.com/api/vouchers/search-users",
         {
           params: search ? { q: search } : {},
           headers: authHeaders,
@@ -154,7 +154,7 @@ export default function AdminVouchers() {
     try {
       setProductLoading(true);
       const res = await axios.get(
-        "http://localhost:5000/api/vouchers/search-products",
+        "https://it4409-deploy-backend.onrender.com/api/vouchers/search-products",
         {
           params: search ? { q: search } : {},
           headers: authHeaders,

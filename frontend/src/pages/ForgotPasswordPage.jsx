@@ -27,7 +27,7 @@ export default function ForgotPasswordPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/forgot-password", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/forgot-password", {
         email,
       });
 
@@ -53,7 +53,7 @@ export default function ForgotPasswordPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/reset-password", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/reset-password", {
         email,
         code,
         newPassword,

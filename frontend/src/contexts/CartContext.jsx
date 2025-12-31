@@ -89,7 +89,7 @@ export function CartProvider({ children }) {
       );
       try {
         const res = await axios.post(
-          `http://localhost:5000/api/payment/zalopay/confirm/${pendingZaloPayOrder.id}`,
+          `https://it4409-deploy-backend.onrender.com/api/payment/zalopay/confirm/${pendingZaloPayOrder.id}`,
           {},
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -101,7 +101,7 @@ export function CartProvider({ children }) {
 
           // Refresh orders list
           const ordersRes = await axios.get(
-            "http://localhost:5000/api/orders/my",
+            "https://it4409-deploy-backend.onrender.com/api/orders/my",
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -175,7 +175,7 @@ export function CartProvider({ children }) {
 
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/orders/my", {
+        const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const serverOrders = Array.isArray(res?.data?.orders)
@@ -285,7 +285,7 @@ export function CartProvider({ children }) {
       };
 
       const res = await axios.post(
-        "http://localhost:5000/api/orders",
+        "https://it4409-deploy-backend.onrender.com/api/orders",
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

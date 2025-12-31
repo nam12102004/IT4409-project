@@ -50,7 +50,7 @@ export default function CheckoutPage() {
         setLoadingVoucherList(true);
         setVoucherListError("");
         const res = await axios.get(
-          "http://localhost:5000/api/vouchers/available",
+          "https://it4409-deploy-backend.onrender.com/api/vouchers/available",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -98,7 +98,7 @@ export default function CheckoutPage() {
       );
 
       const res = await axios.post(
-        "http://localhost:5000/api/vouchers/apply",
+        "https://it4409-deploy-backend.onrender.com/api/vouchers/apply",
         {
           code,
           items: selectedItems.map((item) => ({

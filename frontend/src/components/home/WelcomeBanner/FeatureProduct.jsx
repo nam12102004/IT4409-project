@@ -44,9 +44,9 @@ export default function FeaturedProductsSlider() {
 
     const controller = new AbortController();
     const ids =
-      "69518fed2d72ac9b603c6c8e,69518fed2d72ac9b603c6c98,69518fed2d72ac9b603c6c97,6952449d388709b10e7fc548";
+      "6953522a3f70bdfb6365b703,6953522a3f70bdfb6365b704,6953522a3f70bdfb6365b706";
 
-    fetch(`http://localhost:5000/api/products/featured?ids=${ids}`, {
+    fetch(`https://it4409-deploy-backend.onrender.com/api/products/featured?ids=${ids}`, {
       signal: controller.signal,
     })
       .then((res) => res.json())

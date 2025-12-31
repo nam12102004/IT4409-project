@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import SEO from "../components/common/SEO";
-import ReCAPTCHA from "react-google-recaptcha";
+
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [captchaToken, setCaptchaToken] = useState(null);
+  
   const [verifyModalOpen, setVerifyModalOpen] = useState(false);
   const [verifyEmail, setVerifyEmail] = useState("");
   const [verifyCode, setVerifyCode] = useState("");
@@ -34,11 +34,7 @@ export default function RegisterPage() {
     setLoading(true);
     setError("");
     try {
-      if (!captchaToken) {
-        setError("Vui lòng xác nhận captcha");
-        setLoading(false);
-        return;
-      }
+     
 
       if (form.password !== form.confirmPassword) {
         setError("Mật khẩu và xác nhận mật khẩu không khớp.");
@@ -46,7 +42,7 @@ export default function RegisterPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/register", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/register", {
         username: form.username,
         password: form.password,
         confirmPassword: form.confirmPassword,
@@ -54,7 +50,7 @@ export default function RegisterPage() {
         email: form.email,
         phoneNumber: form.phoneNumber,
         address: form.address,
-        captchaToken,
+        
       });
       const user = res.data.user;
       const token = res.data.token;
@@ -94,7 +90,7 @@ export default function RegisterPage() {
         return;
       }
 
-      const res = await axios.post("http://localhost:5000/api/verify-email", {
+      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/verify-email", {
         email: verifyEmail,
         code: verifyCode,
       });
@@ -190,10 +186,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
           />
-          <ReCAPTCHA
-            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-            onChange={setCaptchaToken}
-          />
+        
           <button
             disabled={loading}
             className="w-full bg-sky-600 text-white py-2 rounded-lg font-medium hover:bg-sky-700"
