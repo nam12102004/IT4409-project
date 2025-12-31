@@ -217,10 +217,15 @@ function Header() {
             className="flex items-center gap-3 relative"
             ref={userDropdownRef}
           >
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
               <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
                 <FiUser />
               </div>
+              {user?.fullname && (
+                <span className="max-w-[150px] truncate text-sm font-medium text-gray-700">
+                  {user.fullname}
+                </span>
+              )}
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
                 className="text-gray-600 px-2 py-1 hover:bg-transparent"
@@ -241,7 +246,7 @@ function Header() {
               </Link>
             )}
             {userMenuOpen && (
-              <div className="absolute right-0 mt-12 bg-white border rounded shadow p-2 w-40 z-50">
+              <div className="absolute right-0 top-full mt-2 bg-white border rounded shadow p-2 w-40 z-50">
                 <button
                   onClick={() => {
                     setUserMenuOpen(false);

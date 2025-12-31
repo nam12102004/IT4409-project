@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { ProductGallery } from "../../components/ProductDetail/ProductGallery";
 import { ProductInfo } from "../../components/ProductDetail/ProductInfo";
 import { VariantSelector } from "../../components/ProductDetail/VariantSelector";
@@ -10,6 +10,7 @@ import SEO from "../../components/common/SEO";
 import { formatPrice } from "../../utils/formatPrice";
 import { useCart } from "../../hooks/useCart";
 import { useToast } from "../../contexts/ToastContext";
+import { getSlugFromCategoryName } from "../../data/categories";
 import "./ProductDetailPage.css";
 import { getReviews } from "../../api/reviewApi";
 import { createReview } from "../../api/reviewApi";
@@ -20,7 +21,13 @@ import { createReview } from "../../api/reviewApi";
 export const ProductDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart, setIsCartOpen, setIsCheckoutOpen } = useCart();
+  const {
+    addToCart,
+    setIsCartOpen,
+    setSelectedItemIds,
+    setIsManualSelection,
+    setDirectCheckoutItems,
+  } = useCart();
   const { success } = useToast();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -80,8 +87,8 @@ export const ProductDetailPage = () => {
   const handleBuyNow = () => {
     if (!product) return;
 
-    // Tạo object sản phẩm để thêm vào giỏ
-    const cartItem = {
+    // Tạo object sản phẩm chỉ dùng cho thanh toán trực tiếp (không thêm vào giỏ)
+    const checkoutItem = {
       id: product.id,
       name: product.name,
       imageUrl: product.images?.[0] || product.image,
@@ -89,11 +96,14 @@ export const ProductDetailPage = () => {
       oldPrice: product.oldPrice,
       variant: selectedVariant?.name || null,
       specs: product.specifications,
+      quantity: 1,
     };
 
-    // Thêm vào giỏ hàng và mở form thanh toán ngay
-    addToCart(cartItem);
-    setIsCheckoutOpen(true);
+    // Thiết lập chế độ Mua ngay: chỉ thanh toán 1 sản phẩm, không ảnh hưởng giỏ hàng
+    setIsManualSelection(false);
+    setSelectedItemIds([]);
+    setDirectCheckoutItems([checkoutItem]);
+    navigate("/checkout");
   };
 
   const handleSubmitReview = async () => {
@@ -195,11 +205,11 @@ export const ProductDetailPage = () => {
       <div className="product-detail-container">
         {/* Breadcrumb */}
         <nav className="breadcrumb">
-          <a href="/">Trang chủ</a>
+          <Link to="/">Trang chủ</Link>
           <span className="breadcrumb-separator">/</span>
-          <a href={`/category/${product.category.toLowerCase()}`}>
+          <Link to={`/products/${getSlugFromCategoryName(product.category)}`}>
             {product.category}
-          </a>
+          </Link>
           <span className="breadcrumb-separator">/</span>
           <span className="current">{product.brand}</span>
         </nav>
@@ -223,15 +233,6 @@ export const ProductDetailPage = () => {
               onAddToCart={handleAddToCart}
               onBuyNow={handleBuyNow}
             />
-
-            {/* Variant Selector */}
-            {product.variants && product.variants.length > 0 && (
-              <VariantSelector
-                variants={product.variants}
-                selectedVariant={selectedVariant}
-                onVariantChange={setSelectedVariant}
-              />
-            )}
           </div>
         </div>
 

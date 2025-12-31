@@ -67,33 +67,41 @@ export default function SearchBar() {
                 <p>Không tìm thấy kết quả</p>
               </div>
             ) : (
-              results.map((p) => (
-                <Link
-                  key={p._id || p.id}
-                  to={`/product/${p.slug || p._id || p.id}`}
-                  className="suggestion-item"
-                  onMouseDown={(e) => e.preventDefault()}
-                >
-                  <div className="suggestion-image">
-                    <img
-                      src={p.images?.[0] || "/placeholder.png"}
-                      alt={p.name}
-                      className="optimized-image"
-                    />
-                  </div>
-                  <div className="suggestion-info">
-                    <div className="suggestion-name">{p.name}</div>
-                    <div className="suggestion-meta">
-                      <div className="suggestion-brand">{p.brand}</div>
-                      <div className="suggestion-price">
-                        {typeof p.price === "number"
-                          ? p.price.toLocaleString("vi-VN") + " đ"
-                          : p.price}
+              results.map((p) => {
+                // Xử lý brand có thể là string hoặc object {_id, name}
+                const brandName =
+                  typeof p.brand === "string" ? p.brand : p.brand?.name || "";
+                // Xử lý price - có thể là discountPrice hoặc price
+                const displayPrice = p.discountPrice || p.price;
+
+                return (
+                  <Link
+                    key={p._id || p.id}
+                    to={`/product/${p._id || p.id}`}
+                    className="suggestion-item"
+                    onMouseDown={(e) => e.preventDefault()}
+                  >
+                    <div className="suggestion-image">
+                      <img
+                        src={p.images?.[0] || "/placeholder.png"}
+                        alt={p.name}
+                        className="optimized-image"
+                      />
+                    </div>
+                    <div className="suggestion-info">
+                      <div className="suggestion-name">{p.name}</div>
+                      <div className="suggestion-meta">
+                        <div className="suggestion-brand">{brandName}</div>
+                        <div className="suggestion-price">
+                          {typeof displayPrice === "number"
+                            ? displayPrice.toLocaleString("vi-VN") + " đ"
+                            : displayPrice}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              ))
+                  </Link>
+                );
+              })
             )}
           </div>
 

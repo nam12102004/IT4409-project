@@ -12,6 +12,11 @@ export async function sendChatMessage(message) {
   return res.data?.message || null;
 }
 
+export async function fetchSupportStatus() {
+  const res = await axios.get(`${API_BASE_URL}/chat/support-status`);
+  return res.data || { currentAdmin: null, lastAdmin: null };
+}
+
 // Admin APIs
 export async function fetchConversationsForAdmin() {
   const res = await axios.get(`${API_BASE_URL}/admin/chat/conversations`);
@@ -26,4 +31,14 @@ export async function fetchChatHistoryForAdmin(userId) {
 export async function adminSendMessage(userId, message) {
   const res = await axios.post(`${API_BASE_URL}/admin/chat/${userId}`, { message });
   return res.data?.message || null;
+}
+
+export async function adminJoinSupport(userId) {
+  const res = await axios.post(`${API_BASE_URL}/admin/chat/${userId}/join`);
+  return res.data;
+}
+
+export async function adminEndSupport(userId) {
+  const res = await axios.post(`${API_BASE_URL}/admin/chat/${userId}/end`);
+  return res.data;
 }

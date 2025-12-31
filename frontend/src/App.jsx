@@ -1,15 +1,13 @@
 import React, { useState, lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom"; 
-
+import { Routes, Route } from "react-router-dom";
 
 // ===== EAGER IMPORTS (Components luôn cần) =====
 import Header from "./components/common/Header/Header";
-import Footer from "./components/home/WelcomeBanner/Footer"; 
-import TechNews from './components/home/WelcomeBanner/TechNews';
+import Footer from "./components/home/WelcomeBanner/Footer";
+import TechNews from "./components/home/WelcomeBanner/TechNews";
 import PageLoader from "./components/common/PageLoader";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { CartPopup } from "./components/cart/CartPopup";
-import { TrangThanhToan } from "./components/cart/TrangThanhToan";
 import ChatWidget from "./components/common/ChatWidget";
 
 // ===== LAZY IMPORTS (Pages - chỉ load khi cần) =====
@@ -23,12 +21,19 @@ const CategoryList = lazy(() =>
 const FeaturedProductsSlider = lazy(() =>
   import("./components/home/WelcomeBanner/FeatureProduct")
 );
+const BestSellerProducts = lazy(() =>
+  import("./components/home/BestSellerProducts")
+);
 
 // Pages
 const TestProductCard = lazy(() => import("./pages/TestProductCard"));
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const GoogleCompleteProfilePage = lazy(() =>
+  import("./pages/GoogleCompleteProfilePage")
+);
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
+const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ProductListingPage = lazy(() =>
@@ -61,8 +66,9 @@ function App() {
                   <CategoryList
                     selectedCategory={selectedCategory}
                     onSelectCategory={setSelectedCategory}
-                  /> 
+                  />
                   <FeaturedProductsSlider />
+                  <BestSellerProducts />
                   <TechNews />
                 </>
               }
@@ -71,6 +77,11 @@ function App() {
             <Route path="/test-card" element={<TestProductCard />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route
+              path="/google-complete-profile"
+              element={<GoogleCompleteProfilePage />}
+            />
             <Route path="/profile" element={<UserProfilePage />} />
             <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -88,12 +99,10 @@ function App() {
             {/* 404 Page - Phải đặt cuối cùng */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </Suspense> 
-        
+        </Suspense>
 
         <Footer />
         <CartPopup />
-        <TrangThanhToan />
         <ChatWidget />
       </div>
     </ErrorBoundary>

@@ -213,6 +213,10 @@
 .btn-add-to-cart {
   background: #2196f3;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .btn-add-to-cart:hover:not(:disabled) {

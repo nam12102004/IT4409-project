@@ -7,26 +7,109 @@ export default function OrderPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
-  const fetchOrders = async () => {
+    const fetchOrders = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders/my", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const serverOrders = Array.isArray(res.data.orders)
+          ? res.data.orders
+          : [];
+
+        setOrders(serverOrders);
+      } catch (err) {
+        console.error("Lỗi khi lấy đơn hàng:", err);
+        setOrders([]); // fallback để tránh lỗi map
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  // Nhận hàng (chuyển từ shipping sang confirmed)
+  const handleReceiveOrder = async (orderId) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.get("https://it4409-deploy-backend.onrender.com/api/orders/my", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const serverOrders = Array.isArray(res.data.orders)
-        ? res.data.orders
-        : [];
-
-      setOrders(serverOrders);
+      await axios.put(
+        `https://it4409-deploy-backend.onrender.com/api/orders/${orderId}/receive`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setOrders((prev) =>
+        prev.map((o) =>
+          o._id === orderId ? { ...o, orderStatus: "confirmed" } : o
+        )
+      );
     } catch (err) {
-      console.error("Lỗi khi lấy đơn hàng:", err);
-      setOrders([]); // fallback để tránh lỗi map
+      alert(err?.response?.data?.message || "Không thể xác nhận nhận hàng");
     }
   };
-  fetchOrders();
-}, []);
 
+  // Trả hàng (chuyển từ shipping sang refunded)
+  const handleRefundOrder = async (orderId) => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    if (!window.confirm("Bạn có chắc muốn trả hàng và yêu cầu hoàn tiền?"))
+      return;
+    try {
+      await axios.put(
+        `https://it4409-deploy-backend.onrender.com/api/orders/${orderId}/refund`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setOrders((prev) =>
+        prev.map((o) =>
+          o._id === orderId ? { ...o, orderStatus: "refunded" } : o
+        )
+      );
+    } catch (err) {
+      alert(err?.response?.data?.message || "Không thể yêu cầu trả hàng");
+    }
+  };
+
+  // Lấy màu sắc cho trạng thái
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case "pending":
+        return "bg-yellow-100 text-yellow-700";
+      case "paid":
+        return "bg-blue-100 text-blue-700";
+      case "confirmed":
+        return "bg-green-100 text-green-700";
+      case "shipping":
+        return "bg-purple-100 text-purple-700";
+      case "cancelled":
+        return "bg-red-100 text-red-700";
+      case "refunded":
+        return "bg-gray-100 text-gray-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
+  // Lấy tên hiển thị trạng thái
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case "pending":
+        return "Chờ xử lý";
+      case "paid":
+        return "Đã thanh toán";
+      case "confirmed":
+        return "Đã xác nhận";
+      case "shipping":
+        return "Đang giao";
+      case "cancelled":
+        return "Đã hủy";
+      case "refunded":
+        return "Đã hoàn tiền";
+      case "waiting_for_payment":
+        return "Chờ thanh toán";
+      default:
+        return status;
+    }
+  };
 
   return (
     <div className="p-6">
@@ -55,21 +138,39 @@ export default function OrderPage() {
                   {order.totalPrice.toLocaleString()}₫
                 </td>
                 <td className="border p-3">
-                  <span className={`px-2 py-1 rounded-full text-sm ${
-                    order.orderStatus === "pending" ? "bg-yellow-100 text-yellow-700" :
-                    order.orderStatus === "confirmed" ? "bg-green-100 text-green-700" :
-                    order.orderStatus === "cancelled" ? "bg-red-100 text-red-700" : ""
-                  }`}>
-                    {order.orderStatus}
+                  <span
+                    className={`px-2 py-1 rounded-full text-sm ${getStatusStyle(
+                      order.orderStatus
+                    )}`}
+                  >
+                    {getStatusLabel(order.orderStatus)}
                   </span>
                 </td>
                 <td className="border p-3 text-center">
-                  <button
-                    onClick={() => setSelectedOrder(order)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
-                  >
-                    Xem chi tiết
-                  </button>
+                  <div className="flex gap-2 justify-center flex-wrap">
+                    <button
+                      onClick={() => setSelectedOrder(order)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
+                    >
+                      Xem chi tiết
+                    </button>
+                    {order.orderStatus === "shipping" && (
+                      <>
+                        <button
+                          onClick={() => handleReceiveOrder(order._id)}
+                          className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition"
+                        >
+                          Nhận hàng
+                        </button>
+                        <button
+                          onClick={() => handleRefundOrder(order._id)}
+                          className="bg-orange-600 text-white px-4 py-2 rounded-full hover:bg-orange-700 transition"
+                        >
+                          Trả hàng
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
