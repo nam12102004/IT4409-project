@@ -2,76 +2,29 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import SEO from "../components/common/SEO";
-import { GoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
-
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      const idToken = credentialResponse?.credential;
-      if (!idToken) {
-        alert("Không nhận được token Google");
-        return;
-      }
-
-      const res = await axios.post("https://thnm.id.vn/api/login/google", {
-        idToken,
-      });
-
-      if (res.data.status === "need_profile") {
-        navigate("/google-complete-profile", {
-          state: {
-            email: res.data.email,
-            fullname: res.data.fullname || "",
-            googleSignupToken: res.data.googleSignupToken,
-          },
-        });
-        return;
-      }
-
-      const user = res.data.user;
-      const token = res.data.token;
-      if (user && token) {
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", token);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        window.dispatchEvent(new Event("authChanged"));
-        navigate("/");
-      } else {
-        alert("Đăng nhập Google không thành công.");
-      }
-    } catch (err) {
-      alert(
-        err?.response?.data?.message || "Đăng nhập Google thất bại. Vui lòng thử lại."
-      );
-    }
-  };
-
-  const handleGoogleError = () => {
-    alert("Đăng nhập Google thất bại. Vui lòng thử lại.");
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
-
-      const res = await axios.post("https://it4409-deploy-backend.onrender.com/api/login", {
-        username,
-        password,
-        
-      });
-        const user = res.data.user;
-        const token = res.data.token;
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", token);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        window.dispatchEvent(new Event("authChanged"));
-        navigate("/");
+      const res = await axios.post(
+        "https://it4409-deploy-backend.onrender.com/api/login",
+        {
+          username,
+          password,
+        }
+      );
+      const user = res.data.user;
+      const token = res.data.token;
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      window.dispatchEvent(new Event("authChanged"));
+      navigate("/");
     } catch (err) {
       alert(err?.response?.data?.message || "Đăng nhập thất bại");
     }
@@ -112,20 +65,10 @@ export default function LoginPage() {
             />
           </div>
 
-         
-
           <button className="w-full bg-sky-600 text-white py-2 rounded-lg font-medium hover:bg-sky-700">
             Đăng nhập
           </button>
         </form>
-        <div className="mt-4 border-t pt-4">
-          <p className="text-center text-sm text-gray-500 mb-2">
-            Hoặc đăng nhập bằng
-          </p>
-          <div className="flex justify-center">
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
-          </div>
-        </div>
         <div className="mt-3 flex justify-between items-center text-sm">
           <button
             type="button"

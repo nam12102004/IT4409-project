@@ -34,7 +34,6 @@ const GoogleCompleteProfilePage = lazy(() =>
 );
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
-const VerifyEmailPage = lazy(() => import("./pages/VerifyEmailPage"));
 const ForgotPasswordPage = lazy(() => import("./pages/ForgotPasswordPage"));
 const ProductListingPage = lazy(() =>
   import("./pages/ProductListingPage/ProductListingPage")
@@ -83,7 +82,6 @@ function App() {
               element={<GoogleCompleteProfilePage />}
             />
             <Route path="/profile" element={<UserProfilePage />} />
-            <Route path="/verify-email" element={<VerifyEmailPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
             <Route path="/products" element={<ProductListingPage />} />
